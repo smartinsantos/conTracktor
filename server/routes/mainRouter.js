@@ -43,6 +43,9 @@ router.get('/js/angular.js', browserify(sharedAngular));
 // Serve application js files
 router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }));
 
+router.get('/favicon.ico',function(req,res){
+  res.send('200')
+});
 
 
 //Serving Sass Files
@@ -61,6 +64,11 @@ router.get(
       debug: false
     })
   );
+
+// Basically, if we get to this point, serve our Angular app and let Angular deal with routing
+router.get('/*', function (req, res) {
+  res.sendFile(assetFolder + '/index.html');
+});
 
 module.exports = router; 
 
