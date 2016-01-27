@@ -1,0 +1,66 @@
+var Path = require('path');
+var express = require('express');
+var sass = require('node-sass-endpoint');
+var browserify  = require('browserify-middleware');
+var ngAnnotate  = require('browserify-ngannotate');
+
+//routers
+var router = express.Router();
+
+var assetFolder = Path.resolve(__dirname, '../../client/');
+
+router.use(express.static(assetFolder));
+
+var sharedAngular = [
+  'angular',
+  'angular-animate',
+  'angular-cookies',
+  'angular-mocks',
+  'angular-messages',
+  'angular-resource',
+  'angular-sanitize',
+  'angular-touch',
+  'angular-ui-router',
+  'angular-ui-router-anim-in-out',
+  'jquery'
+];
+
+// browserify.settings({ external: ['angular', 'jquery'] });
+browserify.settings({
+  ignoreMissing: true,
+  external: [
+    'jquery',
+    'angular',
+  ],
+  noParse: [
+    'jquery',
+    'angular',
+  ]
+});
+
+// Serve Angular and Angular modules
+router.get('/js/angular.js', browserify(sharedAngular));
+// Serve application js files
+router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }));
+
+
+
+//Serving Sass Files
+router.get(
+    '/main.css',
+    sass.serve('./client/sass/main.scss', {
+
+      // (dev only) defaults to parent folder of scss file.
+      // Any sass file changes in this directory will clear the output cache.
+      watchDir: './client/sass/',
+
+      // defaults to parent folder of scss file
+      includePaths: ['./client/sass/'],
+
+      // defaults to false
+      debug: false
+    })
+  );
+
+module.exports = router; 
+
