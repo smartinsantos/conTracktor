@@ -12,13 +12,6 @@ router.get('/api/tags-example', function(req, res) {
 });
 
 if(process.env.NODE_ENV !== 'test') {
-  // The Catch-all Route
-  // This is for supporting browser history pushstate.
-  // NOTE: Make sure this route is always LAST.
-  router.get('/*', function(req, res){
-    res.sendFile( assetFolder + '/index.html' )
-  })
-
   // We're in development or production mode;
   // create and run a real server.
   var app = express();
