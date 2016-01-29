@@ -24,6 +24,9 @@ if(process.env.NODE_ENV !== 'test') {
   //assign mainRouter to root
   app.use('/', router);
 
+  //assing api router to /api 
+  app.use('/api', router);
+
   // Start the server!
   var port = process.env.PORT || 4000;
   app.listen(port);

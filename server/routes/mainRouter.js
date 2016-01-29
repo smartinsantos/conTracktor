@@ -6,6 +6,11 @@ var ngAnnotate  = require('browserify-ngannotate');
 
 //routers
 var router = express.Router();
+var apiRouter = express.Router();
+
+var usersRouter = require('./usersRouter');
+var propertiesRouter = require('./propertiesRouter');
+var jobsRouter = require('./jobsRouter');
 
 var assetFolder = Path.resolve(__dirname, '../../client/');
 
@@ -24,6 +29,17 @@ var sharedAngular = [
   'angular-ui-router-anim-in-out',
   'jquery'
 ];
+
+
+
+// Set up routing for our api
+router.use('/api', apiRouter);
+
+// Set up our different api endpoints
+apiRouter.use('/users', usersRouter);
+apiRouter.use('/properties', propertiesRouter);
+apiRouter.use('/jobs', jobsRouter);
+
 
 // browserify.settings({ external: ['angular', 'jquery'] });
 browserify.settings({
@@ -44,7 +60,7 @@ router.get('/js/angular.js', browserify(sharedAngular));
 router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }));
 
 router.get('/favicon.ico',function(req,res){
-  res.send('200')
+  res.send(200)
 });
 
 
