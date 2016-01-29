@@ -1,12 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res) {
-  console.log('/users GET')
-  res.end();
-});
-
-
 // Creates new user
 router.post('/signup', function (req, res, next) {
   console.log('/users/signup POST')
@@ -70,6 +64,11 @@ router.get('/:userId', function (req, res) {
 router.put('/:userId', function (req, res) {
   // var userId = req.params.userId;
   // res.json({'success':true,userId:userId});
+});
+
+router.delete('/:userId',function(req,res){
+  //deletes user 
+
 });
 
 

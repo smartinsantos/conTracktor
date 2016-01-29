@@ -15,8 +15,9 @@ window.app = angular.module('myApp', [
     'ui.router'
   ])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     
+  $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
     
   $stateProvider

@@ -1,5 +1,10 @@
 /* remember to set all global css and variables before importing */
 
+/* Import Foundation */
+@import
+  '../../node_modules/foundation-sites/scss/foundation.scss';
+
+
 $white: #fff;
 
 body {
