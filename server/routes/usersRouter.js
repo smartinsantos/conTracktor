@@ -1,5 +1,78 @@
 var express = require('express');
-
 var router = express.Router();
+
+router.get('/', function (req, res) {
+  console.log('/users GET')
+  res.end();
+});
+
+
+// Creates new user
+router.post('/signup', function (req, res, next) {
+  console.log('/users/signup POST')
+    res.end();
+
+  // passport.authenticate('local-signup', function (err, user, info) {
+  //   if (err) {
+  //     res.status(500).json({ signedUp: false, error: err, info: info });
+  //     return;
+  //   }
+  //   if (!user) {
+  //     res.status(401).json({ signedUp: false, info: info });
+  //     return;
+  //   }
+  //   res.status(201).json({ signedUp: true });
+  // })(req, res, next);
+});
+
+// Authenticates a user
+router.post('/signin', function (req, res, next) {
+    console.log('/users/signin POST')
+    res.end();
+
+
+  // passport.authenticate('local-login', function (err, user, info) {
+  //   if (err) {
+  //     console.log('signin err', err);
+  //     res.status(401).json({ loggedIn: false, error: true, info: info });
+  //     return;
+  //   }
+  //   if (!user) {
+  //     console.log('signin !user');
+  //     res.status(401).json({ loggedIn: false, error: true, info: info });
+  //     return;
+  //   }
+  //   req.logIn(user, function (err) {
+  //     if (err) {
+  //       return res.status(401).json({ loggedIn: false, error: true, info: info });
+  //     }
+  //     res.cookie('isLoggedIn', true);
+  //     res.status(200).json({ loggedIn: true });
+  //   });
+  // })(req, res, next);
+});
+
+// Signs a user out, have it as a post so that people cant be tricked into going to the link
+router.post('/signout',  function (req, res) {
+  // req.logout();
+  // res.clearCookie('isLoggedIn');
+  // res.status(200).json({'success':true});
+});
+
+// Get user info by id
+router.get('/:userId', function (req, res) {
+  // var userId = req.params.userId;
+  // res.json({'success':true,userId:userId});
+});
+
+// TODO : this currently does nothing
+// Update user info by id
+router.put('/:userId', function (req, res) {
+  // var userId = req.params.userId;
+  // res.json({'success':true,userId:userId});
+});
+
+
+
 
 module.exports = router;

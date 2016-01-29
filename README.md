@@ -1,10 +1,9 @@
 #API Endpoints
 
-note: 'id' always refers to whatever directly follows 'api' in the url
-      ex. in /api/users/:id/projects, 'id' refers to a user id
-      ex. in /api/projects/:id/notes, 'id' refers to a project id
+note: 'id' always refers to whatever directly follows '/' in the url
+      ex. in /users/:id/projects, 'id' refers to a user id
 
-*** /api/users ***
+*** /users ***
 
    GET - / - Retrieves all users info as JSON object, excluding their password.  
     
@@ -40,7 +39,7 @@ note: 'id' always refers to whatever directly follows 'api' in the url
       password:
     }
 
-*** /api/users/:id - requires authentication- can only view :id path that corresponds to logged-in user ***
+*** /users/:id - requires authentication- can only view :id path that corresponds to logged-in user ***
 
    GET - / - Retrieves all user info other than password.  A single user instance has the following fields:
     
@@ -64,7 +63,7 @@ note: 'id' always refers to whatever directly follows 'api' in the url
     DELETE - /:id - Deletes a user from DB
 
 
-*** /api/properties *** - requires authentication (admin)
+*** /properties *** - requires authentication (admin)
 
    GET - / - Retrieves all properties
     
@@ -168,4 +167,4 @@ note: 'id' always refers to whatever directly follows 'api' in the url
           notes:
       }
 
-*** /api/workers *** - To be implemented not as part of MVC
+*** /workers *** - To be implemented not as part of MVC

@@ -6,7 +6,6 @@ var ngAnnotate  = require('browserify-ngannotate');
 
 //routers
 var router = express.Router();
-var apiRouter = express.Router();
 
 var usersRouter = require('./usersRouter');
 var propertiesRouter = require('./propertiesRouter');
@@ -32,13 +31,10 @@ var sharedAngular = [
 
 
 
-// Set up routing for our api
-router.use('/api', apiRouter);
-
 // Set up our different api endpoints
-apiRouter.use('/users', usersRouter);
-apiRouter.use('/properties', propertiesRouter);
-apiRouter.use('/jobs', jobsRouter);
+router.use('/users', usersRouter);
+router.use('/properties', propertiesRouter);
+router.use('/jobs', jobsRouter);
 
 
 // browserify.settings({ external: ['angular', 'jquery'] });
