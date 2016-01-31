@@ -3,32 +3,17 @@
 note: 'id' always refers to whatever directly follows '/' in the url
       ex. in /users/:id/projects, 'id' refers to a user id
 
-*** /users ***
-
-   GET - / - Retrieves all users info as JSON object, excluding their password.  
-    
-    {
-      users: [
-        {
-          id:
-          first:
-          last:
-          email:
-          admin: 
-        },
-        ... 
-      ]
-    }
+*** /admin ***
   
-    POST - /signup - Sends new user info as JSON object; instantiates new user instance, logs-in user
+    POST - /create - Sends new user info as JSON object; instantiates new user instance, logs-in user
     
     {
         {
           first:
           last:
           email:
-          admin:
-          adminCode:   
+          password:
+          token: // this token will allow to create admin accounts   
         },
     }
 
@@ -39,7 +24,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
       password:
     }
 
-*** /users/:id - requires authentication- can only view :id path that corresponds to logged-in user ***
+*** /admin/:id - requires authentication- can only view :id path that corresponds to logged-in user ***
 
    GET - / - Retrieves all user info other than password.  A single user instance has the following fields:
     
@@ -73,7 +58,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
           id:
           name:
           address:
-          contacts:
+          contacts: Note we need another table for contact/phone number
           description:
         },
         ...
@@ -112,7 +97,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
 
     DELETE - /:id - Deletes a propertie from DB
 
-*** /api/jobs *** requires authentication (admin)
+*** /jobs *** requires authentication (admin)
 
 
    GET - / - Retrieves all jobs
@@ -127,10 +112,12 @@ note: 'id' always refers to whatever directly follows '/' in the url
           worker:
           date_assigned:
           date_completed:
-          status: 'requested','assigned','review','completed','invoiced' 
-          invoice:
+          status: 'requested','assigned','reviewed','completed','invoiced' 
           po:
+          price: 
+          invoice:
           notes:
+          quote: 
         },
         ...
       ]
@@ -148,8 +135,10 @@ note: 'id' always refers to whatever directly follows '/' in the url
           date_completed:
           status: 'requested','assigned','review','completed','invoiced' 
           invoice:
+          price:
           po:
-          notes:
+          notes: Note we need another table for a list of notes
+          quote:
       }
 
     PUT - /:id - Changes a job propertie 
@@ -163,8 +152,57 @@ note: 'id' always refers to whatever directly follows '/' in the url
           date_completed:
           status: 'requested','assigned','review','completed','invoiced' 
           invoice:
+          price:
           po:
           notes:
+          quote:
       }
 
-*** /workers *** - To be implemented not as part of MVC
+*** /workers *** - 
+
+GET - / - Retrieves all properties
+    
+    {
+      workers: [
+        {
+          id:
+          first:
+          last:
+          phone:
+          address:
+        },
+        ...
+      ]
+    }
+
+    GET - /:id - Retrives an individual worker
+
+      {
+        id:
+        first:
+        last:
+        phone:
+        address:
+      }
+
+    POST - / - Sends Propertie info as JSON object; Creates the propertie in the DB, and returns it
+
+       {
+        id:
+        first:
+        last:
+        phone:
+        address:
+      }
+
+    PUT - /:id - Changes a propertie in the an specific propertie
+
+      {
+        id:
+        first:
+        last:
+        phone:
+        address:
+      }
+
+    DELETE - /:id - Deletes a propertie from DB
