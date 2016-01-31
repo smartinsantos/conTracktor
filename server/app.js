@@ -4,6 +4,8 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var sass = require('node-sass-endpoint');
 
+var db = require('./lib/db.js');
+
 var router = require('./routes/mainRouter.js')
 
 // Example endpoint (also tested in test/server/index_test.js)

@@ -13,7 +13,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
           last:
           email:
           password:
-          token: // this token will allow to create admin accounts   
+          token: // this token will allow to create admin accounts
         },
     }
 
@@ -33,7 +33,6 @@ note: 'id' always refers to whatever directly follows '/' in the url
         first: User's first name.
         last: User's last name.
         email: User's email address
-        admin: true/false
       }
 
    PUT - / - Updates user's data; sends JSON objet with all fields, including those with values that are unchanged.
@@ -42,7 +41,6 @@ note: 'id' always refers to whatever directly follows '/' in the url
       first:
       last:
       email:
-      admin:
     }
 
     DELETE - /:id - Deletes a user from DB
