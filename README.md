@@ -26,7 +26,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
 
 *** /admin/:id - requires authentication- can only view :id path that corresponds to logged-in user ***
 
-   GET - / - Retrieves all user info other than password.  A single user instance has the following fields:
+   GET - / - Retrieves all admins info other than password.  A single user instance has the following fields:
     
       {
         id: Unique id for a user.
@@ -41,6 +41,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
       first:
       last:
       email:
+      password:
     }
 
     DELETE - /:id - Deletes a user from DB
@@ -158,7 +159,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
 
 *** /workers *** - 
 
-GET - / - Retrieves all properties
+  GET - / - Retrieves all workers
     
     {
       workers: [
@@ -183,7 +184,7 @@ GET - / - Retrieves all properties
         address:
       }
 
-    POST - / - Sends Propertie info as JSON object; Creates the propertie in the DB, and returns it
+    POST - / - Sends worker info as JSON object; Creates the propertie in the DB, and returns it
 
        {
         id:
@@ -193,7 +194,7 @@ GET - / - Retrieves all properties
         address:
       }
 
-    PUT - /:id - Changes a propertie in the an specific propertie
+    PUT - /:id - Changes a worker in the an specific propertie
 
       {
         id:
@@ -204,3 +205,10 @@ GET - / - Retrieves all properties
       }
 
     DELETE - /:id - Deletes a propertie from DB
+
+    POST - /signin - Sends user info as JSON object; initiates verification & creates new session if user is verified.  Otherwise, redirects user to sign-up view.
+    
+    {
+      email:
+      password:
+    }
