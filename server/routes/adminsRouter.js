@@ -2,26 +2,28 @@
 var express = require('express');
 var router = express.Router();
 
+var passport = require('passport');
+var LocalStrategy   = require('passport-local').Strategy;
+
+
 //Uses DB config and Schema
 var db = require('../lib/db.js');
 var Admins = require('../lib/models/admin.js');
 
 // Creates new user
 router.post('/signup', function (req, res, next) {
-  console.log('/users/signup POST')
-    res.end();
 
-  // passport.authenticate('local-signup', function (err, user, info) {
-  //   if (err) {
-  //     res.status(500).json({ signedUp: false, error: err, info: info });
-  //     return;
-  //   }
-  //   if (!user) {
-  //     res.status(401).json({ signedUp: false, info: info });
-  //     return;
-  //   }
-  //   res.status(201).json({ signedUp: true });
-  // })(req, res, next);
+  passport.authenticate('local-signup', function (err, user, info) {
+    if (err) {
+      res.status(500).json({ signedUp: false, error: err, info: info });
+      return;
+    }
+    if (!user) {
+      res.status(401).json({ signedUp: false, info: info });
+      return;
+    }
+    res.status(201).json({ signedUp: true });
+  })(req, res, next);
 });
 
 // Authenticates a user

@@ -1,8 +1,12 @@
 var express = require('express');
+var session = require('express-session');
 var Path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var sass = require('node-sass-endpoint');
+var passport = require('passport');
+
 
 var db = require('./lib/db.js');
 
@@ -22,12 +26,19 @@ if(process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
   // Parse incoming request bodies as JSON
   app.use(bodyParser.json());
+
+  // Parse incoming cookies
+  app.use(cookieParser());
+
+  app.use(session({ secret: 'what?' })); // session secret
+
+  // Set up passport so that we can use it to test authentication status
+  // As well as use it for authentication
+  app.use(passport.initialize());
+  app.use(passport.session());
   
   //assign mainRouter to root
   app.use('/', router);
-
-  //assing api router to /api 
-  app.use('/api', router);
 
   // Start the server!
   var port = process.env.PORT || 4000;
