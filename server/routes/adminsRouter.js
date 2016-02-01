@@ -11,7 +11,7 @@ var db = require('../lib/db.js');
 var Admins = require('../lib/models/admin.js');
 
 // Creates new user
-router.post('/signup', function (req, res, next) {
+router.post('/create', function (req, res, next) {
 
   // passport.authenticate('local-signup', function (err, user, info) {
   //   if (err) {
