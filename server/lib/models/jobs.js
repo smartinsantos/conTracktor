@@ -1,9 +1,7 @@
 var db = require('mongoose');
 var Schema = Mongoose.Schema;
 
-var JobsSchema = new Schema({
-     
-    propertie: String, // Foreing Key Checkout
+var JobsSchema = new Schema({     
     propertie: {
       type: db.Schema.Types.ObjectId,
       ref: 'Properties',

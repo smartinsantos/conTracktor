@@ -7,9 +7,12 @@ var ngAnnotate  = require('browserify-ngannotate');
 //routers
 var router = express.Router();
 
-var usersRouter = require('./usersRouter');
+var adminsRouter = require('./adminsRouter');
 var propertiesRouter = require('./propertiesRouter');
 var jobsRouter = require('./jobsRouter');
+var workersRouter = require('./workersRouter');
+
+
 
 var assetFolder = Path.resolve(__dirname, '../../client/');
 
@@ -32,9 +35,10 @@ var sharedAngular = [
 
 
 // Set up our different api endpoints
-router.use('/users', usersRouter);
+router.use('/admin', adminsRouter);
 router.use('/properties', propertiesRouter);
 router.use('/jobs', jobsRouter);
+router.use('/workers', workersRouter);
 
 
 // browserify.settings({ external: ['angular', 'jquery'] });
