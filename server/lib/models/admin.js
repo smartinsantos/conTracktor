@@ -1,13 +1,13 @@
 var db = require('mongoose');
 var bcrypt = require('bcrypt');
-var Schema = Mongoose.Schema;
+var Schema = db.Schema;
 
 var AdminSchema = new Schema({
       first: String,
       last: String,
       email: {type: String, required: true, unique: true},
-      password: String,
-    }
+      password: String
+    
 });
 
 //hash

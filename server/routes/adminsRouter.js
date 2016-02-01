@@ -1,5 +1,10 @@
+//Uses Express defines router
 var express = require('express');
 var router = express.Router();
+
+//Uses DB config and Schema
+var db = require('../lib/db.js');
+var Admins = require('../lib/models/admin.js');
 
 // Creates new user
 router.post('/signup', function (req, res, next) {
