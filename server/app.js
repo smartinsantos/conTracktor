@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 var express = require('express');
 var session = require('express-session');
 var Path = require('path');
@@ -5,8 +7,9 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var sass = require('node-sass-endpoint');
-var passport = require('passport');
 
+var passport = require('passport');
+require('./passport.js');
 
 var db = require('./lib/db.js');
 
