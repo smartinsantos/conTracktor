@@ -5,10 +5,7 @@ var Schema = Mongoose.Schema;
 var AdminSchema = new Schema({
       first: String,
       last: String,
-      email: {
-        type: String,
-        index: {unique: true}
-      },
+      email: {type: String, required: true, unique: true},
       password: String,
     }
 });
