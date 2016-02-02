@@ -13,7 +13,6 @@ var Admins = require('../lib/models/admin.js');
 router.post('/create', function (req, res, next) {
 
   passport.authenticate('admin-create', function (err, user, info) {
- 
    if (err) {
       res.status(500).json({ created: false, error: err, info: info });
       return;
@@ -22,7 +21,7 @@ router.post('/create', function (req, res, next) {
       res.status(401).json({ created: false, info: info });
       return;
     }
-    res.status(201).json({ created: true });
+    res.status(201).json({ created: true, info:info });
   })(req, res, next);
 });
 

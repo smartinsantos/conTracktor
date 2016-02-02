@@ -1,4 +1,5 @@
 var db = require('mongoose');
+db.Promise = require('bluebird');
 
 // Configure mongoose with the correct environment configuration
 var config = {
