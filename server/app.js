@@ -2,6 +2,8 @@ require('dotenv').load();
 
 var express = require('express');
 var session = require('express-session');
+var uuid = require('node-uuid');
+
 var Path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
@@ -33,7 +35,17 @@ if(process.env.NODE_ENV !== 'test') {
   // Parse incoming cookies
   app.use(cookieParser());
 
-  app.use(session({ secret: 'what?' })); // session secret
+    app.use(session({
+    name: 'conTracktor',
+    secret: 'Katz!',
+    resave: false, // Whether or not to save the session back to the store if no modification happened
+    rolling: true, // Resets expiry date after each request
+    saveUninitialized: false, // Save new sessions that havent been modified
+    genid: function() { // Each session id will be based on uuid v4
+      console.log(uuid.v4());
+      return uuid.v4();
+    }
+  }));
 
   // Set up passport so that we can use it to test authentication status
   // As well as use it for authentication
