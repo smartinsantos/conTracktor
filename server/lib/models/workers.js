@@ -1,6 +1,6 @@
 var db = require('mongoose');
 var bcrypt = require('bcrypt');
-var Schema = Mongoose.Schema;
+var Schema = db.Schema;
 
 var WorkersSchema = new Schema({
       first: String,
@@ -9,7 +9,6 @@ var WorkersSchema = new Schema({
       password: String,
       phone: String,
       address: String 
-    }
 });
 
 //hash
