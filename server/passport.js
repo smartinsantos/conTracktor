@@ -9,13 +9,13 @@ var Worker = require('./lib/models/workers.js');
 
 // Serialize a user
 passport.serializeUser(function (user, done) {
-  console.log('passport serializeUser:', user);
+  //console.log('passport serializeUser:', user);
   done(null, {email: user.email, first: user.first, last: user.last});
 });
 
 // Deserialize a user
 passport.deserializeUser(function (user, done) {
-  console.log('passport deserializeUser:', user);
+  //console.log('passport deserializeUser:', user);
   helpers.findAdminByEmail(user.email)
   .then(function (user) {
     done(null, user);
@@ -31,7 +31,12 @@ passport.use('admin-create', new LocalStrategy(
   function (req, username, password, done) {
     var firstName = req.body.first; 
     var lastName = req.body.last; 
-    var token = req.body.token; //TODO: check if Token matches Env Variable if not admin can't be created
+    var token = req.body.token; 
+    
+    //Checks for Secret Token to create admin
+    if(process.env.ENV_ADMIN_TOKEN !== token ){ 
+      return done(null, false, { message: 'Invalid Token' });
+    }
     // Try to find the user first to check if they already have signed up
     helpers.findAdminByEmail(username)
     .then(function (user) {
