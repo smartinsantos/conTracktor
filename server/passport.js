@@ -88,7 +88,6 @@ passport.use('admin-login', new LocalStrategy(
         throw Error('Invalid password');
       } else {
         console.log('password is valid!')
-        console.log(admin);
         done(null, admin, { message: 'Successfully signed in' });
       }
     })
