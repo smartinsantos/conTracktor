@@ -5,7 +5,8 @@ var AdminSchema = new Schema({
       first: String,
       last: String,
       email: {type: String, required: true, unique: true},
-      password: String  
+      password: String,
+      admin: Boolean  
 });
 
 

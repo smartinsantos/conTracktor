@@ -37,15 +37,14 @@ passport.use('admin-create', new LocalStrategy(
     .then(function (user) {
       // User already exists, we dont want to sign up
       if (user) {
-        done(null, false, { message: 'User already exists' });
-        return;
+        return done(null, false, { message: 'User already exists' }); 
       }
-      
       return helpers.generateHash(password); 
     })
     // After hashing password, try to create
     .then(function (passHash) {
-      console.log('i am getting into then after duplicated user')
+      //if returned we don't want to try to create a user
+      if(passHash === undefined) { return; };
       // Return a promise of the admin create
       return helpers.adminCreate({
         email: username,
@@ -56,38 +55,40 @@ passport.use('admin-create', new LocalStrategy(
     })
     // Admin successfully created
     .then(function (newAdmin) {
-      return done(null, newAdmin, { message: 'Successfully Created' });
+      if(newAdmin === undefined) { return; }
+      return done(null, newAdmin, { message: 'Successfully Created User' });
     })
     .catch(function (err) {
-      console.log('catched error', err);
-      // return done(err, false, { message: 'Error signing up'});
+      return done(null,false,{message: 'An Error Ocurred Creating User'})
     });
   }
 ));
 
-// passport.use('local-login', new LocalStrategy(
-//   // TODO : change these to the actual names in the json object being sent
-//   { usernameField: 'email', passwordField: 'password'},
-//   function (email, enteredPassword, done) {
-//     var user = null;
-//     User.findByEmail(email)
-//     .then(function (signedInUser) {
-//       if (!signedInUser) {
-//         throw Error('User not found');
-//       } else {
-//         user = signedInUser;
-//         return User.validPassword(enteredPassword, user.password);
-//       }
-//     })
-//     .then(function (isValid) {
-//       if (!isValid) {
-//         throw Error('Invalid password');
-//       } else {
-//         done(null, user, { message: 'Successfully signed in' });
-//       }
-//     })
-//     .catch(function (err) {
-//       done(err, false, { message: 'Incorrect user details' });
-//     });
-//   }
-// ));
+passport.use('admin-login', new LocalStrategy(
+  // TODO : change these to the actual names in the json object being sent
+  { usernameField: 'email', passwordField: 'password'},
+  function (email, enteredPassword, done) {
+    var admin = null;
+    helpers.findAdminByEmail(email)
+    .then(function (signedInAdmin) {
+      if (!signedInAdmin) {
+        throw Error('User not found');
+      } else {
+        admin = signedInAdmin;
+        return helpers.validPassword(enteredPassword, admin.password);
+      }
+    })
+    .then(function (isValid) {
+      if (!isValid) {
+        throw Error('Invalid password');
+      } else {
+        console.log('password is valid!')
+        console.log(admin);
+        done(null, admin, { message: 'Successfully signed in' });
+      }
+    })
+    .catch(function (err) {
+      done(err, false, { message: 'Incorrect user details' });
+    });
+  }
+));
