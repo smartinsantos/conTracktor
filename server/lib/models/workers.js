@@ -11,15 +11,6 @@ var WorkersSchema = new Schema({
       address: String 
 });
 
-//hash
-WorkersSchema.methods.generateHash = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
-};
-
-WorkersSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
-};
-
 var Workers = db.model('Workers', WorkersSchema);
 
 module.exports = Workers;

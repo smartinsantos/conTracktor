@@ -24,7 +24,7 @@ note: 'id' always refers to whatever directly follows '/' in the url
       password:
     }
 
-*** /admin/:id - requires authentication- can only view :id path that corresponds to logged-in user ***
+*** /admin/:id - requires authentication (admin) - can only view :id path that corresponds to logged-in user ***
 
    GET - / - Retrieves all admins info other than password.  A single user instance has the following fields:
     
@@ -206,9 +206,10 @@ note: 'id' always refers to whatever directly follows '/' in the url
 
     DELETE - /:id - Deletes a propertie from DB
 
-    POST - /signin - Sends user info as JSON object; initiates verification & creates new session if user is verified.  Otherwise, redirects user to sign-up view.
+TO BE IMPLEMENTED
+<!--     POST - /signin - Sends user info as JSON object; initiates verification & creates new session if user is verified.  Otherwise, redirects user to sign-up view.
     
     {
       email:
       password:
-    }
+    } -->

@@ -7,6 +7,7 @@ var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
 var helpers = {};
+
 // Admin Helpers
 helpers.findAdminByEmail = function(email){
   return Admin.findOne({ 'email': email }, function (err, doc) {
@@ -39,7 +40,9 @@ helpers.adminCreate = function (attrs) {
   });
 };
 
+//Workers Helpers
 
+//General Helpers
 helpers.generateHash = function(password) {
   console.log('Generating Hash...');
   return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
@@ -48,6 +51,38 @@ helpers.generateHash = function(password) {
 helpers.validPassword = function(enteredPassword, passwordHash) {
   console.log('Validating Hashed password...'); 
   return bcrypt.compareSync(enteredPassword, passwordHash);
+};
+
+//Properties Helpers
+
+helpers.findPropertie = function(name){
+  return Admin.findOne({ 'name': name }, function (err, doc) {
+    if (err){ 
+      console.log('error finding propertie name',err);
+      return err;
+    };
+    return doc;
+  });
+};
+
+helpers.createPropertie = function (attrs) {
+  console.log('Creating Propertie...')
+  // Create this object incase attrs contains any extra data we dont want/need
+  var propAttrs = {
+    name: attrs.name,
+    address: attrs.address,
+    contacts: attrs.contacts,
+    description: attrs.description,
+  };
+  
+  var propertie = new Propertie(propAttrs);
+  return propertie.save(function(err){
+    if (err){
+      console.log('failed to create new Propertie');
+      return err;
+    }
+    return propertie;
+  });
 };
 
 
