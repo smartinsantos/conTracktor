@@ -26,6 +26,7 @@ helpers.adminCreate = function (attrs) {
     password: attrs.password,
     first: attrs.first,
     last: attrs.last,
+    admin: true
   };
   
   var admin = new Admin(adminAttrs);
