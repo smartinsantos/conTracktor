@@ -6,6 +6,7 @@ var Properties = require('./lib/models/properties.js');
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
+var toyData = require('./toyData/toyData.js');
 var helpers = {};
 
 // Admin Helpers
