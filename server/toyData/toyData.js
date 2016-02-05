@@ -19,16 +19,10 @@ data.propertie = {
 
 data.job = {
 
-  // propertie: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Propertie'
-    // },
+    propertie: 'Red River',
     unit: '725',
     description: 'This is a Job....',
-    // worker: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Worker'
-    // },
+    worker: 'worker@worker.com',
     date_assigned: Date(),
     date_completed: Date(),
     status: 'Completed',
