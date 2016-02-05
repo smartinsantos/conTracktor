@@ -1,5 +1,4 @@
 var db = require('mongoose');
-var bcrypt = require('bcrypt');
 var Schema = db.Schema;
 
 var WorkersSchema = new Schema({
@@ -11,6 +10,6 @@ var WorkersSchema = new Schema({
       address: String 
 });
 
-var Workers = db.model('Workers', WorkersSchema);
+var Worker = db.model('Worker', WorkersSchema);
 
-module.exports = Workers;
+module.exports = Worker;

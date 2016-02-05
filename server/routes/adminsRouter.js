@@ -43,6 +43,7 @@ router.post('/signin', function (req, res, next) {
       if (err) {
         return res.status(401).json({ loggedIn: false, error: true, info: info });
       }
+      // IF NEEDED databse id = user._id
       res.cookie('isLoggedIn', true);
       res.cookie('isAdmin', true);
       res.status(200).json({ loggedIn: true });
@@ -61,6 +62,7 @@ router.post('/signout',  function (req, res) {
 // Get user info by id
 router.get('/:userId', function (req, res) {
   var userId = req.params.userId;
+  // var userId = req.session.passport.user;
   res.json({'success':true,userId:userId});
 });
 

@@ -3,14 +3,14 @@ var Schema = db.Schema;
 
 var JobsSchema = new Schema({     
     propertie: {
-      type: db.Schema.Types.ObjectId,
-      ref: 'Properties'
+      type: Schema.Types.ObjectId,
+      ref: 'Propertie'
     },
     unit: String,
     description: String,
     worker: {
-      type: db.Schema.Types.ObjectId,
-      ref: 'Workers'
+      type: Schema.Types.ObjectId,
+      ref: 'Worker'
     },
     date_assigned: Date,
     date_completed: Date,
@@ -23,6 +23,6 @@ var JobsSchema = new Schema({
 });
 
 
-var Jobs = db.model('Jobs', JobsSchema);
+var Job = db.model('Job', JobsSchema);
 
-module.exports = Jobs;
+module.exports = Job;
