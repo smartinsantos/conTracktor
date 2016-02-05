@@ -4,7 +4,6 @@ var router = express.Router();
 
 var passport = require('passport');
 
-
 //Uses DB config and Schema
 var db = require('../lib/db.js');
 var Admins = require('../lib/models/admin.js');

@@ -1,12 +1,16 @@
 var Admin = require('./lib/models/admin.js');
-var Workers = require('./lib/models/workers.js');
-var Jobs = require('./lib/models/jobs.js');
-var Properties = require('./lib/models/properties.js');
+var Worker = require('./lib/models/workers.js');
+var Job = require('./lib/models/jobs.js');
+var Propertie = require('./lib/models/properties.js');
 
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
+//TOBE ERASED, JUST TESTING************
 var toyData = require('./toyData/toyData.js');
+console.log('this is toyData: ', toyData);
+//**************
+
 var helpers = {};
 
 // Admin Helpers
@@ -86,6 +90,8 @@ helpers.createPropertie = function (attrs) {
     contacts: attrs.contacts,
     description: attrs.description,
   };
+
+  console.log(attrs);
   
   var propertie = new Propertie(propAttrs);
   return propertie.save(function(err){
@@ -121,7 +127,7 @@ helpers.createWorker = function (attrs) {
     address: attrs.address,
   };
   
-  var worker = new Propertie(propAttrs);
+  var worker = new Worker(workerAttrs);
   return worker.save(function(err){
     if (err){
       console.log('failed to create new worker');
@@ -170,8 +176,12 @@ helpers.findJobByWorkerEmail = function(email){
 
 helpers.createJob = function (attrs) {
   //creates a new job
-  console.log('creating job')
+  console.log('creating job', attrs)
 };
 
+// helpers.createPropertie(toyData.propertie);
+// helpers.createWorker(toyData.worker);
+// helpers.adminCreate(toyData.admin);
+helpers.createJob(toyData.job);
 
 module.exports = helpers;

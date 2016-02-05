@@ -9,8 +9,11 @@ data.admin = {
       token:'Katz!' 
 };
 
-data.property = {
-
+data.propertie = {
+     name: 'Red River',
+     address: 'Adress of RedRiver',
+     contacts: [{Len:'210 210 2100'}, {Jackeline: 'Yara Yara'}],
+     description: 'This is a cool propertie' 
 
 };
 
