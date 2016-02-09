@@ -43,16 +43,36 @@ router.get('/:workerId', auth.requireAuth, function (req, res) {
 });
 
 router.post('/', auth.requireAuth, function (req, res) {
-    
-    res.json({'success':true}); 
+  helpers.createWorker(req.body)
+  .then(function(worker){
+    res.status(201).json(worker); 
+  })
+  .catch(function(err){
+    console.log('Error Creating Worker...', err)
+    res.send(401).json({'error':true})
+  })
 });
 
 router.put('/:workerId', auth.requireAuth, function (req, res) {
-    res.json({'success':true}); 
+    var workerId = req.params.workerId;
+    Workers.findByIdAndUpdate( { '_id' : workerId }, { $set : req.body }, function(err, doc) {
+    if (err) { 
+      console.log('Workers PUT ERR', err); 
+      res.send(401).json({'error':true});
+    };
+    res.status(200).json(doc);
+  });
 });
 
 router.delete('/:workerId', auth.requireAuth, function (req, res) {
-    res.json({'success':true}); 
+    var workerId = req.params.workerId;
+    Workers.remove( { '_id' : workerId }, function(err, doc) {
+    if (err) { 
+      console.log('Workers delete ERR', err); 
+      res.send(401).json({'error':true});
+    };
+    res.status(200).json(doc);
+  }); 
 });
 
 module.exports = router;
