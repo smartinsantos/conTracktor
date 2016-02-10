@@ -12,7 +12,8 @@ var uiRouter = require('angular-ui-router');
 
 
 window.app = angular.module('myApp', [
-    'ui.router'
+    'ui.router',
+    'ngCookies',
   ])
 
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -21,11 +22,35 @@ window.app = angular.module('myApp', [
   $urlRouterProvider.otherwise('/');
     
   $stateProvider
-      .state('home', {
-          url: '/',
-          templateUrl: 'views/main.html',
-          controller: 'MainCtrl'
-      })
+    .state('main_public', {
+      url: '/',
+      authenticate: false,
+      templateUrl: 'views/main_public.html',
+      controller: 'MainPublicCtrl'
+    })
+
+    .state('main_public.create', {  
+      url: 'create',
+      authenticate: false,
+      templateUrl: 'views/createAdmin.html',
+      controller: 'AdminCtrl',
+      controllerAs: 'admin'
+    })
+
+    .state('main_public.signin', {
+      url: 'signin',
+      authenticate: false,
+      templateUrl: 'views/signinAdmin.html',
+      controller: 'AdminCtrl',
+      controllerAs: 'admin'
+    })
+
+    .state('main_private', {
+        url: '/',
+        authenticate: true,
+        templateUrl: 'views/main_private.html',
+        controller: 'MainPrivateCtrl'
+    })
         
 });
 

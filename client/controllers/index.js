@@ -1,1 +1,3 @@
-require('./MainCtrl');
+require('./MainPublicCtrl');
+require('./MainPrivateCtrl');
+require('./AdminCtrl');
