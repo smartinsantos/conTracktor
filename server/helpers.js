@@ -112,6 +112,8 @@ helpers.createJob = function (attrs) {
   console.log('Creating Job....');
   
   var jobAttrs = {
+    worker : attrs.worker,
+    propertie : attrs.propertie,
     unit : attrs.unit,
     description : attrs.description,
     date_assigned : attrs.date_assigned,
@@ -124,49 +126,17 @@ helpers.createJob = function (attrs) {
     quote : attrs.quote,
   };
 
-  var workerMail = attrs.worker;
-  var propertieName = attrs.propertie;
-  console.log(workerMail);
   
-  helpers.findWorkerByEmail(workerMail)
-  .then(function(worker){
-    jobAttrs.worker = worker._id;
-  });
-
-  helpers.findPropertieByName(propertieName)
-  .then(function(propertie){
-    console.log('this is the propertie: ', propertie)
-    jobAttrs.propertie = propertie._id;
-    return;
-  })
-  .then(function(){
-    var job = new Job(jobAttrs);
+  var job = new Job(jobAttrs);
     return job.save(function(err){
       if (err){
         console.log('failed to create new job');
         return err;
       }
       return job;
-    });    
-  })
+  });
+
 };
 
-
-
-// creating
-// helpers.adminCreate(toyData.admin);
-// helpers.createPropertie(toyData.propertie);
-// helpers.createWorker(toyData.worker);
-// helpers.createJob(toyData.job);
-
-//finding
-// helpers.findWorkerByEmail(toyData.worker.email)
-// .then(function(worker){
-//   console.log('finding worker....', worker)
-// });
-// helpers.findPropertieByName(toyData.propertie.name)
-// .then(function(propertie){
-//   console.log('finding propertie....', propertie)
-// });
 
 module.exports = helpers;
