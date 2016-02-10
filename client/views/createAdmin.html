@@ -1,0 +1,36 @@
+CREATE ADMIN VIEW
+
+<form>
+  <div class="row">
+    <div class="small-6 small-offset-1">
+      <label>First Name
+        <input type="text" required ng-model="admin.first" name="firstField" class="input-field" placeholder="first name...">
+      </label>
+    </div>
+    <div class="small-6 small-offset-1">
+      <label>Last Name
+        <input type="text" required ng-model="admin.last" name="lastField" class="input-field" placeholder="last name...">
+      </label>
+    </div>
+    <div class="small-6 small-offset-1">
+      <label>E-mail
+        <input type="email" required ng-model="admin.email" name="emailField" class="input-field" placeholder="e-mail...">
+      </label>
+    </div>
+    <div class="small-6 small-offset-1">
+      <label>Password
+        <input type="password" required ng-model="admin.password" name="passwordField" class="input-field" placeholder="password...">
+      </label>
+    </div>
+    <div class="small-6 small-offset-1">
+      <label>Token
+        <input type="password" required ng-model="admin.token" name="tokenField" placeholder="token...">
+      </label>
+    </div>
+    <div class="small-6 small-offset-1">
+      <a class="expanded button" href="#" ng-click = 'createAdmin()'>Create</a>
+    </div>
+    <p class='small-6 small-offset-1'> Admin's sign-in <a ui-sref='main_public.signin'>Here!</a></p>
+  </div>
+
+</form>

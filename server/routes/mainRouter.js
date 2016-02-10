@@ -86,7 +86,7 @@ router.get(
       watchDir: './client/sass/',
 
       // defaults to parent folder of scss file
-      includePaths: ['./client/sass/'],
+      includePaths: ['./client/sass/','./node_modules/foundation-sites/scss/'],
 
       // defaults to false
       debug: false

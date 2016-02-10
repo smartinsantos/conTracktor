@@ -1,9 +1,9 @@
 /* remember to set all global css and variables before importing */
 
 /* Import Foundation */
-@import
-  '../../node_modules/foundation-sites/scss/foundation.scss';
-
+@import 'settings';
+@import 'foundation';
+  @include foundation-everything;
 
 $white: #fff;
 

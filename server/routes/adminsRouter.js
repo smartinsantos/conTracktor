@@ -44,7 +44,7 @@ router.post('/signin', function (req, res, next) {
       }
       // IF NEEDED databse id = user._id
       res.cookie('isLoggedIn', true);
-      res.cookie('isAdmin', true);
+      // res.cookie('isAdmin', true);
       res.status(200).json({ loggedIn: true });
     });
   })(req, res, next);
