@@ -105,11 +105,6 @@ helpers.createWorker = function (attrs) {
   });
 };
 
-helpers.updateWorker = function (attrs) {
-  console.log('updating Worker...')
-
-  return attrs;
-};
 
 // Jobs Helpers
 
