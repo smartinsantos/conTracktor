@@ -105,6 +105,7 @@ helpers.createWorker = function (attrs) {
   });
 };
 
+
 // Jobs Helpers
 
 helpers.createJob = function (attrs) {
@@ -129,7 +130,6 @@ helpers.createJob = function (attrs) {
   
   helpers.findWorkerByEmail(workerMail)
   .then(function(worker){
-    console.log('this is worker: ', worker);
     jobAttrs.worker = worker._id;
   });
 
