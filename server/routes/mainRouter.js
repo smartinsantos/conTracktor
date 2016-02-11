@@ -66,12 +66,16 @@ browserify.settings({
   ]
 });
 
+// Serve Foundation JS
+router.get('/js/bootstrap.js', function(req, res){
+  res.sendFile(Path.resolve('./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'));
+  });
 // Serve Angular and Angular modules
 router.get('/js/angular.js', browserify(sharedAngular));
 // Serve application js files
 router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }));
 
-router.get('/favicon.ico',function(req,res){
+router.get('/favicon.ico', function(req,res){
   res.send(200)
 });
 
@@ -86,7 +90,7 @@ router.get(
       watchDir: './client/sass/',
 
       // defaults to parent folder of scss file
-      includePaths: ['./client/sass/','./node_modules/foundation-sites/scss/'],
+      includePaths: ['./client/sass/','./node_modules/bootstrap-sass/assets/stylesheets/'],
 
       // defaults to false
       debug: false

@@ -51,7 +51,34 @@ window.app = angular.module('myApp', [
         templateUrl: 'views/main_private.html',
         controller: 'MainPrivateCtrl'
     })
-        
+
+    .state('main_private.reports', {
+      url: 'reports',
+      authenticate: true,
+      templateUrl: 'views/reports.html',
+      controller: 'ReportsCrtl'
+    })
+
+    .state('main_private.jobs', {
+      url: '/',
+      authenticate: true,
+      templateUrl: 'views/jobs.html',
+      controller: 'JobsCrtl'
+    })
+
+    .state('main_private.properties', {
+      url: '/',
+      authenticate: true,
+      templateUrl: 'views/properties.html',
+      controller: 'PropertiesCtrl'
+    })
+
+    .state('main_private.workers', {
+      url: '/',
+      authenticate: true,
+      templateUrl: 'views/workers.html',
+      controller: 'WorkersCtrl'
+    })        
 });
 
 require('./factories');

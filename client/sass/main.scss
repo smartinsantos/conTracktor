@@ -1,16 +1,9 @@
 /* remember to set all global css and variables before importing */
-
-/* Import Foundation */
-@import 'settings';
-@import 'foundation';
-  @include foundation-everything;
-
-$white: #fff;
-
-body {
-  background-color: $white;
-}
-
+//makes navbar collaps at 500px
+$grid-float-breakpoint: 500px;
+//importing bootstrap
+@import '_bootstrap-sprockets.scss';
+@import '_bootstrap.scss';
 // /* import partials */
 // @import 'partial1';
 // @import 'partial2';
