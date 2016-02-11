@@ -16,6 +16,14 @@ app.factory('Admin', ['$http', '$state', '$timeout', function($http, $state, $ti
 
   var signOut = function(){
     console.log('Logging Out...')
+  return $http.post('/api/users/signout')
+    .then(function(response){
+      $state.go('main.public');
+    })
+    .catch(function(err){  
+      console.log('logOut err ', err);
+    });
+
   };
 
   return {

@@ -29,7 +29,7 @@ app.controller('AdminCtrl', ['$scope','Admin', function($scope, Admin) {
     //send JSON object to server via factory call
     Admin.signIn(adminData)
     .then(function(res){
-      console.log(res)
+
     })
     .catch(function (err) {
       console.log('Error with signin:', err);

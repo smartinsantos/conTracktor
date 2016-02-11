@@ -1,9 +1,6 @@
 /* remember to set all global css and variables before importing */
-
-/* Import Foundation */
-@import 'settings';
-@import 'foundation';
-  @include foundation-everything;
+@import '_bootstrap-sprockets.scss';
+@import '_bootstrap.scss';
 
 $white: #fff;
 

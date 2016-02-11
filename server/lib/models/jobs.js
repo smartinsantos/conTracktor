@@ -20,7 +20,7 @@ var JobsSchema = new Schema({
     price: Number,
     poNumber: { type : Number, unique: true },
     invoiceNumber: { type: Number, unique: true },
-    notes: String,
+    notes: String, //Change to array of strings
     quote: String // Link to the quote PDF
 });
 
