@@ -68,21 +68,21 @@ window.app = angular.module('myApp', [
     })
 
     .state('main_private.jobs', {
-      url: '/',
+      url: 'jobs',
       authenticate: true,
       templateUrl: 'views/jobs.html',
       controller: 'JobsCtrl'
     })
 
     .state('main_private.properties', {
-      url: '/',
+      url: 'props',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl'
     })
 
     .state('main_private.workers', {
-      url: '/',
+      url: 'workers',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl'
