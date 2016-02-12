@@ -49,11 +49,12 @@ router.post('/', auth.requireAuth, function (req, res) {
 
   helpers.createWorker(req.body)
   .then(function(worker){
-    res.status(201).json(worker); 
+    console.log('this is worker', worker);
+      res.status(201).send(worker); 
   })
   .catch(function(err){
     console.log('Error Creating Worker...', err)
-    res.status(401).json({'error':true})
+    res.status(400);
   })
 
 });

@@ -26,12 +26,11 @@ if(process.env.NODE_ENV !== 'test') {
   // We're in development or production mode;
   // create and run a real server.
   var app = express();
-
+  
    // Use morgan to log requests to our express server to the console
   app.use(morgan('dev'));
   // Parse incoming request bodies as JSON
   app.use(bodyParser.json());
-
   // Parse incoming cookies
   app.use(cookieParser());
 

@@ -45,7 +45,6 @@ router.use(function(req, res, next) {
 });
 
 
-
 // Set up our different api endpoints
 router.use('/admin', adminsRouter);
 router.use('/properties', propertiesRouter);
@@ -74,10 +73,6 @@ router.get('/js/bootstrap.js', function(req, res){
 router.get('/js/angular.js', browserify(sharedAngular));
 // Serve application js files
 router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }));
-
-router.get('/favicon.ico', function(req,res){
-  res.send(200)
-});
 
 
 //Serving Sass Files

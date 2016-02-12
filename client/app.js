@@ -53,7 +53,7 @@ window.app = angular.module('myApp', [
     })
 
     .state('main_private.dash', {
-      url: 'dash',
+      url: '',
       authenticate: true,
       templateUrl: 'views/dash.html',
       controller: 'DashCtrl'
@@ -61,28 +61,28 @@ window.app = angular.module('myApp', [
 
 
     .state('main_private.reports', {
-      url: 'reports',
+      url: '',
       authenticate: true,
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl'
     })
 
     .state('main_private.jobs', {
-      url: 'jobs',
+      url: '',
       authenticate: true,
       templateUrl: 'views/jobs.html',
       controller: 'JobsCtrl'
     })
 
     .state('main_private.properties', {
-      url: 'props',
+      url: '',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl'
     })
 
     .state('main_private.workers', {
-      url: 'workers',
+      url: '',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl'
