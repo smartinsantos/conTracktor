@@ -52,29 +52,37 @@ window.app = angular.module('myApp', [
         controller: 'MainPrivateCtrl'
     })
 
+    .state('main_private.dash', {
+      url: 'dash',
+      authenticate: true,
+      templateUrl: 'views/dash.html',
+      controller: 'DashCtrl'
+    })
+
+
     .state('main_private.reports', {
       url: 'reports',
       authenticate: true,
       templateUrl: 'views/reports.html',
-      controller: 'ReportsCrtl'
+      controller: 'ReportsCtrl'
     })
 
     .state('main_private.jobs', {
-      url: '/',
+      url: 'jobs',
       authenticate: true,
       templateUrl: 'views/jobs.html',
-      controller: 'JobsCrtl'
+      controller: 'JobsCtrl'
     })
 
     .state('main_private.properties', {
-      url: '/',
+      url: 'props',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl'
     })
 
     .state('main_private.workers', {
-      url: '/',
+      url: 'workers',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl'

@@ -6,7 +6,13 @@ var WorkersSchema = new Schema({
       last: String,
       email: {type: String, required: true, unique: true},
       phone: String,
-      address: String 
+      address: {
+        street: String,
+        street2: String,
+        city: String,
+        state: String,
+        zip:Number,
+      } 
 });
 
 var Worker = db.model('Worker', WorkersSchema);

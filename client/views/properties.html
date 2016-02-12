@@ -1,0 +1,60 @@
+<div class="page-header">
+  <h1 class ='text-center'>Properties</h1>
+  <button class="btn btn-default center-block" type="button" data-toggle="modal" data-target="#propertieModal">Add new</button>
+</div>
+
+
+<div class="modal fade" id="propertieModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Propertie</h4>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="workerInputFirst" class="col-sm-2 control-label">First Name</label>
+            <div class="col-sm-6">
+              <input required ng-model="worker.first" type="text" class="form-control" id="workerInputFirst" placeholder="First ...">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="workerInputLast" class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-6">
+              <input required ng-model="worker.last" type="text" class="form-control" id="workerInputLast" placeholder="Last">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="workerInputEmail" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-6">
+              <input required ng-model="worker.email" type="email" class="form-control" id="workerInputEmail" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="workerInputPhone" class="col-sm-2 control-label">Phone</label>
+            <div class="col-sm-6">
+              <input required ng-model="worker.phone" type="text" class="form-control" id="workerInputPhone" placeholder="Phone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="workerInputAddress" class="col-sm-2 control-label">Adress</label>
+            <div class="col-sm-6">
+              <input required ng-model="worker.address.street" type="text" class="form-control" id="workerInputAddress" placeholder="Street">
+              <input required ng-model="worker.address.street2" type="text" class="form-control" placeholder="Street 2">
+              <input required ng-model="worker.address.city" type="text" class="form-control" placeholder="City">
+              <input required ng-model="worker.address.state" type="text" class="form-control" placeholder="State">
+              <input required ng-model="worker.address.zip" type="text" class="form-control" placeholder="Zip code">
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
