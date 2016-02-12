@@ -59,5 +59,35 @@
     </div>
   </div>
 </div>
-{{workers}}
+
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+ 
+    <!-- Table -->
+    <table class="table table-bordered table table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>   
+        <th>Phone</th>
+        <th>Address</th>
+      </tr>
+      <tr ng-repeat = 'worker in workers'>
+        <td>{{worker.first}}  {{worker.last}}</td>
+        <td>{{worker.email}}</td>
+        <td>{{worker.phone}}</td>
+        <td>
+          {{worker.address.street}}
+          {{worker.address.street2}}
+          {{worker.address.city}}
+          {{worker.address.state}}
+          {{worker.address.zip}}
+        </td>
+      </tr>
+    </table>
+</div>
+
+
+<!-- {{workers}} -->
 
