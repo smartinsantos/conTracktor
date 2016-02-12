@@ -2,6 +2,8 @@ app.controller('MainPrivateCtrl', ['$scope','$state','Admin', function($scope,$s
   
   console.log('MainPrivateCtrl Loaded...');
 
+  $state.go('main_private.dash')
+
   $scope.adminSignOut = function () {
     Admin.signOut();
   };

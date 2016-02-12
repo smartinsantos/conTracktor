@@ -8,25 +8,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Dash</a>
+      <a class="navbar-brand" href="#" ui-sref='main_private.dash'>conTracktor</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="main_navbar">
       <ul class="nav navbar-nav">
-      <li><a href="#">Reports</a></li>
+      <li><a href="#" ui-sref='main_private.reports'>Reports</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Jobs <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">New Job...</a></li>
-            <li><a href="#">All Jobs</a></li>
+            <li><a href="#" ui-sref='main_private.jobs'>All Jobs</a></li>
           </ul>
         </li>
-      <li><a href="#">Properties</a></li>
-      <li><a href="#">Workers</a></li> 
+      <li><a href="#" ui-sref='main_private.properties'>Properties</a></li>
+      <li><a href="#" ui-sref='main_private.workers'>Workers</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" ng-click = 'adminSignOut()'>logOut</a></li>
+        <li><a href="#" ng-click = 'adminSignOut()'>Log Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
