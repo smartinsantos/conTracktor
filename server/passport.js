@@ -9,18 +9,19 @@ var Worker = require('./lib/models/workers.js');
 
 // Serialize a user
 passport.serializeUser(function (user, done) {
-  //console.log('passport serializeUser:', user);
-  done(null, {email: user.email, first: user.first, last: user.last});
+  // console.log('passport serializeUser:', user);
+  done(null, {_id:user._id, email: user.email, first: user.first, last: user.last});
 });
 
 // Deserialize a user
 passport.deserializeUser(function (user, done) {
-  //console.log('passport deserializeUser:', user);
+  // console.log('passport deserializeUser:', user);
   helpers.findAdminByEmail(user.email)
   .then(function (user) {
     done(null, user);
   })
   .catch(function (err) {
+    console.log('passport error desarilizing user: ', err)
     done(err, null);
   });
 });
