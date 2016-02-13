@@ -53,7 +53,7 @@ window.app = angular.module('myApp', [
     })
 
     .state('main_private.dash', {
-      url: '',
+      url: 'dash',
       authenticate: true,
       templateUrl: 'views/dash.html',
       controller: 'DashCtrl'
@@ -61,32 +61,40 @@ window.app = angular.module('myApp', [
 
 
     .state('main_private.reports', {
-      url: '',
+      url: 'reports',
       authenticate: true,
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl'
     })
 
     .state('main_private.jobs', {
-      url: '',
+      url: 'jobs',
       authenticate: true,
       templateUrl: 'views/jobs.html',
       controller: 'JobsCtrl'
     })
 
     .state('main_private.properties', {
-      url: '',
+      url: 'properties',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl'
     })
 
     .state('main_private.workers', {
-      url: '',
+      url: 'workers',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl'
-    })        
+    })
+
+    .state('main_private.workers_edit', {
+      url: 'workers/{id}/edit',
+      authenticate: true,
+      templateUrl: 'views/workers_edit.html',
+      controller: 'WorkersEditCtrl'
+    })
+
 });
 
 require('./factories');

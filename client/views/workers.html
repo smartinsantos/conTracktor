@@ -63,7 +63,7 @@
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Panel heading</div>
+ <!--  <div class="panel-heading">Panel heading</div> -->
  
     <!-- Table -->
     <table class="table table-bordered table table-striped">
@@ -85,7 +85,7 @@
           {{worker.address.state}}
           {{worker.address.zip}}
         </td>
-        <td><button class='btn center-block' ng-click = 'log(worker._id)'>Edit</button></td>
+        <td><button class='btn center-block' ui-sref = 'main_private.workers_edit({id:worker._id})'>Edit</button></td>
       </tr>
     </table>
 </div>

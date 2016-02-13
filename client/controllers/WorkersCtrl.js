@@ -1,6 +1,7 @@
-app.controller('WorkersCtrl', ['$scope','Workers', function($scope, Workers) {
+app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Workers,$state) {
   
   console.log('WorkersCtrl Loaded....')
+  // Object for adding workers
   $scope.worker = {};
 
   //We are going to save all the workers here on load
@@ -17,7 +18,6 @@ app.controller('WorkersCtrl', ['$scope','Workers', function($scope, Workers) {
     var newWorker = $scope.worker;
     Workers.create(newWorker)
     .then(function(res){
-
       $('#workerModal').modal('toggle');
       $scope.getWorkers();
     })
@@ -26,13 +26,6 @@ app.controller('WorkersCtrl', ['$scope','Workers', function($scope, Workers) {
     });
   };
 
-  $scope.log = function(val){
-    console.log(val);
-  }
-
   $scope.getWorkers();
-
-
-
 
 }]);
