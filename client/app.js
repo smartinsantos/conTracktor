@@ -14,6 +14,7 @@ var uiRouter = require('angular-ui-router');
 window.app = angular.module('myApp', [
     'ui.router',
     'ngCookies',
+    'ngAnimate'
   ])
 
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -75,21 +76,21 @@ window.app = angular.module('myApp', [
     })
 
     .state('main_private.properties', {
-      url: 'properties',
+      url: 'props',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl'
     })
 
     .state('main_private.workers', {
-      url: 'workers',
+      url: 'work',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl'
     })
 
     .state('main_private.workers_edit', {
-      url: 'workers/{id}/edit',
+      url: 'work/{id}/edit',
       authenticate: true,
       templateUrl: 'views/workers_edit.html',
       controller: 'WorkersEditCtrl'

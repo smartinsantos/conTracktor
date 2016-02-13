@@ -45,6 +45,26 @@
       <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click='backToWorkers()'>Close</button>
       <button type="button" class="btn btn-primary" ng-click='editWorker()'>Save</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteWorker" >Delete</button>
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="deleteWorker" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete {{worker.first}} {{worker.last}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Warning! This Action Can't Be Undone!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteWorker()'>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
