@@ -3,10 +3,10 @@ var Schema = db.Schema;
 
 var PropertiesSchema = new Schema({
      name: {type: String, unique: true, required: true},
-     contacts: [{
-      name: String,
-      phone:String
-      }],
+     contact: {
+      phone:String,
+      email:String
+      },
      description: String,   
      address: {
         street: String,

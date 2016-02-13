@@ -3,6 +3,7 @@ require('./MainPrivateCtrl');
 require('./AdminCtrl');
 require('./JobsCtrl');
 require('./PropertiesCtrl');
+require('./PropertiesEditCtrl');
 require('./WorkersCtrl');
 require('./WorkersEditCtrl');
 require('./ReportsCtrl');
