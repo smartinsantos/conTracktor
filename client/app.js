@@ -82,6 +82,13 @@ window.app = angular.module('myApp', [
       controller: 'PropertiesCtrl'
     })
 
+    .state('main_private.properties_edit', {
+      url: 'props/{id}/edit',
+      authenticate: true,
+      templateUrl: 'views/properties_edit.html',
+      controller: 'PropertiesEditCtrl'
+    })
+
     .state('main_private.workers', {
       url: 'work',
       authenticate: true,
