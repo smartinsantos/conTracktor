@@ -4,5 +4,6 @@ require('./AdminCtrl');
 require('./JobsCtrl');
 require('./PropertiesCtrl');
 require('./WorkersCtrl');
+require('./WorkersEditCtrl');
 require('./ReportsCtrl');
 require('./DashCtrl');

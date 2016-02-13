@@ -16,32 +16,32 @@
 
         <form class="form-horizontal">
           <div class="form-group">
-            <label for="workerInputFirst" class="col-sm-2 control-label">First Name</label>
-            <div class="col-sm-10">
+            <label for="workerInputFirst" class="col-xs-2 control-label">First Name</label>
+            <div class="col-xs-10">
               <input required ng-model="worker.first" type="text" class="form-control" id="workerInputFirst" placeholder="First">
             </div>
           </div>
           <div class="form-group">
-            <label for="workerInputLast" class="col-sm-2 control-label">Last Name</label>
-            <div class="col-sm-10">
+            <label for="workerInputLast" class="col-xs-2 control-label">Last Name</label>
+            <div class="col-xs-10">
               <input required ng-model="worker.last" type="text" class="form-control" id="workerInputLast" placeholder="Last">
             </div>
           </div>
           <div class="form-group">
-            <label for="workerInputEmail" class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-10">
+            <label for="workerInputEmail" class="col-xs-2 control-label">Email</label>
+            <div class="col-xs-10">
               <input required ng-model="worker.email" type="email" class="form-control" id="workerInputEmail" placeholder="Email">
             </div>
           </div>
           <div class="form-group">
-            <label for="workerInputPhone" class="col-sm-2 control-label">Phone</label>
-            <div class="col-sm-10">
+            <label for="workerInputPhone" class="col-xs-2 control-label">Phone</label>
+            <div class="col-xs-10">
               <input required ng-model="worker.phone" type="text" class="form-control" id="workerInputPhone" placeholder="Phone">
             </div>
           </div>
           <div class="form-group">
-            <label for="workerInputAddress" class="col-sm-2 control-label">Adress</label>
-            <div class="col-sm-10">
+            <label for="workerInputAddress" class="col-xs-2 control-label">Adress</label>
+            <div class="col-xs-10">
               <input required ng-model="worker.address.street" type="text" class="form-control" id="workerInputAddress" placeholder="Street"><br>
               <input required ng-model="worker.address.street2" type="text" class="form-control" placeholder="Street 2"><br>
               <input required ng-model="worker.address.city" type="text" class="form-control" placeholder="City"><br>
@@ -63,7 +63,7 @@
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Panel heading</div>
+ <!--  <div class="panel-heading">Panel heading</div> -->
  
     <!-- Table -->
     <table class="table table-bordered table table-striped">
@@ -85,7 +85,7 @@
           {{worker.address.state}}
           {{worker.address.zip}}
         </td>
-        <td><button class='btn center-block' ng-click = 'log(worker._id)'>Edit</button></td>
+        <td><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'>Edit</button></td>
       </tr>
     </table>
 </div>

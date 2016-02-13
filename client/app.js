@@ -14,6 +14,7 @@ var uiRouter = require('angular-ui-router');
 window.app = angular.module('myApp', [
     'ui.router',
     'ngCookies',
+    'ngAnimate'
   ])
 
 .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -53,7 +54,7 @@ window.app = angular.module('myApp', [
     })
 
     .state('main_private.dash', {
-      url: '',
+      url: 'dash',
       authenticate: true,
       templateUrl: 'views/dash.html',
       controller: 'DashCtrl'
@@ -61,32 +62,40 @@ window.app = angular.module('myApp', [
 
 
     .state('main_private.reports', {
-      url: '',
+      url: 'reports',
       authenticate: true,
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl'
     })
 
     .state('main_private.jobs', {
-      url: '',
+      url: 'jobs',
       authenticate: true,
       templateUrl: 'views/jobs.html',
       controller: 'JobsCtrl'
     })
 
     .state('main_private.properties', {
-      url: '',
+      url: 'props',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl'
     })
 
     .state('main_private.workers', {
-      url: '',
+      url: 'work',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl'
-    })        
+    })
+
+    .state('main_private.workers_edit', {
+      url: 'work/{id}/edit',
+      authenticate: true,
+      templateUrl: 'views/workers_edit.html',
+      controller: 'WorkersEditCtrl'
+    })
+
 });
 
 require('./factories');
