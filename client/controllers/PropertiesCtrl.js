@@ -18,8 +18,10 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state', function($scop
 
   $scope.createProperty = function () {
     var newProperty = $scope.property;
+    console.log('newProperty', newProperty);
     Properties.create(newProperty)
     .then(function(res){
+      $scope.property = '';
       $('#propertyModal').modal('toggle');
       $scope.getProperties();
     })

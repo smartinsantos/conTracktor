@@ -3,11 +3,7 @@ var Schema = db.Schema;
 
 var PropertiesSchema = new Schema({
      name: {type: String, unique: true, required: true},
-     contact: {
-      phone:String,
-      email:String
-      },
-     description: String,   
+     contacts: {name: String, phone:String, email:String},
      address: {
         street: String,
         street2: String,
