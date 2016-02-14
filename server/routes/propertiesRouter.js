@@ -56,7 +56,7 @@ router.post('/', auth.requireAuth, function (req, res) {
 });
 
 router.put('/:propId', auth.requireAuth, function (req, res) {
-  
+
   Properties.findByIdAndUpdate( { '_id' : req.params.propId }, { $set : req.body }, function(err, doc) {
     if (err) { 
       console.log('Propertie PUT ERR', err); 

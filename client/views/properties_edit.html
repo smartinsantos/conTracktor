@@ -1,1 +1,62 @@
-Properties Edit View
+<div class="page-header">
+  <h1 class ='text-center'>{{property.name}}</h1>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Edit Property</div>
+  <div class='panel-body'>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="propertyInputName2" class="col-xs-2 control-label">Name</label>
+        <div class="col-xs-8">
+          <input required ng-model="property.name" type="text" class="form-control" id="propertyInputName2" placeholder="First">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="propertyInputContact2" class="col-xs-2 control-label">Contact</label>
+        <div class="col-xs-8">
+          <input required ng-model="property.contacts.name" type="text" class="form-control" id="propertyInputContact2" placeholder="Name">
+          <input required ng-model="property.contacts.phone" type="text" class="form-control"  placeholder="Phone">
+          <input required ng-model="property.contacts.email" type="text" class="form-control"  placeholder="Email">
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="propertyInputAdress2" class="col-xs-2 control-label">Adress</label>
+        <div class="col-xs-8">
+          <input required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAdress2" placeholder="Street"><br>
+          <input required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2"><br>
+          <input required ng-model="property.address.city" type="text" class="form-control" placeholder="City"><br>
+          <input required ng-model="property.address.state" type="text" class="form-control" placeholder="State"><br>
+          <input required ng-model="property.address.zip" type="text" class="form-control" placeholder="Zip code">
+        </div>
+      </div>
+    </form>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click='backToProperties()'>Close</button>
+      <button type="button" class="btn btn-primary" ng-click='editProperty()'>Save</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProperty" >Delete</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteProperty" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete {{property.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Warning! This Action Can't Be Undone!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteProperty()'>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

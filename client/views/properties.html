@@ -20,19 +20,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="propertyInputDescription" class="col-sm-2 control-label">Description</label>
-            <div class="col-sm-6">
-              <input required ng-model="property.description" type="text" class="form-control" id="propertyInputDescription" placeholder="Description">
-            </div>
-          </div>
-          <div class="form-group">
             <label for="propertyInputContact" class="col-sm-2 control-label">Contact</label>
             <div class="col-sm-6">
-              <input required ng-model="property.contact.phone" type="text" class="form-control" id="propertyInputContact" placeholder="Phone">
-              <input required ng-model="property.contact.email" type="text" class="form-control" placeholder="Email">
+              <input required ng-model="property.contacts.name" type="text" class="form-control" id="propertyInputContact" placeholder="Name">            
+              <input required ng-model="property.contacts.phone" type="text" class="form-control" placeholder="Phone">
+              <input required ng-model="property.contacts.email" type="text" class="form-control" placeholder="Email">
             </div>
           </div>
-          
           <div class="form-group">
             <label for="propertyInputAddress" class="col-sm-2 control-label">Adress</label>
             <div class="col-sm-6">
@@ -61,15 +55,13 @@
     <table class="table table-bordered table table-striped">
       <tr>
         <th>Name</th>
-        <th>Phone</th>   
-        <th>Email</th>
+        <th>Contact</th>   
         <th>Address</th>
         <th>Edit Property</th>
       </tr>
       <tr ng-repeat = 'property in properties'>
         <td>{{property.name}}</td>
-        <td>{{property.contact.phone}}</td>
-        <td>{{property.contact.email}}</td>
+        <td>{{property.contacts.name}} {{property.contacts.phone}} {{property.contacts.email}} </td>
         <td>
           {{property.address.street}}
           {{property.address.street2}}
