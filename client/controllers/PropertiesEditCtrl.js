@@ -3,53 +3,53 @@ app.controller('PropertiesEditCtrl', ['$scope','Properties','$state', function($
   console.log('PropertiesEditCtrl Loaded....')
 
 
-// Object for adding workers
-  // $scope.propertie = {};
+// Object for adding Property
+  $scope.property = {};
 
-  // $scope.backToProperties = function(){
-  //   $state.go('main_private.props');
-  // }
+  $scope.backToProperties = function(){
+    $state.go('main_private.props');
+  }
 
-  // $scope.getPropertie = function(){
-  // var propertieId = $state.params.id;
-  //   Workers.getOne(propertieId)
-  //   .then(function(res){
-  //     $scope.propertie = res.data;
-  //   })
-  //   .catch(function(err){
-  //     console.log('error ocurred: ', err);
-  //   }); 
-  // }
+  $scope.getProperty = function(){
+  var propertyId = $state.params.id;
+    Properties.getOne(propertyId)
+    .then(function(res){
+      $scope.property = res.data;
+    })
+    .catch(function(err){
+      console.log('error ocurred: ', err);
+    }); 
+  }
 
-  // $scope.editWorker = function () {
-  //   var propertieInfo = $scope.propertie;
-  //   Workers.edit(propertieInfo)
-  //   .then(function(res){
-  //     $state.go('main_private.properties');
+  $scope.editProperty = function () {
+    var propertieInfo = $scope.property;
+    Properties.edit(propertieInfo)
+    .then(function(res){
+      $state.go('main_private.properties');
 
-  //   })
-  //   .catch(function(err){
-  //   console.log('error ocurred: ', err);
-  //   })
-  // }
+    })
+    .catch(function(err){
+    console.log('error ocurred: ', err);
+    })
+  }
 
-  // $scope.deletePropertie = function(){
-  //   var propertieId = $state.params.id;
-  //   Workers.deletePropertie(propertieId)
-  //   .then(function(res){
-  //     //Work around to fix modal bug were still fading app after toggle
-  //     $('div.modal').removeClass('fade').addClass('hidden');
-  //     $('body').removeClass('modal-open');
-  //     $('.modal-backdrop').remove();
-  //     $state.go('main_private.workers');
-  //   })
-  //   .catch(function(err){
-  //     console.log('error ocurred: ', err);
-  //   }); 
+  $scope.deleteProperty = function(){
+    var propertyId = $state.params.id;
+    Properties.deletePropertie(propertyId)
+    .then(function(res){
+      //Work around to fix modal bug were still fading app after toggle
+      $('div.modal').removeClass('fade').addClass('hidden');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+      $state.go('main_private.properties');
+    })
+    .catch(function(err){
+      console.log('error ocurred: ', err);
+    }); 
 
 
-  // }
+  }
 
-  // $scope.getPropertie();
+  $scope.getProperty();
 
 }]);
