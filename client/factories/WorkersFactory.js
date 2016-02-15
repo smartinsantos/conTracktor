@@ -20,7 +20,7 @@ app.factory('Workers', ['$http', '$state', '$timeout', function($http, $state, $
     .catch(function(err){
       console.log('getWorker err: ', err);
     });
-  }
+  };
 
   var create = function (newWorker){
     return $http.post('/workers/', newWorker)

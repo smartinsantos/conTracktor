@@ -37,16 +37,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: 'create',
       authenticate: false,
       templateUrl: 'views/createAdmin.html',
-      controller: 'AdminCtrl',
-      controllerAs: 'admin'
+      controller: 'MainPublicCtrl',
     })
 
     .state('main_public.signin', {
       url: 'signin',
       authenticate: false,
       templateUrl: 'views/signinAdmin.html',
-      controller: 'AdminCtrl',
-      controllerAs: 'admin'
+      controller: 'MainPublicCtrl',
     })
 
     .state('main_private', {
@@ -56,13 +54,33 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         controller: 'MainPrivateCtrl'
     })
 
+    .state('main_private.managers', {
+        url: 'managers',
+        authenticate: true,
+        templateUrl: 'views/managers.html',
+        controller: 'AdminCtrl'
+    })
+
+    .state('main_private.managers_edit', {
+        url: 'managers/{id}/edit',
+        authenticate: true,
+        templateUrl: 'views/managers_edit.html',
+        controller: 'AdminEditCtrl'
+    })
+
+    .state('main_private.manager_profile', {
+        url: '/{id}/profile',
+        authenticate: true,
+        templateUrl: 'views/manager_profile.html',
+        controller: 'AdminCtrl'
+    })
+
     .state('main_private.dash', {
       url: 'dash',
       authenticate: true,
       templateUrl: 'views/dash.html',
       controller: 'DashCtrl'
     })
-
 
     .state('main_private.reports', {
       url: 'reports',
@@ -79,7 +97,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_edit', {
-      url: 'jobs',
+      url: 'jobs/{id}/edit',
       authenticate: true,
       templateUrl: 'views/jobs_edit.html',
       controller: 'JobsEditCtrl'

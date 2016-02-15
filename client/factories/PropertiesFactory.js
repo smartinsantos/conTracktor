@@ -6,7 +6,7 @@ var getAll = function(){
       return res.data;
     })
     .catch(function(err){
-      console.log('getProperties workers:', err);
+      console.log('getProperties err:', err);
       return err;
     })
   };

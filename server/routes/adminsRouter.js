@@ -1,12 +1,32 @@
 //Uses Express defines router
 var express = require('express');
 var router = express.Router();
+var auth = require('../auth.js');
 
 var passport = require('passport');
 
 //Uses DB config and Schema
 var db = require('../lib/db.js');
 var Admins = require('../lib/models/admin.js');
+
+
+router.get('/', auth.requireAuth, auth.requireAdmin, function (req, res) {
+
+  Admins.find({},'first last email admin phone', function (err, doc) {
+    if (err){ 
+      console.log('error getting Admins',err);
+      return err;
+    };
+    return doc;
+  })
+  .then(function(admins){
+    res.status(200).json(admins);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  });
+
+});
 
 // Creates new user
 router.post('/create', function (req, res, next) {
