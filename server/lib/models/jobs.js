@@ -12,7 +12,7 @@ var JobsSchema = new Schema({
     worker: {
       type: Schema.Types.ObjectId,
       ref: 'Worker',
-      required: true
+      // required: true
     },
     date_assigned: Date,
     date_completed: Date,

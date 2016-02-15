@@ -62,10 +62,10 @@ passport.use('admin-create', new LocalStrategy(
     // Admin successfully created
     .then(function (newAdmin) {
       if(newAdmin === undefined) { return; }
-      return done(null, newAdmin, { message: 'Successfully Created User' });
+      return done(null, newAdmin, { message: 'Successfully Created Admin' });
     })
     .catch(function (err) {
-      return done(null,false,{message: 'An Error Ocurred Creating User'})
+      return done(null,false,{message: 'An Error Ocurred Creating Admin'})
     });
   }
 ));
@@ -78,7 +78,7 @@ passport.use('admin-login', new LocalStrategy(
     helpers.findAdminByEmail(email)
     .then(function (signedInAdmin) {
       if (!signedInAdmin) {
-        throw Error('User not found');
+        throw Error('Admin not found');
       } else {
         admin = signedInAdmin;
         return helpers.validPassword(enteredPassword, admin.password);
@@ -93,7 +93,7 @@ passport.use('admin-login', new LocalStrategy(
       }
     })
     .catch(function (err) {
-      done(err, false, { message: 'Incorrect user details' });
+      done(err, false, { message: 'Incorrect Admin details' });
     });
   }
 ));
