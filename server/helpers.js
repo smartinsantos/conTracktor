@@ -2,7 +2,6 @@ var Admin = require('./lib/models/admin.js');
 var Worker = require('./lib/models/workers.js');
 var Job = require('./lib/models/jobs.js');
 var Propertie = require('./lib/models/properties.js');
-
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
@@ -32,10 +31,9 @@ helpers.adminCreate = function (attrs) {
     password: attrs.password,
     first: attrs.first,
     last: attrs.last,
-    admin: true
+    admin: attrs.admin
   };
-  
-  var admin = new Admin(adminAttrs);
+    var admin = new Admin(adminAttrs);
   return admin.save(function(err){
     if (err){
       console.log('failed to create new Admin',err);

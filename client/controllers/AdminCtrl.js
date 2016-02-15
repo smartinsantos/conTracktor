@@ -12,6 +12,7 @@ app.controller('AdminCtrl', ['$scope','Admin', function($scope, Admin) {
 
   $scope.createAdmin = function () {
     var newAdmin = $scope.admin;
+    newAdmin.admin = true;
     Admin.create(newAdmin)
     .then(function(admin){
       console.log('admin created: ', admin)

@@ -5,9 +5,14 @@ app.factory('Auth', ['$state', '$cookies', function($state, $cookies) {
     var cookie = $cookies.get('isLoggedIn');
     return cookie === 'true';
   };
+  var isManager = function () {
+    var cookie = $cookies.get('isManager');
+    return cookie === 'true';
+  };
 
   return {
-    isLoggedIn: isLoggedIn
+    isLoggedIn: isLoggedIn,
+    isManager:isManager
   };
 
 }]);

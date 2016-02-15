@@ -42,9 +42,12 @@ router.post('/signin', function (req, res, next) {
       if (err) {
         return res.status(401).json({ loggedIn: false, error: true, info: info });
       }
-      // IF NEEDED databse id = user._id
+      if(!user.admin){
+        res.cookie('isManager',true);
+      }else{
+        res.cookie('isManager',false);
+      }
       res.cookie('isLoggedIn', true);
-      // res.cookie('isAdmin', true);
       res.status(200).json({ loggedIn: true });
     });
   })(req, res, next);
@@ -54,6 +57,7 @@ router.post('/signin', function (req, res, next) {
 router.post('/signout',  function (req, res) {
   req.logout();
   res.clearCookie('isLoggedIn');
+  res.clearCookie('isManager');
   res.status(200).json({'success':true});
 });
 

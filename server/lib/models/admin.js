@@ -6,7 +6,7 @@ var AdminSchema = new Schema({
       last: String,
       email: {type: String, required: true, unique: true},
       password: String,
-      admin: Boolean  
+      admin: Boolean //if admin false means they are managers  
 });
 
 
