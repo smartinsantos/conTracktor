@@ -10,7 +10,7 @@ var Worker = require('./lib/models/workers.js');
 // Serialize a user
 passport.serializeUser(function (user, done) {
   // console.log('passport serializeUser:', user);
-  done(null, {_id:user._id, email: user.email, first: user.first, last: user.last});
+  done(null, {_id:user._id, email: user.email, first: user.first, last: user.last, admin:user.admin});
 });
 
 // Deserialize a user
