@@ -1,7 +1,12 @@
 var db = require('mongoose');
 var Schema = db.Schema;
 
-var JobsSchema = new Schema({     
+var JobsSchema = new Schema({ 
+    manager: {
+      type: Schema.Types.ObjectId,
+      ref: 'Admin',
+      required: true
+    },      
     propertie: {
       type: Schema.Types.ObjectId,
       ref: 'Propertie',
@@ -12,11 +17,11 @@ var JobsSchema = new Schema({
     worker: {
       type: Schema.Types.ObjectId,
       ref: 'Worker',
-      required: true
     },
     date_assigned: Date,
     date_completed: Date,
     status: String,
+    cost: Number, 
     price: Number,
     poNumber: { type : Number, unique: true },
     invoiceNumber: { type: Number, unique: true },

@@ -1,4 +1,4 @@
-app.factory('Admin', ['$http', '$state', '$timeout', function($http, $state, $timeout) {
+app.factory('Admin', ['$http', '$state', '$timeout','manager', function($http, $state, $timeout,manager) {
   
   var create = function (newAdmin){
     return $http.post('/admin/create', newAdmin);
@@ -18,6 +18,7 @@ app.factory('Admin', ['$http', '$state', '$timeout', function($http, $state, $ti
     console.log('Logging Out...')
   return $http.post('/admin/signout')
     .then(function(response){
+      manager.value = false;
       $state.go('main_public');
     })
     .catch(function(err){  

@@ -15,9 +15,12 @@ window.app = angular.module('myApp', [
     'ui.router',
     'ngCookies',
     'ngAnimate'
-  ])
+  ]);
 
-.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+app.value('manager',{value:false});
+
+app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+
     
   $locationProvider.html5Mode(true);
   $urlRouterProvider.otherwise('/');
