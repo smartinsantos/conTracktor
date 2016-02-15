@@ -78,6 +78,27 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'JobsCtrl'
     })
 
+    .state('main_private.jobs_edit', {
+      url: 'jobs',
+      authenticate: true,
+      templateUrl: 'views/jobs_edit.html',
+      controller: 'JobsEditCtrl'
+    })
+
+    .state('main_private.jobs_manager', {
+      url: 'mjobs',
+      authenticate: true,
+      templateUrl: 'views/jobs_manager.html',
+      controller: 'JobsManagerCtrl'
+    })
+
+    .state('main_private.jobs_manager_edit', {
+      url: 'mjobs/{id}/edit',
+      authenticate: true,
+      templateUrl: 'views/jobs_manager_edit.html',
+      controller: 'JobsManagerEditCtrl'
+    })
+
     .state('main_private.properties', {
       url: 'props',
       authenticate: true,
