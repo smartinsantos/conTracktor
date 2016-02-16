@@ -43,7 +43,6 @@ helpers.adminCreate = function (attrs) {
   });
 };
 
-
 //General Helpers
 helpers.generateHash = function(password) {
   console.log('Generating Hash...');

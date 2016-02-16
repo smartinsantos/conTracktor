@@ -34,7 +34,6 @@ app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin', function($sc
     //send JSON object to server via factory call
     Admin.signIn(adminData)
     .then(function(res){
-
     })
     .catch(function (err) {
       console.log('Error with signin:', err);

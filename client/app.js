@@ -69,7 +69,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.manager_profile', {
-        url: '/{id}/profile',
+        url: '{id}/profile',
         authenticate: true,
         templateUrl: 'views/manager_profile.html',
         controller: 'AdminCtrl'

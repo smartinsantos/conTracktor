@@ -13,6 +13,7 @@ app.factory('Admin', ['$http', '$state', '$timeout','manager', function($http, $
   var signIn = function (adminData){
     return $http.post('/admin/signin', adminData)
     .then(function (response) {
+        // return response 
       $timeout(() => {
         $state.go('main_private', null, { reload: true });
       }, 100);

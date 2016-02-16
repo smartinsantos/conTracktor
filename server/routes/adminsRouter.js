@@ -4,6 +4,8 @@ var router = express.Router();
 var auth = require('../auth.js');
 
 var passport = require('passport');
+var helpers = require('../helpers.js');
+
 
 //Uses DB config and Schema
 var db = require('../lib/db.js');
@@ -68,7 +70,7 @@ router.post('/signin', function (req, res, next) {
         res.cookie('isManager',false);
       }
       res.cookie('isLoggedIn', true);
-      res.status(200).json({ loggedIn: true });
+      res.status(200).json({ loggedIn: true, id:user._id });
     });
   })(req, res, next);
 });
@@ -103,11 +105,13 @@ router.get('/:userId', function (req, res) {
 
 // Update user info by id
 router.put('/:userId', function (req, res) {
-  if(req.body.disable){
-    // req.body.password = process.env.ENV_ADMIN_TOKEN
+  var user = req.body;
+  // disabling Adim by assgining secret password 
+  if(user.disable){
+    user.password = helpers.generateHash(process.env.ENV_ADMIN_DEFAULTPASS)
   }
   var userId = req.params.userId;
-  Admins.findByIdAndUpdate( { '_id' : req.params.userId }, { $set : req.body }, function(err, doc) {
+  Admins.findByIdAndUpdate( { '_id' : userId }, { $set : user }, function(err, doc) {
     if (err) { 
       console.log('Admins PUT ERR', err); 
       res.status(401).json({'error':true});
