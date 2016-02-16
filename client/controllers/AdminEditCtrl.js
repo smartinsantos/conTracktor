@@ -22,7 +22,7 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
 
   $scope.editAdmin = function () {
     var adminInfo = $scope.admin;
-    Workers.edit(adminInfo)
+    Admin.edit(adminInfo)
     .then(function(res){
       $state.go('main_private.managers');
     })
@@ -30,6 +30,22 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     console.log('error ocurred: ', err);
     })
   }
+
+  $scope.deleteAdmin = function(){
+    var adminId = $state.params.id;
+    Admin.deleteAdmin(adminId)
+    .then(function(res){
+      //Work around to fix modal bug were still fading app after toggle
+      $('div.modal').removeClass('fade').addClass('hidden');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+      $state.go('main_private.managers');
+    })
+    .catch(function(err){
+      console.log('error ocurred: ', err);
+    });
+  }; 
+
 
   $scope.getAdmin();
  

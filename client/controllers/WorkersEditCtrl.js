@@ -45,7 +45,6 @@ app.controller('WorkersEditCtrl', ['$scope','Workers','$state', function($scope,
       console.log('error ocurred: ', err);
     }); 
 
-
   }
 
   $scope.getWorker();

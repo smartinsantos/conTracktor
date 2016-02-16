@@ -84,20 +84,44 @@ router.post('/signout',  function (req, res) {
 // TODO : this currently does nothing
 // Get user info by id
 router.get('/:userId', function (req, res) {
+  
   var userId = req.params.userId;
-  // var userId = req.session.passport.user;
-  res.json({'success':true,userId:userId});
+  Admins.findOne({'_id':req.params.userId}, function(err,doc){
+      if(err){
+        console.log('error getting Admin',err);
+        return err;
+      }
+      return doc;
+    })
+    .then(function(admin){
+      res.status(200).json(admin);
+    })
+    .catch(function(err){
+      res.status(401).json({'error':true});
+    })
 });
 
 // Update user info by id
 router.put('/:userId', function (req, res) {
   var userId = req.params.userId;
-  res.json({'success':true,userId:userId});
+  Admins.findByIdAndUpdate( { '_id' : req.params.userId }, { $set : req.body }, function(err, doc) {
+    if (err) { 
+      console.log('Admins PUT ERR', err); 
+      res.status(401).json({'error':true});
+    };
+    res.status(200).json(doc);
+  });
 });
 
 router.delete('/:userId',function(req,res){
   var userId = req.params.userId;
-  res.json({'success':true,userId:userId});
+  Admins.remove( { '_id' : req.params.userId }, function(err, doc) {
+    if (err) { 
+      console.log('Admin delete ERR', err); 
+      res.status(401).json({'error':true});
+    };
+    res.status(200).json(doc);
+  });
 });
 
 module.exports = router;
