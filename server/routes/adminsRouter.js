@@ -103,6 +103,9 @@ router.get('/:userId', function (req, res) {
 
 // Update user info by id
 router.put('/:userId', function (req, res) {
+  if(req.body.disable){
+    // req.body.password = process.env.ENV_ADMIN_TOKEN
+  }
   var userId = req.params.userId;
   Admins.findByIdAndUpdate( { '_id' : req.params.userId }, { $set : req.body }, function(err, doc) {
     if (err) { 

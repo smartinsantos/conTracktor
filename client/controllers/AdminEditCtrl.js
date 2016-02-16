@@ -31,6 +31,21 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     })
   }
 
+  $scope.disableAdmin = function () {
+    var adminInfo = $scope.admin;
+    adminInfo.disable=true; 
+    Admin.edit(adminInfo)
+    .then(function(res){
+      $('div.modal').removeClass('fade').addClass('hidden');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+      $state.go('main_private.managers');
+    })
+    .catch(function(err){
+    console.log('error ocurred: ', err);
+    })
+  }
+
   $scope.deleteAdmin = function(){
     var adminId = $state.params.id;
     Admin.deleteAdmin(adminId)
@@ -45,7 +60,6 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
       console.log('error ocurred: ', err);
     });
   }; 
-
 
   $scope.getAdmin();
  
