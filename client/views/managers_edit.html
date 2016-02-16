@@ -1,0 +1,87 @@
+<div class="page-header">
+  <h1 class ='text-center'>{{admin.first}} {{admin.last}}</h1>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Edit</div>
+  <div class='panel-body'>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="managerInputFirst2" class="col-xs-2 control-label">First Name</label>
+        <div class="col-xs-8">
+          <input required ng-model="admin.first" type="text" class="form-control" id="managerInputFirst2" placeholder="First">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="managerInputLast2" class="col-xs-2 control-label">Last Name</label>
+        <div class="col-xs-8">
+          <input required ng-model="admin.last" type="text" class="form-control" id="managerInputLast2" placeholder="Last">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="managerInputEmail2" class="col-xs-2 control-label">Email</label>
+        <div class="col-xs-8">
+          <input required ng-model="admin.email" type="email" class="form-control" id="managerInputEmail2" placeholder="Email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="managerInputPhone2" class="col-xs-2 control-label">Phone</label>
+        <div class="col-xs-8">
+          <input required ng-model="admin.phone" type="text" class="form-control" id="managerInputPhone2" placeholder="Phone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="managerInputAdmin2" class="col-xs-2 control-label">Admin?</label>
+        <div class="checkbox col-xs-8">
+          <label>
+            <input type="checkbox" id="managerInputAdmin2" ng-model='admin.admin'> (Gives Manager Administrator Rights)
+          </label>
+        </div>
+      </div>      
+    </form>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click='backToManagers()'>Close</button>
+      <button type="button" class="btn btn-primary" ng-click='editAdmin()'>Save</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAdmin" >Delete</button>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess" >Revoke Access</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteAdmin" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete {{admin.first}} {{admin.last}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Warning! This Action Can't Be Undone!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteAdmin()'>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="removeAccess" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Remove Access {{admin.first}} {{admin.last}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you Sure you Want to Remove Access?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" ng-click='disableAdmin()'>Revoke Access</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

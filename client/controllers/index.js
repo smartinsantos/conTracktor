@@ -1,6 +1,7 @@
 require('./MainPublicCtrl');
 require('./MainPrivateCtrl');
 require('./AdminCtrl');
+require('./AdminEditCtrl');
 require('./JobsCtrl');
 require('./JobsEditCtrl');
 require('./JobsManagerCtrl');

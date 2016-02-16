@@ -7,7 +7,7 @@ app.controller('PropertiesEditCtrl', ['$scope','Properties','$state', function($
   $scope.property = {};
 
   $scope.backToProperties = function(){
-    $state.go('main_private.props');
+    $state.go('main_private.properties');
   }
 
   $scope.getProperty = function(){

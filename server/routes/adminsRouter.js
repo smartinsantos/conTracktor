@@ -1,12 +1,32 @@
 //Uses Express defines router
 var express = require('express');
 var router = express.Router();
+var auth = require('../auth.js');
 
 var passport = require('passport');
 
 //Uses DB config and Schema
 var db = require('../lib/db.js');
 var Admins = require('../lib/models/admin.js');
+
+
+router.get('/', auth.requireAuth, auth.requireAdmin, function (req, res) {
+
+  Admins.find({},'first last email admin phone', function (err, doc) {
+    if (err){ 
+      console.log('error getting Admins',err);
+      return err;
+    };
+    return doc;
+  })
+  .then(function(admins){
+    res.status(200).json(admins);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  });
+
+});
 
 // Creates new user
 router.post('/create', function (req, res, next) {
@@ -64,20 +84,47 @@ router.post('/signout',  function (req, res) {
 // TODO : this currently does nothing
 // Get user info by id
 router.get('/:userId', function (req, res) {
+  
   var userId = req.params.userId;
-  // var userId = req.session.passport.user;
-  res.json({'success':true,userId:userId});
+  Admins.findOne({'_id':req.params.userId}, function(err,doc){
+      if(err){
+        console.log('error getting Admin',err);
+        return err;
+      }
+      return doc;
+    })
+    .then(function(admin){
+      res.status(200).json(admin);
+    })
+    .catch(function(err){
+      res.status(401).json({'error':true});
+    })
 });
 
 // Update user info by id
 router.put('/:userId', function (req, res) {
+  if(req.body.disable){
+    // req.body.password = process.env.ENV_ADMIN_TOKEN
+  }
   var userId = req.params.userId;
-  res.json({'success':true,userId:userId});
+  Admins.findByIdAndUpdate( { '_id' : req.params.userId }, { $set : req.body }, function(err, doc) {
+    if (err) { 
+      console.log('Admins PUT ERR', err); 
+      res.status(401).json({'error':true});
+    };
+    res.status(200).json(doc);
+  });
 });
 
 router.delete('/:userId',function(req,res){
   var userId = req.params.userId;
-  res.json({'success':true,userId:userId});
+  Admins.remove( { '_id' : req.params.userId }, function(err, doc) {
+    if (err) { 
+      console.log('Admin delete ERR', err); 
+      res.status(401).json({'error':true});
+    };
+    res.status(200).json(doc);
+  });
 });
 
 module.exports = router;

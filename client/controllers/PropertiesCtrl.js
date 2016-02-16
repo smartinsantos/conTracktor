@@ -11,14 +11,12 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state', function($scop
   $scope.getProperties = function() {
     Properties.getAll()
     .then(function(properties){
-      console.log(properties);
       $scope.properties = properties;
     })
   };
 
   $scope.createProperty = function () {
     var newProperty = $scope.property;
-    console.log('newProperty', newProperty);
     Properties.create(newProperty)
     .then(function(res){
       $scope.property = '';
