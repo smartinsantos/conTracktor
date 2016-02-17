@@ -34,6 +34,7 @@ passport.use('admin-create', new LocalStrategy(
     var lastName = req.body.last; 
     var token = req.body.token;
     var isAdmin = req.body.admin; 
+    var phone = req.body.phone;
     
     //Checks for Secret Token to create admin
     if(process.env.ENV_ADMIN_TOKEN !== token ){ 
@@ -58,7 +59,8 @@ passport.use('admin-create', new LocalStrategy(
         password: passHash,
         first: firstName,
         last: lastName,
-        admin:isAdmin
+        admin:isAdmin,
+        phone:phone
       })
     })
     // Admin successfully created

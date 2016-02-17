@@ -20,7 +20,7 @@ app.factory('Auth', ['$state', '$cookies', function($state, $cookies) {
 
 
   return {
-    isLoggedIn: isLoggedIn,
+    isLoggedIn:isLoggedIn,
     isManager:isManager,
     sessionId:sessionId
   };

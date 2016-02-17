@@ -21,7 +21,7 @@
         <li><a href="#" ui-sref='main_private.managers'>Managers</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" ui-sref='main_private.manager_profile({id:managerId})'>Profile</a></li>        
+        <li><a href="#" ui-sref='main_private.manager_profile({id:sessionId})'>Profile</a></li>        
         <li><a href="#" ng-click = 'adminSignOut()'>Log Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -50,10 +50,11 @@
         <li><a href="#" ui-sref='main_private.workers'>Workers</a></li> 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" ui-sref='main_private.manager_profile({id:managerId})'>Profile</a></li>        
+        <li><a href="#" ui-sref='main_private.manager_profile({id:sessionId})'>Profile</a></li>        
         <li><a href="#" ng-click = 'adminSignOut()'>Log Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 <div ui-view></div>
+

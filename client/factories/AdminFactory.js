@@ -61,6 +61,17 @@ app.factory('Admin', ['$http', '$state', '$timeout','manager', function($http, $
     });
   };
 
+  var changePassword = function(adminInfo){
+    var adminId = adminInfo._id;
+    return $http.put('/admin/'+ adminId + '/password',adminInfo)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      console.log('deleteAdmin err: ', err);
+    });
+  };
+
   var deleteAdmin = function(adminId){
     return $http.delete('/admin/'+ adminId)
     .then(function(response){
@@ -78,6 +89,7 @@ app.factory('Admin', ['$http', '$state', '$timeout','manager', function($http, $
     getAll:getAll,
     getOne:getOne,
     edit:edit,
+    changePassword:changePassword,
     deleteAdmin:deleteAdmin
   };
 }]);

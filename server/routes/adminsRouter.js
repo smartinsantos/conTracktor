@@ -121,6 +121,43 @@ router.put('/:userId', function (req, res) {
   });
 });
 
+
+router.put('/:userId/password', function (req, res) {
+  //receives id, oldPass,newPass
+  var enteredPassword = req.body.oldPass;
+  var newPassword = req.body.newPass;
+
+  Admins.findOne({'_id':req.params.userId}, function(err,doc){
+      if(err){
+        console.log('error getting Admin',err);
+        return err;
+      }
+      return doc;
+    })
+    .then(function(admin){
+      if(helpers.validPassword(enteredPassword, admin.password)){
+        return helpers.generateHash(newPassword)
+      }else{
+        throw 'Wrong Password';
+      }
+    })
+    .then(function(newPassword){
+      var user = {};
+      user.password = newPassword;
+      Admins.findByIdAndUpdate( { '_id' : req.params.userId }, { $set : user }, function(err, doc) {
+        if (err) { 
+          console.log('Admins PUT ERR', err); 
+        }else{ 
+        res.status(200).json(doc);
+        }
+      });      
+    })
+    .catch(function(err){
+      res.status(401).json({'error':true});
+    })
+});
+
+
 router.delete('/:userId',function(req,res){
   var userId = req.params.userId;
   Admins.remove( { '_id' : req.params.userId }, function(err, doc) {

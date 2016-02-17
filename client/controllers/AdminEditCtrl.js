@@ -4,9 +4,17 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
 
   // Object for adding workers
   $scope.admin = {};
+  $scope.admin.changePassOld = null;
+  $scope.admin.changePassNew = null;
+  $scope.admin.changepassNew2 = null;
+
 
   $scope.backToManagers = function(){
     $state.go('main_private.managers');
+  }
+
+  $scope.backToDash = function(){
+    $state.go('main_private.dash');
   }
 
   $scope.getAdmin = function(){
@@ -29,7 +37,18 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     .catch(function(err){
     console.log('error ocurred: ', err);
     })
-  }
+  };
+
+  $scope.editManager = function () {
+    var adminInfo = $scope.admin;
+    Admin.edit(adminInfo)
+    .then(function(res){
+      $state.go('main_private.dash');
+    })
+    .catch(function(err){
+    console.log('error ocurred: ', err);
+    })
+  };
 
   $scope.disableAdmin = function () {
     var adminInfo = $scope.admin;
@@ -59,6 +78,26 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     .catch(function(err){
       console.log('error ocurred: ', err);
     });
+  };
+
+  $scope.managerChangePassword = function(){
+    var passwordInfo = {
+      _id: $scope.admin._id,
+      oldPass: $scope.admin.changePassOld,
+      newPass: $scope.admin.changePassNew
+    }
+
+    Admin.changePassword(passwordInfo)
+    .then(function(res){
+      // $('div.modal').removeClass('fade').addClass('hidden');
+      // $('body').removeClass('modal-open');
+      // $('.modal-backdrop').remove();
+      $('#changePassword').modal('toggle');
+      $state.go('main_private.manager_profile');
+    })
+    .catch(function(err){
+      console.log('error ocurred changing password: ', err);
+    })
   }; 
 
   $scope.getAdmin();
