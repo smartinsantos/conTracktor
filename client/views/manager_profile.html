@@ -1,1 +1,80 @@
-My Profile Here....
+<div class="page-header">
+  <h1 class ='text-center'>{{admin.first}} {{admin.last}}</h1>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Edit</div>
+  <div class='panel-body'>
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="managerFirst1" class="col-xs-2 control-label">First Name</label>
+        <div class="col-xs-8">
+          <p id="managerFirst1">{{admin.first}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="managerLast1" class="col-xs-2 control-label">Last Name</label>
+        <div class="col-xs-8">
+          <p id="managerLast1">{{admin.last}}</p>
+        </div>
+      </div>      
+      <div class="form-group">
+        <label for="managerEmail1" class="col-xs-2 control-label">Email</label>
+        <div class="col-xs-8">
+          <p id="managerEmail1">{{admin.email}}</p>
+        </div>
+      </div> 
+      <div class="form-group">
+        <label for="managerInputPhone3" class="col-xs-2 control-label">Phone</label>
+        <div class="col-xs-8">
+          <input required ng-model="admin.phone" type="text" class="form-control" id="managerInputPhone3" placeholder="Phone">
+        </div>
+      </div>
+      <button type="button" class="btn btn-info center-block" data-toggle="modal" data-target="#changePassword" >Change Password</button>
+      <br>
+    </form>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" ng-click='backToDash()'>Close</button>
+      <button type="button" class="btn btn-primary" ng-click='editManager()'>Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete {{worker.first}} {{worker.last}}</h4>
+      </div>
+      <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputPassword4" class="col-sm-2 control-label">Current Password</label>
+          <div class="col-sm-6">
+            <input ng-required ng-model="admin.changePassOld" type="password" class="form-control" id="inputPassword4" placeholder="Current Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword5" class="col-sm-2 control-label">New Password</label>
+          <div class="col-sm-6">
+            <input ng-required ng-model="admin.changePassNew" type="password" class="form-control" id="inputPassword5" placeholder="New Pasword...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword6" class="col-sm-2 control-label">Confirm New Password</label>
+          <div class="col-sm-6">
+            <input ng-required ng-model="admin.changePassNew2" type="password" class="form-control" id="inputPassword6" placeholder="Confirm Password">
+          </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click='managerChangePassword()'>Save</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+

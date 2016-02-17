@@ -51,98 +51,113 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/',
         authenticate: true,
         templateUrl: 'views/main_private.html',
-        controller: 'MainPrivateCtrl'
+        controller: 'MainPrivateCtrl',
+        params:{sessionId:null}
     })
 
     .state('main_private.managers', {
         url: 'managers',
         authenticate: true,
         templateUrl: 'views/managers.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        params:{sessionId:null}
+        
     })
 
     .state('main_private.managers_edit', {
         url: 'managers/{id}/edit',
         authenticate: true,
         templateUrl: 'views/managers_edit.html',
-        controller: 'AdminEditCtrl'
+        controller: 'AdminEditCtrl',
+        params:{sessionId:null}
     })
 
     .state('main_private.manager_profile', {
-        url: '/{id}/profile',
+        url: 'profile/{id}/edit',
         authenticate: true,
         templateUrl: 'views/manager_profile.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminEditCtrl',
+        params:{sessionId:null}
     })
 
     .state('main_private.dash', {
       url: 'dash',
       authenticate: true,
       templateUrl: 'views/dash.html',
-      controller: 'DashCtrl'
+      controller: 'DashCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.reports', {
       url: 'reports',
       authenticate: true,
       templateUrl: 'views/reports.html',
-      controller: 'ReportsCtrl'
+      controller: 'ReportsCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.jobs', {
       url: 'jobs',
       authenticate: true,
       templateUrl: 'views/jobs.html',
-      controller: 'JobsCtrl'
+      controller: 'JobsCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.jobs_edit', {
       url: 'jobs/{id}/edit',
       authenticate: true,
       templateUrl: 'views/jobs_edit.html',
-      controller: 'JobsEditCtrl'
+      controller: 'JobsEditCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.jobs_manager', {
       url: 'mjobs',
       authenticate: true,
       templateUrl: 'views/jobs_manager.html',
-      controller: 'JobsManagerCtrl'
+      controller: 'JobsManagerCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.jobs_manager_edit', {
       url: 'mjobs/{id}/edit',
       authenticate: true,
       templateUrl: 'views/jobs_manager_edit.html',
-      controller: 'JobsManagerEditCtrl'
+      controller: 'JobsManagerEditCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.properties', {
       url: 'props',
       authenticate: true,
       templateUrl: 'views/properties.html',
-      controller: 'PropertiesCtrl'
+      controller: 'PropertiesCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.properties_edit', {
       url: 'props/{id}/edit',
       authenticate: true,
       templateUrl: 'views/properties_edit.html',
-      controller: 'PropertiesEditCtrl'
+      controller: 'PropertiesEditCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.workers', {
       url: 'work',
       authenticate: true,
       templateUrl: 'views/workers.html',
-      controller: 'WorkersCtrl'
+      controller: 'WorkersCtrl',
+      params:{sessionId:null}
     })
 
     .state('main_private.workers_edit', {
       url: 'work/{id}/edit',
       authenticate: true,
       templateUrl: 'views/workers_edit.html',
-      controller: 'WorkersEditCtrl'
+      controller: 'WorkersEditCtrl',
+      params:{sessionId:null}
     })
 
 });

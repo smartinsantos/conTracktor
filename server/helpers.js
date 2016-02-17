@@ -31,7 +31,8 @@ helpers.adminCreate = function (attrs) {
     password: attrs.password,
     first: attrs.first,
     last: attrs.last,
-    admin: attrs.admin
+    admin: attrs.admin,
+    phone: attrs.phone
   };
     var admin = new Admin(adminAttrs);
   return admin.save(function(err){
@@ -42,7 +43,6 @@ helpers.adminCreate = function (attrs) {
     return admin;
   });
 };
-
 
 //General Helpers
 helpers.generateHash = function(password) {

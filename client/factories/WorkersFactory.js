@@ -53,9 +53,6 @@ app.factory('Workers', ['$http', '$state', '$timeout', function($http, $state, $
     });
   };
 
-
-
-
   return {
   create:create,
   getAll:getAll,
