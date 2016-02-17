@@ -1,6 +1,21 @@
 var db = require('mongoose');
 var Schema = db.Schema;
 
+var CostSchema = new Schema({
+    item: String,
+    value: Number
+});
+
+var ServiceSchema = new Schema({
+    item: String,
+    description:String
+});
+
+var NotesSchema = new Schema({
+    item:String,
+    description:String
+});
+
 var JobsSchema = new Schema({ 
     manager: {
       type: Schema.Types.ObjectId,
@@ -8,24 +23,25 @@ var JobsSchema = new Schema({
       required: true
     },      
     propertie: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'Propertie',
       required: true
     },
     unit: String,
     description: String,
     worker: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'Worker',
     },
     date_assigned: Date,
     date_completed: Date,
     status: String,
-    cost: Number, 
+    costs: [CostSchema],
+    services:[ServiceSchema], 
     price: Number,
-    poNumber: { type : Number, unique: true },
-    invoiceNumber: { type: Number, unique: true },
-    notes: String, //Change to array of strings
+    poNumber: { type : String, unique: true },
+    invoiceNumber: { type : String, unique: true },
+    notes: [NotesSchema],
     quote: String // Link to the quote PDF
 });
 
@@ -33,3 +49,4 @@ var JobsSchema = new Schema({
 var Job = db.model('Job', JobsSchema);
 
 module.exports = Job;
+ 

@@ -1,6 +1,6 @@
 /* remember to set all global css and variables before importing */
 //makes navbar collaps at 500px
-$grid-float-breakpoint: 500px;
+$grid-float-breakpoint: 720px;
 //importing bootstrap
 @import '_bootstrap-sprockets.scss';
 @import '_bootstrap.scss';
