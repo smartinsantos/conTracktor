@@ -51,7 +51,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '/',
         authenticate: true,
         templateUrl: 'views/main_private.html',
-        controller: 'MainPrivateCtrl'
+        controller: 'MainPrivateCtrl',
+        params:{id:null}
     })
 
     .state('main_private.managers', {
@@ -72,7 +73,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         url: '{id}/profile',
         authenticate: true,
         templateUrl: 'views/manager_profile.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminEditCtrl'
     })
 
     .state('main_private.dash', {

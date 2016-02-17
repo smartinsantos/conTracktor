@@ -1,4 +1,4 @@
-app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin', function($scope,$state,Auth,Admin) {
+app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin','$timeout', function($scope,$state,Auth,Admin,$timeout) {
   
   // Redirect to appropriate main page
   // If logged in, go to main controller
@@ -8,6 +8,8 @@ app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin', function($sc
   } else {
     $state.go('main_public.signin');
   }
+
+
 
   $scope.admin = {};
   $scope.admin.admin = false;
@@ -19,7 +21,6 @@ app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin', function($sc
     newAdmin.admin = true;
     Admin.create(newAdmin)
     .then(function(admin){
-      console.log('admin created: ', admin)
       Admin.signIn(newAdmin);
     })
     .catch(function(err){
@@ -33,7 +34,12 @@ app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin', function($sc
     adminData.password = $scope.admin.password;
     //send JSON object to server via factory call
     Admin.signIn(adminData)
-    .then(function(res){
+    .then(function(response){
+      //get the session Id and send it to the state
+      var adminId = Auth.sessionId();
+      $timeout(() => {
+        $state.go('main_private', {id:adminId}, { reload: true });
+      }, 100);
     })
     .catch(function (err) {
       console.log('Error with signin:', err);

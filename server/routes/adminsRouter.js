@@ -69,8 +69,9 @@ router.post('/signin', function (req, res, next) {
       }else{
         res.cookie('isManager',false);
       }
+      res.cookie('sessionId',user._id);
       res.cookie('isLoggedIn', true);
-      res.status(200).json({ loggedIn: true, id:user._id });
+      res.status(200).json({ loggedIn: true });
     });
   })(req, res, next);
 });
