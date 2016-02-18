@@ -15,7 +15,8 @@ app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin','$timeout', f
     newAdmin.admin = true;
     Admin.create(newAdmin)
     .then(function(admin){
-      Admin.signIn(newAdmin);
+      // Admin.signIn(newAdmin);
+      $scope.signInAdmin();
     })
     .catch(function(err){
       console.log('error ocurred: ', err);

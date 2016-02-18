@@ -1,4 +1,4 @@
-app.controller('JobsCtrl', ['$scope','Jobs','Properties','Admin', function($scope, Jobs,Properties,Admin) {
+app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin', function($scope,$state, Jobs,Properties,Admin) {
   
   console.log('JobsCtrl Loaded....')
 
@@ -29,14 +29,25 @@ app.controller('JobsCtrl', ['$scope','Jobs','Properties','Admin', function($scop
 
   $scope.getProperties();
 
-  $scope.createJob = function(){
-    console.log('creating Job')
-    console.log($scope.job);
+  $scope.getJobs = function() {
+    Jobs.getAll()
+    .then(function(jobs){
+      $scope.jobs = jobs;
+    })
   };
 
-  $scope.getJobs = function(){
-    console.log('getting Jobs');
+  $scope.createJob = function () {
+    var newJob = $scope.job;
+    Jobs.create(newJob)
+    .then(function(res){
+      $('#jobModal').modal('toggle');
+      $scope.getJobs();
+    })
+    .catch(function(err){
+      console.log('error ocurred: ', err);
+    });
   };
+
 
   $scope.getJobs();
 

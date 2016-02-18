@@ -9,31 +9,15 @@ var CostSchema = new Schema({
 var ServiceSchema = new Schema({
     item: String, // maybe another Schema [] to be able to search for this criteria
     description:String,
-    worker: {
-      type: String,
-      ref: 'Worker',
-    },
+    worker: { type: Schema.Types.ObjectId, ref:'Worker'}, //Saves Worker ID 
     date_assigned: Date,
     date_completed: Date,
     price:Number
 });
 
-var NotesSchema = new Schema({
-    title:String,
-    body:String
-});
-
 var JobsSchema = new Schema({ 
-    manager: {
-      type: Schema.Types.ObjectId,
-      ref: 'Admin',
-      required: true
-    },      
-    propertie: {
-      type: String,
-      ref: 'Propertie',
-      required: true
-    },
+    manager: { type: Schema.Types.ObjectId, ref:'Admin', required:true}, // Saves Manager Name       
+    propertie: { type: Schema.Types.ObjectId, ref: 'Propertie', required:true}, //Saves Property Name 
     unit: String,
     completed: Boolean,
     costs: [CostSchema],
@@ -42,7 +26,7 @@ var JobsSchema = new Schema({
     totalCost:Number,
     poNumber: { type : String, unique: true },
     invoiceNumber: { type : String, unique: true },
-    notes: [NotesSchema],
+    notes: String,
     quote: String // Link to the quote PDF
 });
 

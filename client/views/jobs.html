@@ -18,7 +18,7 @@
             <label for="jobManager" class="col-xs-2 control-label">Manager</label>
             <div class="col-xs-10">
               <select ng-model = 'job.manager'class="form-control" id='jobManager'>
-                <option  ng-value='admin._id' ng-repeat ='admin in admins'>
+                <option  value='{{admin._id}}' ng-repeat ='admin in admins'>
                 {{admin.first}} {{admin.last}}
                 </option>
               </select>
@@ -29,7 +29,7 @@
             <label for="jobProperty" class="col-xs-2 control-label">Property</label>
             <div class="col-xs-10">
               <select ng-model = 'job.propertie' class="form-control" id='jobProperty'>
-                <option  ng-value = 'property.name' ng-repeat ='property in properties'>
+                <option  value = '{{property._id}}' ng-repeat ='property in properties'>
                 {{property.name}}
                 </option>
               </select>
@@ -42,6 +42,14 @@
               <input required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="jobNotes" class="col-xs-2 control-label">Notes</label>
+            <div class="col-xs-10">
+              <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
+            </div>
+          </div>
+
         </form>
       </div>
       <div class="modal-footer">
@@ -51,6 +59,5 @@
     </div>
   </div>
 </div>
-
-Job Manager : {{job.manager}}
-Property Name: {{job.propertie}}
+ALL JOBS:<br>
+{{jobs}}

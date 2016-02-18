@@ -3,7 +3,7 @@ app.controller('MainPrivateCtrl', ['$scope','$state','Admin','Auth','manager', f
   //If parameter is not passed in garantees sessionId 
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
 
-  console.log('sessionId: ', $scope.sessionId);
+  // console.log('sessionId: ', $scope.sessionId);
 
   if(Auth.isManager()){
   //if admin is manager we set the global value to true
