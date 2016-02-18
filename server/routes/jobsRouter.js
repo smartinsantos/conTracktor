@@ -21,6 +21,8 @@ router.get('/', auth.requireAuth, function (req, res) {
     };
     return doc;
   })
+  .populate('manager','first last email phone _id')
+  .populate('propertie')
   .then(function(jobs){
     res.status(200).json(jobs);
   })
@@ -37,6 +39,8 @@ router.get('/:jobId', auth.requireAuth, function (req, res) {
     }
     return doc;
   })
+  .populate('manager','first last email phone _id')
+  .populate('propertie')
   .then(function(job){
     res.status(200).json(job);
   })
@@ -49,10 +53,9 @@ router.get('/:jobId', auth.requireAuth, function (req, res) {
 router.post('/', auth.requireAuth, function (req, res) {
   
   var newJob = req.body;
-  //TODO FIND A WAY TO ASSING THE ID'S OF PROPERTIE AND WORKER WHEN CREATING THE JOB THIS WILL PROABLY WILL BE HANDLED BY THE CLIENT
 
-  helpers.createJob({newJob})
-  .then(function(worker){
+  helpers.createJob(newJob)
+  .then(function(job){
     res.status(201).json(job); 
   })
   .catch(function(err){
@@ -76,7 +79,7 @@ router.put('/:jobId', auth.requireAuth, function (req, res) {
 
 router.delete('/:jobId', auth.requireAuth, function (req, res) {
   
-  Jobs.remove( { '_id' : req.params.workerId }, function(err, doc) {
+  Jobs.remove( { '_id' : req.params.jobId }, function(err, doc) {
     if (err) { 
       console.log('Jobs delete ERR', err); 
       res.status(401).json({'error':true});

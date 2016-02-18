@@ -10,7 +10,7 @@ var PropertiesSchema = new Schema({
         city: String,
         state: String,
         zip:Number,
-      }
+      },
 });
 
 

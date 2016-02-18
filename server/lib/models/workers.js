@@ -12,7 +12,7 @@ var WorkersSchema = new Schema({
         city: String,
         state: String,
         zip:Number,
-      } 
+      },
 });
 
 var Worker = db.model('Worker', WorkersSchema);

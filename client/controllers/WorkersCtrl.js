@@ -15,7 +15,6 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
   };
 
   $scope.createWorker = function () {
-    console.log('i am being called CreateWorker()')
     var newWorker = $scope.worker;
     Workers.create(newWorker)
     .then(function(res){
