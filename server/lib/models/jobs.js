@@ -7,13 +7,20 @@ var CostSchema = new Schema({
 });
 
 var ServiceSchema = new Schema({
-    item: String,
-    description:String
+    item: String, // maybe another Schema [] to be able to search for this criteria
+    description:String,
+    worker: {
+      type: String,
+      ref: 'Worker',
+    },
+    date_assigned: Date,
+    date_completed: Date,
+    price:Number
 });
 
 var NotesSchema = new Schema({
-    item:String,
-    description:String
+    title:String,
+    body:String
 });
 
 var JobsSchema = new Schema({ 
@@ -28,17 +35,11 @@ var JobsSchema = new Schema({
       required: true
     },
     unit: String,
-    description: String,
-    worker: {
-      type: String,
-      ref: 'Worker',
-    },
-    date_assigned: Date,
-    date_completed: Date,
-    status: String,
+    completed: Boolean,
     costs: [CostSchema],
     services:[ServiceSchema], 
-    price: Number,
+    totalPrice: Number,
+    totalCost:Number,
     poNumber: { type : String, unique: true },
     invoiceNumber: { type : String, unique: true },
     notes: [NotesSchema],

@@ -17,3 +17,4 @@ var PropertiesSchema = new Schema({
 var Propertie = db.model('Propertie', PropertiesSchema);
 
 module.exports = Propertie;
+ 
