@@ -1,9 +1,8 @@
-app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin', function($scope,$state, Jobs,Properties,Admin) {
+app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers', function($scope,$state, Jobs,Properties,Admin,Workers) {
   
   console.log('JobsCtrl Loaded....')
 
-  $scope.jobs = {};
-  $scope.job = '';
+
  
 //get all managers
   $scope.admins = '';
@@ -17,7 +16,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin', funct
 
   $scope.getAdmins();
 
- //get all properties 
+//get all properties 
   $scope.properties = '';
 
   $scope.getProperties = function() {
@@ -36,12 +35,28 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin', funct
     })
   };
 
+//get all workers
+  $scope.workers = '';
+
+    $scope.getWorkers = function() {
+      Workers.getAll()
+      .then(function(workers){
+        $scope.workers = workers;
+      })
+    };
+
+  $scope.getWorkers();
+
+
+//CREATE JOBS
+  $scope.jobs = {};
+  $scope.job = '';
+
   $scope.createJob = function () {
     var newJob = $scope.job;
     Jobs.create(newJob)
     .then(function(res){
-      $('#jobModal').modal('toggle');
-      $scope.getJobs();
+    
     })
     .catch(function(err){
       console.log('error ocurred: ', err);
@@ -49,6 +64,23 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin', funct
   };
 
 
+//ADD SERVICES
+$scope.services = [{id: 'service1'}];
+  
+  $scope.addNewService = function() {
+    var newService = $scope.services.length+1;
+    $scope.services.push({'id':'service'+newService});
+  };
+    
+  $scope.removeChoice = function() {
+    var lastService = $scope.services.length-1;
+    $scope.services.splice(lastService);
+  };
+
+
+
+
+//refresh Jobs on Load on load
   $scope.getJobs();
 
 

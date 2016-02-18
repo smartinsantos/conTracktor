@@ -1,0 +1,139 @@
+<div class="page-header">
+  <h3 class ='text-center'>Job Information</h3>
+</div>
+
+<div class = 'col-xs-10'>
+  <form class="form-horizontal">
+      <div class="form-group">
+        <label for="jobManager" class="col-xs-2 control-label">Manager</label>
+        <div class="col-xs-10">
+          <select ng-model = 'job.manager'class="form-control" id='jobManager'>
+            <option  value='{{admin._id}}' ng-repeat ='admin in admins'>
+            {{admin.first}} {{admin.last}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="jobProperty" class="col-xs-2 control-label">Property</label>
+        <div class="col-xs-10">
+          <select ng-model = 'job.propertie' class="form-control" id='jobProperty'>
+            <option  value = '{{property._id}}' ng-repeat ='property in properties'>
+            {{property.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="jobUnit" class="col-xs-2 control-label">Unit</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="poNumber" class="col-xs-2 control-label">PO N</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.poNumber" type="text" class="form-control" id="poNumber" placeholder="PO Number">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="invoiceNumber" class="col-xs-2 control-label">Invoice N</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.invoiceNumber" type="text" class="form-control" id="poNumber" placeholder="Invoice Number">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="jobNotes" class="col-xs-2 control-label">Notes</label>
+        <div class="col-xs-10">
+          <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
+        </div>
+      </div>
+  </form>
+</div>
+
+<div class="page-header col-xs-12">
+  <h3 class ='text-center'>Services</h3>
+  <button class="btn btn-default center-block" type="button">Add Service</button>
+</div>
+
+<div class = 'col-xs-10'>
+  
+  <form class="form-horizontal">
+      
+      <div class="form-group">
+        <label for="serviceItem" class="col-xs-2 control-label">Type</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.services.item" type="text" class="form-control" id="serviceItem" placeholder="Type">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="serviceWorker" class="col-xs-2 control-label">Worker</label>
+        <div class="col-xs-10">
+          <select ng-model = 'job.services.worker' class="form-control" id='serviceWorker'>
+            <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
+            {{worker.first}} {{worker.last}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="servicePrice" class="col-xs-2 control-label">Price</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.services.price" type="text" class="form-control" id="servicePrice" placeholder="Price">
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="serviceDateAssigned" class="col-xs-2 control-label">Date Assigned</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.services.date_assigned" type="text" class="form-control" id="serviceDateAssigned" placeholder="Date Aassigned">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="serviceDescription" class="col-xs-2 control-label">Description</label>
+        <div class="col-xs-10">
+          <textarea ng-model='job.services.description' class="form-control" rows="5" class="form-control" id="serviceDescription" placeholder="Description..."></textarea>
+        </div>
+      </div>
+  </form>
+</div>
+
+<div class="page-header col-xs-12">
+  <h3 class ='text-center'>Costs</h3>
+  <button class="btn btn-default center-block" type="button">Add Cost</button>  
+</div>
+
+<div class = 'col-xs-10'>
+  
+  <form class="form-horizontal">
+      
+      <div class="form-group">
+        <label for="costItem" class="col-xs-2 control-label">Item</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.costs.item" type="text" class="form-control" id="costItem" placeholder="Item">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="costValue" class="col-xs-2 control-label">Value</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.costs.value" type="text" class="form-control" id="costValue" placeholder="Date Aassigned">
+        </div>
+      </div>
+
+  </form>
+</div>
+
+<div class="modal-footer col-xs-12">
+  <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Back to Jobs</button>
+  <button type="button" class="btn btn-primary" ng-click = 'createJob()'>Save</button>
+</div>
