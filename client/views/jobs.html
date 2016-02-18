@@ -1,63 +1,7 @@
 <div class="page-header">
   <h1 class ='text-center'>Jobs</h1>
-    <button class="btn btn-default center-block" type="button" data-toggle="modal" data-target="#propertieModal1">Add new</button>
+    <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_create">Add new</button>
 </div>
 
-<div class="modal fade" id="propertieModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Worker</h4>
-      </div>
-      <div class="modal-body">
-
-        <form class="form-horizontal">
-
-          <div class="form-group">
-            <label for="jobManager" class="col-xs-2 control-label">Manager</label>
-            <div class="col-xs-10">
-              <select ng-model = 'job.manager'class="form-control" id='jobManager'>
-                <option  value='{{admin._id}}' ng-repeat ='admin in admins'>
-                {{admin.first}} {{admin.last}}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="jobProperty" class="col-xs-2 control-label">Property</label>
-            <div class="col-xs-10">
-              <select ng-model = 'job.propertie' class="form-control" id='jobProperty'>
-                <option  value = '{{property._id}}' ng-repeat ='property in properties'>
-                {{property.name}}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="jobUnit" class="col-xs-2 control-label">Unit</label>
-            <div class="col-xs-10">
-              <input required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="jobNotes" class="col-xs-2 control-label">Notes</label>
-            <div class="col-xs-10">
-              <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
-            </div>
-          </div>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click = 'createJob()'>Save</button>
-      </div>
-    </div>
-  </div>
-</div>
 ALL JOBS:<br>
 {{jobs}}
