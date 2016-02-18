@@ -97,7 +97,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs', {
-      url: 'jobs',
+      url: 'ajobs',
       authenticate: true,
       templateUrl: 'views/jobs.html',
       controller: 'JobsCtrl',
@@ -105,7 +105,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_edit', {
-      url: 'jobs/{id}/edit',
+      url: 'ajobs/{id}/edit',
       authenticate: true,
       templateUrl: 'views/jobs_edit.html',
       controller: 'JobsEditCtrl',

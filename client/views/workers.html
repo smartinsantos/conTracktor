@@ -72,7 +72,7 @@
         <th>Email</th>   
         <th>Phone</th>
         <th>Address</th>
-        <th>Edit Worker</th>
+        <th ng-if='!manager'>Edit Worker</th>
       </tr>
       <tr ng-repeat = 'worker in workers'>
         <td>{{worker.first}}  {{worker.last}}</td>
@@ -85,7 +85,7 @@
           {{worker.address.state}}
           {{worker.address.zip}}
         </td>
-        <td><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'>Edit</button></td>
+        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'>Edit</button></td>
       </tr>
     </table>
 </div>

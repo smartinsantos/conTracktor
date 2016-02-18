@@ -57,7 +57,7 @@
         <th>Name</th>
         <th>Contact</th>   
         <th>Address</th>
-        <th>Edit Property</th>
+        <th ng-if='!manager'>Edit Property</th>
       </tr>
       <tr ng-repeat = 'property in properties'>
         <td>{{property.name}}</td>
@@ -69,7 +69,7 @@
           {{property.address.state}}
           {{property.address.zip}}
         </td>
-        <td><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
+        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
       </tr>
     </table>
 </div>
