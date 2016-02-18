@@ -13,49 +13,44 @@
       <div class="modal-body">
 
         <form class="form-horizontal">
+
           <div class="form-group">
-            <label for="workerInputFirst" class="col-xs-2 control-label">First Name</label>
+            <label for="jobManager" class="col-xs-2 control-label">Manager</label>
             <div class="col-xs-10">
-              <input required ng-model="worker.first" type="text" class="form-control" id="workerInputFirst" placeholder="First">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="workerInputLast" class="col-xs-2 control-label">Last Name</label>
-            <div class="col-xs-10">
-              <input required ng-model="worker.last" type="text" class="form-control" id="workerInputLast" placeholder="Last">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="workerInputEmail" class="col-xs-2 control-label">Email</label>
-            <div class="col-xs-10">
-              <input required ng-model="worker.email" type="email" class="form-control" id="workerInputEmail" placeholder="Email">
+              <select ng-model = 'job.manager'class="form-control" id='jobManager'>
+                <option  ng-value='admin._id' ng-repeat ='admin in admins'>
+                {{admin.first}} {{admin.last}}
+                </option>
+              </select>
             </div>
           </div>
 
-          
           <div class="form-group">
-            <label for="workerInputPhone" class="col-xs-2 control-label">Phone</label>
+            <label for="jobProperty" class="col-xs-2 control-label">Property</label>
             <div class="col-xs-10">
-              <input required ng-model="worker.phone" type="text" class="form-control" id="workerInputPhone" placeholder="Phone">
+              <select ng-model = 'job.propertie' class="form-control" id='jobProperty'>
+                <option  ng-value = 'property.name' ng-repeat ='property in properties'>
+                {{property.name}}
+                </option>
+              </select>
             </div>
           </div>
+
           <div class="form-group">
-            <label for="workerInputAddress" class="col-xs-2 control-label">Adress</label>
+            <label for="jobUnit" class="col-xs-2 control-label">Unit</label>
             <div class="col-xs-10">
-              <input required ng-model="worker.address.street" type="text" class="form-control" id="workerInputAddress" placeholder="Street"><br>
-              <input required ng-model="worker.address.street2" type="text" class="form-control" placeholder="Street 2"><br>
-              <input required ng-model="worker.address.city" type="text" class="form-control" placeholder="City"><br>
-              <input required ng-model="worker.address.state" type="text" class="form-control" placeholder="State"><br>
-              <input required ng-model="worker.address.zip" type="text" class="form-control" placeholder="Zip code">
+              <input required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
             </div>
           </div>
         </form>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click = 'createWorker()'>Save</button>
+        <button type="button" class="btn btn-primary" ng-click = 'createJob()'>Save</button>
       </div>
     </div>
   </div>
 </div>
+
+Job Manager : {{job.manager}}
+Property Name: {{job.propertie}}

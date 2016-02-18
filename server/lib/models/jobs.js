@@ -7,7 +7,7 @@ var CostSchema = new Schema({
 });
 
 var ServiceSchema = new Schema({
-    item: String,
+    item: String, // maybe another Schema [] to be able to search for this criteria
     description:String,
     worker: {
       type: String,

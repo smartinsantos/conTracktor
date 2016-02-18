@@ -18,3 +18,4 @@ var WorkersSchema = new Schema({
 var Worker = db.model('Worker', WorkersSchema);
 
 module.exports = Worker;
+ 
