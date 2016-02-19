@@ -50,9 +50,11 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
 
 //CREATE JOBS
   $scope.jobs = {};
-  $scope.job = '';
+  $scope.job = {};
 
   $scope.createJob = function () {
+    $scope.calculateTotalServicePrice();
+    $scope.calculateTotalCost();
     var newJob = $scope.job;
     Jobs.create(newJob)
     .then(function(res){
@@ -64,20 +66,55 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   };
 
 
-//ADD SERVICES
-$scope.services = [{id: 'service1'}];
+//ADD-REMOVE SERVICES
+$scope.job.services = [];
   
   $scope.addNewService = function() {
-    var newService = $scope.services.length+1;
-    $scope.services.push({'id':'service'+newService});
+    var newService = $scope.job.services.length+1;
+    $scope.job.services.push({});
   };
     
-  $scope.removeChoice = function() {
-    var lastService = $scope.services.length-1;
-    $scope.services.splice(lastService);
+  $scope.removeService = function() {
+    var lastService = $scope.job.services.length-1;
+    $scope.job.services.splice(lastService);
+  };
+
+  $scope.calculateTotalServicePrice= function(){
+    $scope.job.totalPrice = 0;
+    $scope.job.services.forEach(function(e){
+      $scope.job.totalPrice += e.price; 
+    }); 
+  };
+
+//ADD-REMOVE COSTS
+$scope.job.costs = [];
+  
+  $scope.addNewCost = function() {
+    var newCost = $scope.job.costs.length+1;
+    $scope.job.costs.push({});
+  };
+    
+  $scope.removeCost = function() {
+    var lastCost = $scope.job.costs.length-1;
+    $scope.job.costs.splice(lastService);
+  };
+
+  $scope.calculateTotalCost= function(){
+    $scope.job.totalCost = 0;
+    $scope.job.costs.forEach(function(e){
+      $scope.job.totalCost += e.value; 
+    }) 
   };
 
 
+
+//LOAD DATE PICKER
+$(function() {
+    $( "#serviceDateAssigned" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  });
 
 
 //refresh Jobs on Load on load

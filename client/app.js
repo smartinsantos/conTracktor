@@ -1,5 +1,6 @@
 'use strict';
 window.$ = window.jQuery = require('jquery');
+require('jquery-ui');
 window.angular = require('angular');
 var ngAnimate = require('angular-animate');
 var ngAnimate_inOut = require('angular-ui-router-anim-in-out');
@@ -14,7 +15,8 @@ var uiRouter = require('angular-ui-router');
 window.app = angular.module('myApp', [
     'ui.router',
     'ngCookies',
-    'ngAnimate'
+    'ngAnimate',
+
   ]);
 
 app.value('manager',{value:false});

@@ -108,22 +108,11 @@ helpers.createWorker = function (attrs) {
 
 helpers.createJob = function (attrs) {
   console.log('Creating Job....');
-  
-  var jobAttrs = {
-    manager: attrs.manager,
-    propertie: attrs.propertie,
-    unit: attrs.unit,
-    notes: attrs.notes
-  };
+  var jobAttrs = attrs;
 
-console.log('Job Attrs',jobAttrs)
+console.log('Job Attrs', jobAttrs)
   
-  var job = new Job({
-    manager: attrs.manager,
-    propertie: attrs.propertie,
-    unit:attrs.unit,
-    notes:attrs.notes
-  });
+  var job = new Job(jobAttrs);
     return job.save(function(err){
       if (err){
         console.log('failed to create new job');

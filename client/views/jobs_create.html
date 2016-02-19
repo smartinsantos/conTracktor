@@ -55,27 +55,27 @@
       </div>
   </form>
 </div>
-
+  
 <div class="page-header col-xs-12">
   <h3 class ='text-center'>Services</h3>
-  <button class="btn btn-default center-block" type="button">Add Service</button>
+  <button class="btn btn-default center-block" ng-click = 'addNewService()' type="button">Add Service</button>
 </div>
 
-<div class = 'col-xs-10'>
-  
+<div class = 'col-xs-10' ng-repeat='service in job.services'>
+  <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeService()"><span aria-hidden="true">&times;</span></button>
+  <br><br>
   <form class="form-horizontal">
-      
       <div class="form-group">
         <label for="serviceItem" class="col-xs-2 control-label">Type</label>
         <div class="col-xs-10">
-          <input required ng-model="job.services.item" type="text" class="form-control" id="serviceItem" placeholder="Type">
+          <input required ng-model="service.item" type="text" class="form-control" id="serviceItem" placeholder="Type">
         </div>
       </div>
 
       <div class="form-group">
         <label for="serviceWorker" class="col-xs-2 control-label">Worker</label>
         <div class="col-xs-10">
-          <select ng-model = 'job.services.worker' class="form-control" id='serviceWorker'>
+          <select ng-model = 'service.worker' class="form-control" id='serviceWorker'>
             <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
             {{worker.first}} {{worker.last}}
             </option>
@@ -86,7 +86,7 @@
       <div class="form-group">
         <label for="servicePrice" class="col-xs-2 control-label">Price</label>
         <div class="col-xs-10">
-          <input required ng-model="job.services.price" type="text" class="form-control" id="servicePrice" placeholder="Price">
+          <input required ng-model="service.price" type="number" class="form-control" id="servicePrice" placeholder="Price">
         </div>
       </div>
 
@@ -94,39 +94,42 @@
       <div class="form-group">
         <label for="serviceDateAssigned" class="col-xs-2 control-label">Date Assigned</label>
         <div class="col-xs-10">
-          <input required ng-model="job.services.date_assigned" type="text" class="form-control" id="serviceDateAssigned" placeholder="Date Aassigned">
+          <input required ng-model="service.date_assigned" type="date" class="form-control" id="serviceDateAssigned" placeholder="Date Assigned">
         </div>
       </div>
 
       <div class="form-group">
         <label for="serviceDescription" class="col-xs-2 control-label">Description</label>
         <div class="col-xs-10">
-          <textarea ng-model='job.services.description' class="form-control" rows="5" class="form-control" id="serviceDescription" placeholder="Description..."></textarea>
+          <textarea ng-model='service.description' class="form-control" rows="5" class="form-control" id="serviceDescription" placeholder="Description..."></textarea>
         </div>
       </div>
   </form>
+  <!-- <button class="btn btn-warning left-block" ng-show="$last" ng-click="removeService()">Remove</button> -->
 </div>
 
 <div class="page-header col-xs-12">
   <h3 class ='text-center'>Costs</h3>
-  <button class="btn btn-default center-block" type="button">Add Cost</button>  
+  <button class="btn btn-default center-block" type="button" ng-click='addNewCost()'>Add Cost</button>  
 </div>
 
-<div class = 'col-xs-10'>
+<div class = 'col-xs-10' ng-repeat='cost in job.costs'>
   
+  <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeCost()"><span aria-hidden="true">&times;</span></button>
+  <br><br>
   <form class="form-horizontal">
-      
+    
       <div class="form-group">
         <label for="costItem" class="col-xs-2 control-label">Item</label>
         <div class="col-xs-10">
-          <input required ng-model="job.costs.item" type="text" class="form-control" id="costItem" placeholder="Item">
+          <input required ng-model="cost.item" type="text" class="form-control" id="costItem" placeholder="Item">
         </div>
       </div>
 
       <div class="form-group">
         <label for="costValue" class="col-xs-2 control-label">Value</label>
         <div class="col-xs-10">
-          <input required ng-model="job.costs.value" type="text" class="form-control" id="costValue" placeholder="Date Aassigned">
+          <input required ng-model="cost.value" type="number" class="form-control" id="costValue" placeholder="Value">
         </div>
       </div>
 
