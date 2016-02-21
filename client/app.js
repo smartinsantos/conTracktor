@@ -1,6 +1,5 @@
 'use strict';
 window.$ = window.jQuery = require('jquery');
-require('jquery-ui');
 window.angular = require('angular');
 var ngAnimate = require('angular-animate');
 var ngAnimate_inOut = require('angular-ui-router-anim-in-out');

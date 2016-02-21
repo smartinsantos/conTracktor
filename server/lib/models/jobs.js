@@ -24,8 +24,8 @@ var JobsSchema = new Schema({
     services:[ServiceSchema], 
     totalPrice: Number,
     totalCost:Number,
-    poNumber: { type : String, unique: true },
-    invoiceNumber: { type : String, unique: true },
+    poNumber: { type : String, unique: true, sparse:true },
+    invoiceNumber: { type : String, unique: true, sparse:true },
     notes: String,
     quote: String // Link to the quote PDF
 });
