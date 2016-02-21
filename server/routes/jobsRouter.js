@@ -11,7 +11,7 @@ var helpers = require('../helpers.js');
 
 
 // Get all projects for a user
-router.get('/', auth.requireAuth, function (req, res) {
+router.get('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
 // var isAdmin = req.session.passport.user.admin;
 
   Jobs.find({}, function (err, doc) {

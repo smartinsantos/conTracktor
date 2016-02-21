@@ -1,9 +1,9 @@
-app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers', function($scope,$state, Jobs,Properties,Admin,Workers) {
+app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager', function($scope,$state, Jobs,Properties,Admin,Workers,manager) {
   
   console.log('JobsCtrl Loaded....')
  
 //get all managers
-  $scope.admins = '';
+  $scope.admins = {};
 
   $scope.getAdmins = function() {
     Admin.getAll()
@@ -12,10 +12,9 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
     })
   };
 
-  $scope.getAdmins();
 
 //get all properties 
-  $scope.properties = '';
+  $scope.properties = {};
 
   $scope.getProperties = function() {
     Properties.getAll()
@@ -23,8 +22,6 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       $scope.properties = properties;
     })
   };
-
-  $scope.getProperties();
 
   $scope.getJobs = function() {
     Jobs.getAll()
@@ -34,7 +31,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   };
 
 //get all workers
-  $scope.workers = '';
+  $scope.workers = {};
 
     $scope.getWorkers = function() {
       Workers.getAll()
@@ -43,7 +40,12 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       })
     };
 
-  $scope.getWorkers();
+  //load admins, properties, workers on creating a job
+  if($state.current.name === 'main_private.jobs_create'){
+    $scope.getAdmins();
+    $scope.getProperties();
+    $scope.getWorkers();    
+  };
 
 
 //CREATE JOBS
@@ -51,6 +53,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   $scope.job = {};
 
   $scope.createJob = function (option) {
+
     if($scope.job.services.length > 0){
       $scope.calculateTotalServicePrice();
     };
