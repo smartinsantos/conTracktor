@@ -7,10 +7,79 @@
   <h3 class ='text-center'>Pending Jobs</h3>
 </div>
 
+<div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat = 'job in jobs |  filter: {date_completed:"!true"} '>
+    <div class="panel-heading" role="tab">
+      <h2 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
+          {{job.propertie.name}} {{job.unit}} {{job.manager.first}} {{job.manager.last}}
+        </a>
+      </h2>
+    </div>
+    <div id="{{job._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading">General:</h5>
+            <br>
+            <p class="list-group-item-text">Manager: {{job.manager.first}} {{job.manager.last}}</p>
+            <p class="list-group-item-text">Property: {{job.propertie.name}}</p>
+            <p class="list-group-item-text">Unit: {{job.unit}}</p>
+            <p class="list-group-item-text">Price: {{job.totalPrice}}</p>
+            <p class="list-group-item-text">Cost: {{job.totalCost}}</p>
+            <p class="list-group-item-text">Invoice Number: {{job.invoiceNumber}}</p>
+            <p class="list-group-item-text">poNumber: {{job.porNumber}}</p>
+            <!-- <p class="list-group-item-text">Quote: {{job.quote}}</p>  TO BE CHANGED-->
+            <p class="list-group-item-text">Notes: {{job.date_completed}}</p>            
+            <p class="list-group-item-text">Notes: {{job.notes}}</p>
+          </div>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading">Services:</h5>
+            <div ng-repeat = 'service in job.services'>
+              <br>
+              <p class="list-group-item-text">Service: {{service.item}}</p>
+              <p class="list-group-item-text">Worker: {{service.worker.first}} {{service.worker.last}}</p>
+              <p class="list-group-item-text">Date Requested: {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
+              <p class="list-group-item-text">Price: {{service.price}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading">Costs:</h5>
+            <div ng-repeat = 'cost in job.costs'>
+              <br>
+              <p class="list-group-item-text">Item: {{cost.item}}</p>
+              <p class="list-group-item-text">Value: {{cost.value}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="page-header col-xs-12">
   <h3 class ='text-center'>Completed Jobs</h3>
 </div>
 
+<div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat = 'job in jobs | filter: {date_completed:"true"}'>
+    <div class="panel-heading" role="tab">
+      <h2 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#jobs_completed_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
+          {{job.propertie.name}} {{job.unit}} {{job.manager.first}} {{job.manager.last}}
+        </a>
+      </h2>
+    </div>
+    <div id="{{job._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+<!--         COPY INFO ON TOP HERE
+ -->
 
-{{jobs}}
+      </div>
+    </div>
+  </div>
+</div>
