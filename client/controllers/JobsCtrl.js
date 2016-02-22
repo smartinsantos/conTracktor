@@ -3,7 +3,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   console.log('JobsCtrl Loaded....')
  
 //get all managers
-  $scope.admins = {};
+  $scope.admins = [];
 
   $scope.getAdmins = function() {
     Admin.getAll()
@@ -14,7 +14,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
 
 
 //get all properties 
-  $scope.properties = {};
+  $scope.properties = [];
 
   $scope.getProperties = function() {
     Properties.getAll()
@@ -23,15 +23,9 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
     })
   };
 
-  $scope.getJobs = function() {
-    Jobs.getAll()
-    .then(function(jobs){
-      $scope.jobs = jobs;
-    })
-  };
 
 //get all workers
-  $scope.workers = {};
+  $scope.workers = [];
 
     $scope.getWorkers = function() {
       Workers.getAll()
@@ -49,8 +43,15 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
 
 
 //CREATE JOBS
-  $scope.jobs = {};
+  $scope.jobs = [];
   $scope.job = {};
+
+  $scope.getJobs = function() {
+    Jobs.getAll()
+    .then(function(jobs){
+      $scope.jobs = jobs;
+    })
+  };
 
   $scope.createJob = function (option) {
 
