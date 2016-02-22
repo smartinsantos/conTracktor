@@ -18,6 +18,7 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
     var newWorker = $scope.worker;
     Workers.create(newWorker)
     .then(function(res){
+      $scope.worker = {};
       $('#workerModal').modal('toggle');
       $scope.getWorkers();
     })

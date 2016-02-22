@@ -1,11 +1,9 @@
-app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers', function($scope,$state, Jobs,Properties,Admin,Workers) {
+app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager', function($scope,$state, Jobs,Properties,Admin,Workers,manager) {
   
   console.log('JobsCtrl Loaded....')
-
-
  
 //get all managers
-  $scope.admins = '';
+  $scope.admins = {};
 
   $scope.getAdmins = function() {
     Admin.getAll()
@@ -14,10 +12,9 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
     })
   };
 
-  $scope.getAdmins();
 
 //get all properties 
-  $scope.properties = '';
+  $scope.properties = {};
 
   $scope.getProperties = function() {
     Properties.getAll()
@@ -25,8 +22,6 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       $scope.properties = properties;
     })
   };
-
-  $scope.getProperties();
 
   $scope.getJobs = function() {
     Jobs.getAll()
@@ -36,7 +31,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   };
 
 //get all workers
-  $scope.workers = '';
+  $scope.workers = {};
 
     $scope.getWorkers = function() {
       Workers.getAll()
@@ -45,20 +40,42 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       })
     };
 
-  $scope.getWorkers();
+  //load admins, properties, workers on creating a job
+  if($state.current.name === 'main_private.jobs_create'){
+    $scope.getAdmins();
+    $scope.getProperties();
+    $scope.getWorkers();    
+  };
 
 
 //CREATE JOBS
   $scope.jobs = {};
   $scope.job = {};
 
-  $scope.createJob = function () {
-    $scope.calculateTotalServicePrice();
-    $scope.calculateTotalCost();
+  $scope.createJob = function (option) {
+
+    if($scope.job.services.length > 0){
+      $scope.calculateTotalServicePrice();
+    };
+    if($scope.job.costs.length > 0 ){
+      $scope.calculateTotalCost();
+    };
     var newJob = $scope.job;
     Jobs.create(newJob)
     .then(function(res){
-    
+      //if created clean scope choose addother or goback
+      if(res){
+         $scope.job = {};   
+        if(option === 'goBack'){
+          //go to jobs
+          $state.go('main_private.jobs');
+        }else{
+          //reload current and refresh scope
+          $state.reload('main_private.jobs_create');
+        }
+      }else{
+        // TODO display error message on dom
+      }      
     })
     .catch(function(err){
       console.log('error ocurred: ', err);
@@ -96,7 +113,7 @@ $scope.job.costs = [];
     
   $scope.removeCost = function() {
     var lastCost = $scope.job.costs.length-1;
-    $scope.job.costs.splice(lastService);
+    $scope.job.costs.splice(lastCost);
   };
 
   $scope.calculateTotalCost= function(){
@@ -107,18 +124,7 @@ $scope.job.costs = [];
   };
 
 
-
-//LOAD DATE PICKER
-$(function() {
-    $( "#serviceDateAssigned" ).datepicker({
-      changeMonth: true,
-      changeYear: true
-    });
-  });
-
-
 //refresh Jobs on Load on load
   $scope.getJobs();
-
 
 }]);
