@@ -113,7 +113,7 @@ $scope.job.costs = [];
     
   $scope.removeCost = function() {
     var lastCost = $scope.job.costs.length-1;
-    $scope.job.costs.splice(lastService);
+    $scope.job.costs.splice(lastCost);
   };
 
   $scope.calculateTotalCost= function(){
