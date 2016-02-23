@@ -119,7 +119,10 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       authenticate: true,
       templateUrl: 'views/jobs_edit.html',
       controller: 'JobsEditCtrl',
-      params:{sessionId:null}
+      params: {
+        sessionId:null,
+        job:[]
+      }
     })
 
     .state('main_private.jobs_manager', {

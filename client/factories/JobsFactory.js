@@ -13,8 +13,8 @@ var getAll = function(){
 
   var getOne = function(jobId){
     return $http.get('/jobs/' + jobId)
-    .then(function(response){
-      return response;
+    .then(function(res){
+      return res.data;
     })
     .catch(function(err){
       console.log('getJobs err: ', err);
@@ -23,8 +23,8 @@ var getAll = function(){
 
   var create = function (newJob){
     return $http.post('/jobs/', newJob)
-    .then(function(response){
-      return response;
+    .then(function(res){
+      return res;
     })
     .catch(function(err){
       console.log('createJob err: ', err);
@@ -34,8 +34,8 @@ var getAll = function(){
   var edit = function(jobInfo){
     var jobId = jobInfo._id;
     return $http.put('/jobs/'+ jobId, jobInfo)
-    .then(function(response){
-      return response;
+    .then(function(res){
+      return res;
     })
     .catch(function(err){
       console.log('editJob err: ', err);

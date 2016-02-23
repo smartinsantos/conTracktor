@@ -11,7 +11,6 @@ var ServiceSchema = new Schema({
     description:String,
     worker: { type: Schema.Types.ObjectId, ref:'Worker'}, //Saves Worker ID 
     date_assigned: Date,
-    date_completed: Date,
     price:Number
 });
 
@@ -27,7 +26,8 @@ var JobsSchema = new Schema({
     poNumber: { type : String, unique: true, sparse:true },
     invoiceNumber: { type : String, unique: true, sparse:true },
     notes: String,
-    quote: String // Link to the quote PDF
+    quote: String, // Link to the quote PDF
+    date_completed: Date
 });
 
 
