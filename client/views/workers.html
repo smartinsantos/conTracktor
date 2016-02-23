@@ -76,14 +76,16 @@
       </tr>
       <tr ng-repeat = 'worker in workers'>
         <td>{{worker.first}}  {{worker.last}}</td>
-        <td>{{worker.email}}</td>
+        <td><a href="mailto:{{worker.email}}">{{worker.email}}</a></td>
         <td>{{worker.phone}}</td>
         <td>
+          <address>
           {{worker.address.street}}
           {{worker.address.street2}}
           {{worker.address.city}}
           {{worker.address.state}}
           {{worker.address.zip}}
+          </address>
         </td>
         <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'>Edit</button></td>
       </tr>

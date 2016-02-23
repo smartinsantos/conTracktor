@@ -61,13 +61,20 @@
       </tr>
       <tr ng-repeat = 'property in properties'>
         <td>{{property.name}}</td>
-        <td>{{property.contacts.name}} {{property.contacts.phone}} {{property.contacts.email}} </td>
+        <td><p>Name: {{property.contacts.name}}</p> 
+            <p>Phone: {{property.contacts.phone}}</p> 
+            <address>
+              <p>email: <a href="mailto:{{property.contacts.email}}">{{property.contacts.email}}</a></p>
+              </address> 
+        </td>
         <td>
+          <address>
           {{property.address.street}}
           {{property.address.street2}}
           {{property.address.city}}
           {{property.address.state}}
           {{property.address.zip}}
+          </address>
         </td>
         <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
       </tr>

@@ -86,7 +86,7 @@
       </tr>
       <tr ng-repeat = 'admin in admins'>
         <td>{{admin.first}}  {{admin.last}}</td>
-        <td>{{admin.email}}</td>
+        <td><a href="mailto:{{admin.email}}">{{admin.email}}</a></td>
         <td>{{admin.phone}}</td>
         <td>{{admin.admin}}</td>
         <td><button class='btn center-block btn-info' ui-sref = 'main_private.managers_edit({id:admin._id})'>Edit</button></td>
