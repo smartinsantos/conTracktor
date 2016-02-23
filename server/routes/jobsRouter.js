@@ -39,8 +39,6 @@ router.get('/:jobId', auth.requireAuth, function (req, res) {
     }
     return doc;
   })
-  .populate('manager','first last email phone _id')
-  .populate('propertie')
   .then(function(job){
     res.status(200).json(job);
   })

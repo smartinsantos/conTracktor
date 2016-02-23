@@ -8,7 +8,7 @@
 </div>
 
 <div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs |  filter: {date_completed:"!true"} '>
+  <div class="panel panel-default" ng-repeat = 'job in jobs' ng-if='!job.date_completed'>
     <div class="panel-heading" role="tab">
       <h2 class="panel-title">
         <div class='row' role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
@@ -22,7 +22,7 @@
       <div class="panel-body">
         <div class="list-group">
         <div class="list-group-item">
-          <button class='btn center-block btn-info' ui-sref = 'main_private.jobs_edit({id:job._id, job:job})'>Edit Job</button>
+          <button class='btn center-block btn-info' ui-sref = 'main_private.jobs_edit({id:job._id})'>Edit Job</button>
         </div>  
           <div class="list-group-item">
             <h5 class="list-group-item-heading"><strong>General:</strong></h5>
@@ -37,6 +37,9 @@
             <p class="list-group-item-text"><strong>Quote:</strong> <a href='{{job.quote}}'>{{job.quote}}</a></p>
             <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
             <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
+            <div>
+              <p class="list-group-item-text"><strong>Attachments:</strong>To Be Implemented...</p>
+            </div>
           </div>
         </div>
         <div class="list-group">
@@ -71,7 +74,7 @@
 </div>
 
 <div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs | filter: {date_completed:"true"}'>
+  <div class="panel panel-default" ng-repeat = 'job in jobs' ng-if='job.date_completed'>
     <div class="panel-heading" role="tab">
       <h2 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#jobs_completed_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
@@ -81,8 +84,7 @@
     </div>
     <div id="{{job._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
-<!--         COPY INFO ON TOP HERE
- -->
+
 
       </div>
     </div>

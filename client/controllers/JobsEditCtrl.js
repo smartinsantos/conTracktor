@@ -4,7 +4,16 @@ app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','W
 
 //get all managers
   $scope.admins = [];
-  $scope.job = $state.params.job;
+  $scope.job = {};
+
+  $scope.getJob = function(){
+    Jobs.getOne($state.params.id)
+    .then(function(job){
+      $scope.job = job;
+    })
+  }
+
+  $scope.getJob()
 
   $scope.getAdmins = function() {
     Admin.getAll()
@@ -41,6 +50,8 @@ app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','W
   $scope.getWorkers();    
 
 
+//ADD-REMOVE SERVICES  
+
 $scope.addNewService = function() {
     var newService = $scope.job.services.length+1;
     $scope.job.services.push({});
@@ -58,9 +69,7 @@ $scope.addNewService = function() {
     }); 
   };
 
-//ADD-REMOVE COSTS
-$scope.job.costs = [];
-  
+//ADD-REMOVE COSTS  
   $scope.addNewCost = function() {
     var newCost = $scope.job.costs.length+1;
     $scope.job.costs.push({});
