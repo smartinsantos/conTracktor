@@ -1,23 +1,14 @@
 <div class="page-header">
-  <h1 class ='text-center'>Jobs Edit</h1> 
-{{job}}
+  <h1 class ='text-center'>Job Edit</h1> 
 </div>
 
 <div class = 'col-xs-10'>
   <form class="form-horizontal">
-      
       <div class="form-group">
-        <label for="jobManager1" class="col-xs-2 control-label">Current Manager</label>
+        <label for="jobManager2" class="col-xs-2 control-label">Manager</label>
         <div class="col-xs-10">
-        <span id='jobManager1'>{{job.manager.first}} {{job.manager.last}}</span>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="jobManager3" class="col-xs-2 control-label">Change Manager</label>
-        <div class="col-xs-10">
-          <select ng-model = 'job.manager' class="form-control" id='jobManager3'>
-            <option  value='{{admin._id}}' ng-repeat ='admin in admins'>
+          <select ng-model = 'job.manager' class="form-control" id='jobManager2'>
+            <option  value='{{admin._id}}' ng-repeat ='admin in admins' ng-selected="{{job.manager == admin._id}}">
             {{admin.first}} {{admin.last}}
             </option>
           </select>
@@ -25,10 +16,10 @@
       </div>
 
       <div class="form-group">
-        <label for="jobProperty" class="col-xs-2 control-label">Property</label>
+        <label for="jobProperty2" class="col-xs-2 control-label">Property</label>
         <div class="col-xs-10">
-          <select ng-model = 'job.propertie' class="form-control" id='jobProperty'>
-            <option  value = '{{property._id}}' ng-repeat ='property in properties'>
+          <select ng-model = 'job.propertie' class="form-control" id='jobProperty2'>
+            <option  value = '{{property._id}}' ng-repeat ='property in properties' ng-selected="{{job.propertie == property._id}}">
             {{property.name}}
             </option>
           </select>
@@ -62,8 +53,19 @@
           <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
         </div>
       </div>
+      <div class="form-group">
+        <label for="jobDateCompleted2" class="col-xs-2 control-label">Date Completed</label>
+        <div class="col-xs-10">
+          <input required ng-model="job.date_completed" type="date" class="form-control" id="jobDateCompleted2" placeholder="Date Requested" format-date>
+        </div>
+      </div>
   </form>
 </div>
+
+<div class="page-header col-xs-12">
+  <h3 class ='text-center'>Attachments To Be Implemented...</h3>
+</div>
+
   
 <div class="page-header col-xs-12">
   <h3 class ='text-center'>Services</h3>
@@ -85,7 +87,7 @@
         <label for="serviceWorker" class="col-xs-2 control-label">Worker</label>
         <div class="col-xs-10">
           <select ng-model = 'service.worker' class="form-control" id='serviceWorker'>
-            <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
+            <option  value = '{{worker._id}}' ng-repeat ='worker in workers' ng-selected="{{service.worker == worker._id}}">
             {{worker.first}} {{worker.last}}
             </option>
           </select>
@@ -100,12 +102,12 @@
       </div>
 
 
-<!--       <div class="form-group">
+      <div class="form-group">
         <label for="serviceDateAssigned" class="col-xs-2 control-label">Date Requested</label>
         <div class="col-xs-10">
-          <input required ng-model="service.date_assigned" type="date" class="form-control" id="serviceDateAssigned" placeholder="Date Requested">
+          <input required ng-model="service.date_assigned" type="date" class="form-control" id="serviceDateAssigned" placeholder="Date Requested" format-date>
         </div>
-      </div> -->
+      </div>
 
       <div class="form-group">
         <label for="serviceDescription" class="col-xs-2 control-label">Description</label>
@@ -146,8 +148,7 @@
 </div>
 
 <div class="modal-footer col-xs-12">
-  <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Back to Jobs</button>
-  <button type="button" class="btn btn-info" ng-click = 'createJob()'>Add Other</button>
-  <button type="button" class="btn btn-primary" ng-click = 'createJob("goBack")'>Save & Continue</button>
+  <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Go Back</button>
+  <button type="button" class="btn btn-primary" ng-click = 'editJob()'>Save Changes</button>
 </div>
 

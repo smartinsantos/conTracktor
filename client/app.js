@@ -119,10 +119,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       authenticate: true,
       templateUrl: 'views/jobs_edit.html',
       controller: 'JobsEditCtrl',
-      params: {
-        sessionId:null,
-        job:[]
-      }
+      params: {sessionId:null}
     })
 
     .state('main_private.jobs_manager', {
@@ -174,6 +171,22 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
 });
+
+  app.directive("formatDate", function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elem, attr, modelCtrl) {
+            modelCtrl.$formatters.push(function(modelValue) {
+                if (modelValue){
+                    return new Date(modelValue);
+                }
+                else {
+                    return null;
+                }
+            });
+        }
+    };
+  });
 
 require('./factories');
 require('./controllers');

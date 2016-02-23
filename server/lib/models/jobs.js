@@ -6,6 +6,11 @@ var CostSchema = new Schema({
     value: Number
 });
 
+var AttachmentsSchema = new Schema({
+    item: String,
+    url: String
+})
+
 var ServiceSchema = new Schema({
     item: String, // maybe another Schema [] to be able to search for this criteria
     description:String,
@@ -26,8 +31,8 @@ var JobsSchema = new Schema({
     poNumber: { type : String, unique: true, sparse:true },
     invoiceNumber: { type : String, unique: true, sparse:true },
     notes: String,
-    quote: String, // Link to the quote PDF
-    date_completed: Date
+    date_completed: Date,
+    attachments: [AttachmentsSchema]
 });
 
 
