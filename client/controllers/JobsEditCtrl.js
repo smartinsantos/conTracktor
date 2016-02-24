@@ -11,9 +11,36 @@ app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','W
     .then(function(job){
       $scope.job = job;
     })
-  }
+  };
 
   $scope.getJob()
+
+  $scope.editJob = function(){
+    var jobInfo = $scope.job;
+    Jobs.edit(jobInfo)
+    .then(function(res){
+      $state.go('main_private.jobs');
+    })
+    .catch(function(err){
+    console.log('error ocurred: ', err);
+    })
+  };
+
+  $scope.deleteJob = function(){
+    var jobId = $state.params.id;
+    Jobs.deleteJob(jobId)
+    .then(function(res){
+      //Work around to fix modal bug were still fading app after toggle
+      $('div.modal').removeClass('fade').addClass('hidden');
+      $('body').removeClass('modal-open');
+      $('.modal-backdrop').remove();
+      $state.go('main_private.jobs');
+    })
+    .catch(function(err){
+      console.log('error ocurred: ', err);
+    }); 
+
+  };
 
   $scope.getAdmins = function() {
     Admin.getAll()

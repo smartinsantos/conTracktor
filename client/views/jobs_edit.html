@@ -150,5 +150,24 @@
 <div class="modal-footer col-xs-12">
   <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Go Back</button>
   <button type="button" class="btn btn-primary" ng-click = 'editJob()'>Save Changes</button>
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteJob" >Delete</button>
 </div>
 
+
+<div class="modal fade" id="deleteJob" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Job </h4>
+      </div>
+      <div class="modal-body">
+        <p>Warning! This Action Can't Be Undone!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteJob()'>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
