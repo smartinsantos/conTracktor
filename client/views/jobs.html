@@ -22,7 +22,10 @@
       <div class="panel-body">
         <div class="list-group">
         <div class="list-group-item">
-          <button class='btn center-block btn-info' ui-sref = 'main_private.jobs_edit({id:job._id})'>Edit Job</button>
+          <ul class="nav nav-pills nav-justified">
+            <li role="presentation" ui-sref = 'main_private.jobs_edit({id:job._id})'><a href="#">Edit Job</a></li>
+            <li role="presentation"><a href="#">Send To Worker</a></li>
+          </ul>
         </div>  
           <div class="list-group-item">
             <h5 class="list-group-item-heading"><strong>General:</strong></h5>
