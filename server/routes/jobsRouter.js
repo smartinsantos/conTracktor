@@ -23,6 +23,7 @@ router.get('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
   })
   .populate('manager','first last email phone _id')
   .populate('propertie')
+  .populate('services.worker')
   .then(function(jobs){
     res.status(200).json(jobs);
   })

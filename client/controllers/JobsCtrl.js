@@ -34,14 +34,11 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       })
     };
 
-  //load admins, properties, workers on creating a job
-  if($state.current.name === 'main_private.jobs_create'){
-    $scope.getAdmins();
-    $scope.getProperties();
-    $scope.getWorkers();    
-  };
-
-
+  //load admins, properties
+  $scope.getAdmins();
+  $scope.getProperties();
+  $scope.getWorkers();    
+ 
 //CREATE JOBS
   $scope.jobs = [];
   $scope.job = {};

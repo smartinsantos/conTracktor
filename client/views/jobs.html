@@ -5,10 +5,48 @@
 
 <div class="page-header col-xs-12">
   <h3 class ='text-center'>Pending Jobs</h3>
+  
+  <div class="form-group col-xs-8 col-xs-offset-2 text-center">
+    <label for="searchJobBox1">Filter</label>
+    <input ng-model = 'job.$' type="text" class="form-control" id="searchJobBox1" placeholder="Quick Filter...">
+  </div>
+  <div class="form-group col-xs-2 col-xs-offset-3 text-center">
+    <label for="jobPropertyFilter" class="col-xs-2 control-label">Property</label>
+    <div>
+      <select ng-model = 'job.propertie._id' class="form-control" id='jobPropertyFilter'>
+        <option></option>
+        <option  value = '{{property._id}}' ng-repeat ='property in properties'>
+        {{property.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group col-xs-2 text-center">
+    <label for="jobWorkerFilter" class="col-xs-2 control-label">Worker</label>
+    <div>
+      <select ng-model = 'job.services.worker._id' class="form-control" id='jobWorkerFilter'>
+        <option></option>
+        <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
+        {{worker.first}} {{worker.last}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group col-xs-2 text-center">
+    <label for="jobManagerFilter" class="col-xs-2 control-label">Manager</label>
+    <div>
+      <select ng-model = 'job.manager._id' class="form-control" id='jobManagerFilter'>
+        <option></option>
+        <option  value = '{{admin._id}}' ng-repeat ='admin in admins'>
+        {{admin.first}} {{admin.last}}
+        </option>
+      </select>
+    </div>
+  </div>
 </div>
 
-<div class="panel-group row col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs' ng-if='!job.date_completed'>
+<div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat = 'job in jobs| filter:job:strict' ng-if='!job.date_completed' >
     <div class="panel-heading" role="tab">
       <h2 class="panel-title">
         <div class='row' role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
@@ -74,10 +112,14 @@
 
 <div class="page-header col-xs-12">
   <h3 class ='text-center'>Completed Jobs</h3>
+  <div class="form-group col-xs-8 col-xs-offset-2 text-center">
+    <label for="searchJobBox2">Filter</label>
+    <input ng-model = 'searchJobBox2' type="text" class="form-control" id="searchJobBox2" placeholder="Quick Filter...">
+  </div>
 </div>
 
 <div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs' ng-if='job.date_completed'>
+  <div class="panel panel-default" ng-repeat = 'job in jobs |filter:searchJobBox2' ng-if='job.date_completed'>
     <div class="panel-heading" role="tab">
       <h2 class="panel-title">
         <div class='row' role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
