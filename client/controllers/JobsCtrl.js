@@ -3,7 +3,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   console.log('JobsCtrl Loaded....')
  
  $scope.filter = {};
- 
+
 //get all managers
   $scope.admins = [];
 
@@ -47,6 +47,20 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
 
   $scope.getJobs = function() {
     Jobs.getAll()
+    .then(function(jobs){
+      $scope.jobs = jobs;
+    })
+  };
+
+  $scope.getJobsIncompleted = function() {
+    Jobs.getIncompleted()
+    .then(function(jobs){
+      $scope.jobs = jobs;
+    })
+  };
+
+  $scope.getJobsCompleted = function(startDate,endDate) {
+    Jobs.getCompleted(startDate,endDate)
     .then(function(jobs){
       $scope.jobs = jobs;
     })
@@ -123,8 +137,9 @@ $scope.job.costs = [];
     }) 
   };
 
-
 //refresh Jobs on Load on load
-  $scope.getJobs();
+  if ($state.current.name === 'main_private.jobs'){
+    $scope.getJobsIncompleted();
+  }
 
 }]);

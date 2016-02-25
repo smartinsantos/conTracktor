@@ -32,6 +32,51 @@ router.get('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
   });
 });
 
+router.get('/incompleted', auth.requireAuth,auth.requireAdmin, function (req, res) {
+
+  Jobs.find({date_completed:{$exists:false}}, function (err, doc) {
+    if (err){ 
+      console.log('error getting Jobs',err);
+      return err;
+    };
+    return doc;
+  })
+  .populate('manager','first last email phone _id')
+  .populate('propertie')
+  .populate('services.worker')
+  .then(function(jobs){
+    res.status(200).json(jobs);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  });
+});
+
+router.get('/completed/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
+  //parse param dateQuery to Obj  
+  var dateInfo = helpers.paramParser(req.params.dateQuery)
+  //transform object into dates
+  var startDate = new Date(dateInfo.startDate);
+  var endDate = new Date(dateInfo.endDate);
+
+  Jobs.find({date_completed:{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
+    if (err){ 
+      console.log('error getting Jobs',err);
+      return err;
+    };
+    return doc;
+  })
+  .populate('manager','first last email phone _id')
+  .populate('propertie')
+  .populate('services.worker')
+  .then(function(jobs){
+    res.status(200).json(jobs);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  });
+});
+
 router.get('/:jobId', auth.requireAuth, function (req, res) {
   Jobs.findOne({'_id':req.params.jobId}, function(err,doc){
     if(err){
@@ -48,6 +93,7 @@ router.get('/:jobId', auth.requireAuth, function (req, res) {
   })
 
 });
+
 
 router.post('/', auth.requireAuth, function (req, res) {
   

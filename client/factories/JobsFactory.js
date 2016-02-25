@@ -21,6 +21,31 @@ var getAll = function(){
     });
   }
 
+  var getIncompleted = function(){
+    return $http.get('/jobs/incompleted')
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('getJobs incompleted err: ', err);
+    });
+  };
+
+  var getCompleted = function(startDate,endDate){
+    var startDate = startDate.toJSON()
+    var endDate = endDate.toJSON()
+    var dateQuery = jQuery.param({startDate:startDate,endDate:endDate});
+
+    return $http.get('/jobs/completed/' + dateQuery)
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('getJobs completed err: ', err);
+    });
+
+  }
+
   var create = function (newJob){
     return $http.post('/jobs/', newJob)
     .then(function(res){
@@ -56,6 +81,8 @@ var getAll = function(){
   create:create,
   getAll:getAll,
   getOne:getOne,
+  getIncompleted:getIncompleted,
+  getCompleted:getCompleted,
   edit:edit,
   deleteJob:deleteJob
   };
