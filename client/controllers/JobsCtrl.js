@@ -2,6 +2,8 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   
   console.log('JobsCtrl Loaded....')
  
+ $scope.filter = {};
+ 
 //get all managers
   $scope.admins = [];
 
