@@ -1,6 +1,5 @@
 <div class="page-header">
-  <h1 class ='text-center'>In Progress Jobs</h1><br>
-    <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_create">Add new</button>
+  <h1 class ='text-center'>Completed Jobs</h1>
 </div>
 
 <div class="page-header col-xs-12"> 
@@ -42,11 +41,12 @@
     </div>
   </div>
 </div>
-<div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs| filter: filter:strict' ng-if='!job.date_completed' >
+
+<div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat = 'job in jobs| filter:filter:strict' ng-show='job.date_completed'>
     <div class="panel-heading" role="tab">
       <h2 class="panel-title">
-        <div class='row' role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
+        <div class='row' role="button" data-toggle="collapse" data-parent="#jobs_completed_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
           <span class='col-xs-4'>Property: {{job.propertie.name}}</span> 
           <span class='col-xs-2 col-xs-offset-1'>Unit: {{job.unit}}</span> 
           <span class='col-xs-4 col-xs-offset-1'>Manager: {{job.manager.first}} {{job.manager.last}}</span>
@@ -59,7 +59,6 @@
         <div class="list-group-item">
           <ul class="nav nav-pills nav-justified">
             <li role="presentation" ui-sref = 'main_private.jobs_edit({id:job._id})'><a href="#">Edit Job</a></li>
-            <li role="presentation"><a href="#">Send To Worker</a></li>
           </ul>
         </div>  
           <div class="list-group-item">
@@ -74,7 +73,7 @@
             <p class="list-group-item-text"><strong>poNumber:</strong> {{job.porNumber}}</p>
             <p class="list-group-item-text"><strong>Quote:</strong> <a href='{{job.quote}}'>{{job.quote}}</a></p>
             <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
-            <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
+            <p class="list-group-item-text"><strong>Job Completed:</strong> {{job.date_completed |  date:'MM-dd-yyyy'}}</p>
             <div>
               <p class="list-group-item-text"><strong>Attachments:</strong> To Be Implemented...</p>
             </div>
@@ -106,5 +105,4 @@
     </div>
   </div>
 </div>
-
 
