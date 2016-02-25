@@ -59,7 +59,8 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
     })
   };
 
-  $scope.getJobsCompleted = function() {
+  $scope.getJobsCompleted = function(startDate,endDate) {
+   console.log('getting Completed: ', startDate, endDate)
     Jobs.getCompleted()
     .then(function(jobs){
       $scope.jobs = jobs;
@@ -137,12 +138,9 @@ $scope.job.costs = [];
     }) 
   };
 
-console.log($state.current)
 //refresh Jobs on Load on load
   if ($state.current.name === 'main_private.jobs'){
     $scope.getJobsIncompleted();
-  }else if ($state.current.name === 'main_private.jobs_completed'){
-    $scope.getJobsCompleted();
   }
 
 }]);
