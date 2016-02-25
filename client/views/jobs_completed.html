@@ -43,7 +43,7 @@
 </div>
 
 <div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs| filter:filter:strict' ng-show='job.date_completed'>
+  <div class="panel panel-default" ng-repeat = 'job in jobs| filter:filter:strict'>
     <div class="panel-heading" role="tab">
       <h2 class="panel-title">
         <div class='row' role="button" data-toggle="collapse" data-parent="#jobs_completed_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
