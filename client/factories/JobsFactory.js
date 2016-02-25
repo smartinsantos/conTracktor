@@ -31,8 +31,12 @@ var getAll = function(){
     });
   };
 
-  var getCompleted = function(){
-    return $http.get('/jobs/completed')
+  var getCompleted = function(startDate,endDate){
+    var startDate = startDate.toJSON()
+    var endDate = endDate.toJSON()
+    var dateQuery = jQuery.param({startDate:startDate,endDate:endDate});
+
+    return $http.get('/jobs/completed/' + dateQuery)
     .then(function(res){
       return res.data;
     })

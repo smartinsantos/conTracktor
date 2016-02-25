@@ -60,8 +60,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   };
 
   $scope.getJobsCompleted = function(startDate,endDate) {
-   console.log('getting Completed: ', startDate, endDate)
-    Jobs.getCompleted()
+    Jobs.getCompleted(startDate,endDate)
     .then(function(jobs){
       $scope.jobs = jobs;
     })

@@ -33,7 +33,7 @@ router.get('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
 });
 
 router.get('/incompleted', auth.requireAuth,auth.requireAdmin, function (req, res) {
-console.log('IAM ON!! on /incompleted')
+
   Jobs.find({date_completed:{$exists:false}}, function (err, doc) {
     if (err){ 
       console.log('error getting Jobs',err);
@@ -52,10 +52,14 @@ console.log('IAM ON!! on /incompleted')
   });
 });
 
-router.get('/completed', auth.requireAuth,auth.requireAdmin, function (req, res) {
-  console.log('I AM ON!! on /completed')
+router.get('/completed/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
+  //parse param dateQuery to Obj  
+  var dateInfo = helpers.paramParser(req.params.dateQuery)
+  //transform object into dates
+  var startDate = new Date(dateInfo.startDate);
+  var endDate = new Date(dateInfo.endDate);
 
-  Jobs.find({date_completed:{$exists:true}}, function (err, doc) {
+  Jobs.find({date_completed:{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
     if (err){ 
       console.log('error getting Jobs',err);
       return err;
