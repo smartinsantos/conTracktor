@@ -5,6 +5,15 @@ $grid-float-breakpoint: 720px;
 @import '_bootstrap-sprockets.scss';
 @import '_bootstrap.scss';
 
+
+
 .page-header {
   margin-top: 0px;
 }
+
+//Validation for forms
+.validation-error {
+    height: 20px;
+    color: #dc2c0f;
+    font-size: 12px;
+  }

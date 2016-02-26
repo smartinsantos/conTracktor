@@ -15,7 +15,7 @@ window.app = angular.module('myApp', [
     'ui.router',
     'ngCookies',
     'ngAnimate',
-
+    'ngMessages'
   ]);
 
 app.value('manager',{value:false});

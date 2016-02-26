@@ -1,27 +1,50 @@
 <br>
-<form class="form-horizontal">
-  <div class="form-group">
+<form name = 'signInForm' class="form-horizontal">
+  
+  <div class="form-group" ng-class="{ 'has-error': signInForm.email.$touched && signInForm.email.$invalid }">
     <label for="inputEmail1" class="col-xs-2 control-label">Email</label>
     <div class="col-xs-6">
-      <input required ng-model="admin.email" type="email" class="form-control" id="inputEmail1" placeholder="Email">
+      <input name = 'email' 
+        required 
+        ng-minlength="7" 
+        ng-model="admin.email" 
+        type="email" 
+        class="form-control" 
+        id="inputEmail1" 
+        placeholder="Email">
+    </div>
+
+    <div class="help-block" ng-messages="signInForm.email.$error" ng-if="signInForm.email.$touched">
+      <p ng-message="minlength">Your email is too short.</p>
+      <p ng-message="required">Your email is required.</p>
     </div>
   </div>
-  <div class="form-group">
+  
+  <div class="form-group" ng-class="{ 'has-error': signInForm.email.$touched && signInForm.email.$invalid }">
     <label for="inputPassword1" class="col-xs-2 control-label">Password</label>
     <div class="col-xs-6">
-      <input required ng-model="admin.password" type="password" class="form-control" id="inputPassword1" placeholder="Password">
+      <input name = 'password'
+      required 
+      ng-model="admin.password" 
+      type="password" 
+      class="form-control" 
+      id="inputPassword1" 
+      placeholder="Password">
+    </div>
+
+    <div class="help-block" ng-messages="signInForm.password.$error" ng-if="signInForm.password.$touched">
+      <p ng-message="required">Your password is required.</p>
     </div>
   </div>
   <div class="form-group">
     <div class="col-xs-offset-2 col-xs-10">
-      <button ng-click = 'signInAdmin()' type="submit" class="btn btn-default">Sign in</button>
+      <button ng-class="{ 'disabled': !admin.email || !admin.password}" ng-click = 'signInAdmin()' type="submit" class="btn btn-default">Sign in</button>
       <br>
       <br>
       <p>Create Admin <a ui-sref='main_public.create'>Here!</a></p>
     </div>
   </div>
 </form>
-
 
 
 
