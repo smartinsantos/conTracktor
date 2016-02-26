@@ -23,7 +23,7 @@
     <label for="jobWorkerFilter" class="col-xs-2 control-label">Worker</label>
     <div>
       <select ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
-        <option></option>
+        <option value = ''></option>
         <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
         {{worker.first}} {{worker.last}}
         </option>

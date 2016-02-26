@@ -2,7 +2,8 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   
   console.log('JobsCtrl Loaded....')
  
- $scope.filter = {};
+ //filter object for job 'search'
+  $scope.filter = {};
 
 //get all managers
   $scope.admins = [];
@@ -59,8 +60,8 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
     })
   };
 
-  $scope.getJobsCompleted = function(startDate,endDate) {
-    Jobs.getCompleted(startDate,endDate)
+  $scope.getJobsCompletedByDate = function(startDate,endDate) {
+    Jobs.getCompletedByDate(startDate,endDate)
     .then(function(jobs){
       $scope.jobs = jobs;
     })
@@ -140,6 +141,11 @@ $scope.job.costs = [];
 //refresh Jobs on Load on load
   if ($state.current.name === 'main_private.jobs'){
     $scope.getJobsIncompleted();
-  }
+  }else if($state.current.name === 'main_private.jobs_completed'){
+    //default values for dates on state load
+    $scope.endDate = new Date();
+    $scope.startDate = new Date();
+    $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+  };
 
 }]);
