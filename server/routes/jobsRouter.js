@@ -58,7 +58,6 @@ router.get('/completed/:dateQuery', auth.requireAuth,auth.requireAdmin, function
   //transform object into dates
   var startDate = new Date(dateInfo.startDate);
   var endDate = new Date(dateInfo.endDate);
-
   Jobs.find({date_completed:{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
     if (err){ 
       console.log('error getting Jobs',err);

@@ -31,7 +31,8 @@ var getAll = function(){
     });
   };
 
-  var getCompleted = function(startDate,endDate){
+  var getCompletedByDate = function(startDate,endDate){
+    //Transform Dates to 
     var startDate = startDate.toJSON()
     var endDate = endDate.toJSON()
     var dateQuery = jQuery.param({startDate:startDate,endDate:endDate});
@@ -82,7 +83,7 @@ var getAll = function(){
   getAll:getAll,
   getOne:getOne,
   getIncompleted:getIncompleted,
-  getCompleted:getCompleted,
+  getCompletedByDate:getCompletedByDate,
   edit:edit,
   deleteJob:deleteJob
   };

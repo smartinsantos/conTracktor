@@ -16,7 +16,7 @@
         <input required ng-model="endDate" type="date" class="form-control" id="jobSearchEnd" placeholder="Date Requested" format-date>
       </div>
     </div>
-    <button class="btn btn-default center-block" type="button" ng-click='getJobsCompleted(startDate,endDate)'>Get Jobs</button><br>
+    <button class="btn btn-default center-block" type="button" ng-click='getJobsCompletedByDate(startDate,endDate)'>Get Jobs</button><br>
   </div> 
 </div>
 <div class="page-header col-xs-12">
@@ -28,7 +28,6 @@
       <label for="jobPropertyFilter" class="col-xs-2 control-label">Property</label>
       <div>
         <select ng-model = 'filter.propertie._id' class="form-control" id='jobPropertyFilter'>
-          <option></option>
           <option  value = '{{property._id}}' ng-repeat ='property in properties'>
           {{property.name}}
           </option>
@@ -39,7 +38,6 @@
       <label for="jobWorkerFilter" class="col-xs-2 control-label">Worker</label>
       <div>
         <select ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
-          <option></option>
           <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
           {{worker.first}} {{worker.last}}
           </option>
@@ -50,7 +48,6 @@
       <label for="jobManagerFilter" class="col-xs-2 control-label">Manager</label>
       <div>
         <select ng-model = 'filter.manager._id' class="form-control" id='jobManagerFilter'>
-          <option></option>
           <option  value = '{{admin._id}}' ng-repeat ='admin in admins'>
           {{admin.first}} {{admin.last}}
           </option>
