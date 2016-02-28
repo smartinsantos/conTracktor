@@ -6,29 +6,68 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Edit</div>
   <div class='panel-body'>
-    <form class="form-horizontal">
-      <div class="form-group">
+    <form name ='managerEdit' class="form-horizontal">
+      <div class="form-group" ng-class="{ 'has-error': managerEdit.first.$touched && managerEdit.first.$invalid }">
         <label for="managerInputFirst2" class="col-xs-2 control-label">First Name</label>
         <div class="col-xs-8">
-          <input required ng-model="admin.first" type="text" class="form-control" id="managerInputFirst2" placeholder="First">
+          <input name ='first'
+            required 
+            ng-model="admin.first" 
+            type="text" 
+            class="form-control" 
+            id="managerInputFirst2" 
+            placeholder="First">
+          <div class="help-block" ng-messages="managerEdit.first.$error" ng-if="managerEdit.first.$touched">
+            <p ng-message="required">Name is required.</p>
+          </div>                 
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': managerEdit.last.$touched && managerEdit.last.$invalid }">
         <label for="managerInputLast2" class="col-xs-2 control-label">Last Name</label>
         <div class="col-xs-8">
-          <input required ng-model="admin.last" type="text" class="form-control" id="managerInputLast2" placeholder="Last">
+          <input name='last' 
+            required 
+            ng-model="admin.last" 
+            type="text" 
+            class="form-control" 
+            id="managerInputLast2" 
+            placeholder="Last">
+          <div class="help-block" ng-messages="managerEdit.last.$error" ng-if="managerEdit.last.$touched">
+            <p ng-message="required">Last name is required.</p>
+          </div>                 
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group"ng-class="{ 'has-error': managerEdit.email.$touched && managerEdit.email.$invalid }">
         <label for="managerInputEmail2" class="col-xs-2 control-label">Email</label>
         <div class="col-xs-8">
-          <input required ng-model="admin.email" type="email" class="form-control" id="managerInputEmail2" placeholder="Email">
+          <input name='email' 
+            required 
+            ng-model="admin.email" 
+            type="email" 
+            class="form-control" 
+            id="managerInputEmail2" 
+            placeholder="Email">
+          <div class="help-block" ng-messages="managerEdit.email.$error" ng-if="managerEdit.email.$touched">
+            <p ng-message="required">Email is required.</p>
+            <p ng-message="email">Needs to be a valid email</p>
+          </div>                 
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': managerEdit.phone.$touched && managerEdit.phone.$invalid }">
         <label for="managerInputPhone2" class="col-xs-2 control-label">Phone</label>
         <div class="col-xs-8">
-          <input required ng-model="admin.phone" type="text" class="form-control" id="managerInputPhone2" placeholder="Phone">
+          <input name='phone' 
+            required 
+            ng-model="admin.phone"
+            ng-minlength="10" 
+            type="text" 
+            class="form-control" 
+            id="managerInputPhone2" 
+            placeholder="Phone">
+          <div class="help-block" ng-messages="managerEdit.phone.$error" ng-if="managerEdit.phone.$touched">
+            <p ng-message="required">Phone is required.</p>
+            <p ng-message="minlength">Phone is to short!</p>                
+          </div>                         
         </div>
       </div>
       <div class="form-group">
@@ -42,7 +81,7 @@
     </form>
       <div class="modal-footer">
       <button type="button" class="btn btn-default" ng-click='backToManagers()'>Close</button>
-      <button type="button" class="btn btn-primary" ng-click='editAdmin()'>Save</button>
+      <button type="button" class="btn btn-primary" ng-click='editAdmin()' ng-disabled="!admin.email || !admin.phone || !admin.first || !admin.last" >Save</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAdmin" >Delete</button>
       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess" >Revoke Access</button>
     </div>

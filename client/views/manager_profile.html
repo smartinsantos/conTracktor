@@ -6,7 +6,7 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Edit</div>
   <div class='panel-body'>
-    <form class="form-horizontal">
+    <form name = 'managerProfile' class="form-horizontal">
       <div class="form-group">
         <label for="managerFirst1" class="col-xs-2 control-label">First Name</label>
         <div class="col-xs-8">
@@ -25,10 +25,20 @@
           <p id="managerEmail1">{{admin.email}}</p>
         </div>
       </div> 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': managerProfile.phone.$touched && managerProfile.phone.$invalid }">
         <label for="managerInputPhone3" class="col-xs-2 control-label">Phone</label>
         <div class="col-xs-8">
-          <input required ng-model="admin.phone" type="text" class="form-control" id="managerInputPhone3" placeholder="Phone">
+          <input name = 'phone'
+          required 
+          ng-model="admin.phone" 
+          type="text" 
+          class="form-control" 
+          id="managerInputPhone3" 
+          placeholder="Phone">
+          <div class="help-block" ng-messages="managerProfile.phone.$error" ng-if="managerProfile.phone.$touched">
+            <p ng-message="required">Phone is required.</p>
+            <p ng-message="minlength">Phone is to short!</p>                
+          </div>
         </div>
       </div>
       <button type="button" class="btn btn-info center-block" data-toggle="modal" data-target="#changePassword" >Change Password</button>
@@ -49,29 +59,61 @@
         <h4 class="modal-title">Change Password</h4>
       </div>
       <div class="modal-body">
-      <form class="form-horizontal">
-        <div class="form-group">
+      <form name ='managerPass' class="form-horizontal">
+        <div class="form-group" ng-class="{ 'has-error': managerPass.oldPass.$touched && managerPass.oldPass.$invalid }">
           <label for="inputPassword4" class="col-sm-2 control-label">Current Password</label>
           <div class="col-sm-6">
-            <input required ng-model="admin.changePassOld" type="password" class="form-control" id="inputPassword4" placeholder="Current Password">
+            <input name ='oldPass' 
+            required 
+            ng-model="admin.changePassOld" 
+            type="password" 
+            class="form-control" 
+            id="inputPassword4" 
+            placeholder="Current Password">
+            <div class="help-block" ng-messages="managerPass.oldPass.$error" ng-if="managerPass.oldPass.$touched">
+              <p ng-message="required">Old Password is required.</p>
+            </div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': managerPass.newPass1.$touched && managerPass.newPass1.$invalid }">
           <label for="inputPassword5" class="col-sm-2 control-label">New Password</label>
           <div class="col-sm-6">
-            <input required ng-model="admin.changePassNew" type="password" class="form-control" id="inputPassword5" placeholder="New Pasword...">
+            <input name = 'newPass1'
+            required 
+            ng-model="admin.changePassNew" 
+            type="password" 
+            class="form-control" 
+            id="inputPassword5" 
+            placeholder="New Pasword...">
+            <div class="help-block" ng-messages="managerPass.newPass1.$error" ng-if="managerPass.newPass1.$touched">
+              <p ng-message="required">New Password is required.</p>
+            </div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{ 'has-error': managerPass.newPass2.$touched && managerPass.newPass2.$invalid }">
           <label for="inputPassword6" class="col-sm-2 control-label">Confirm New Password</label>
           <div class="col-sm-6">
-            <input required ng-model="admin.changePassNew2" type="password" class="form-control" id="inputPassword6" placeholder="Confirm Password">
+            <input name='newPass2' 
+            required 
+            ng-model="admin.changePassNew2" 
+            type="password" 
+            class="form-control" 
+            id="inputPassword6" 
+            placeholder="Confirm Password">
+            <div class="help-block" ng-messages="managerPass.newPass2.$error" ng-if="managerPass.newPass2.$touched">
+              <p ng-message="required">Repeat Password is required.</p>
+            </div>
+            <div class="help-block" ng-messages="managerPass.newPass2.$error">            
+              <p ng-if = 'admin.changePassNew !== admin.changePassNew2'>New Passwords don't Match</p>
+            </div>
           </div>
+
       </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-hide='admin.changePassNew!==null' ng-show='admin.changePassNew === admin.changePassNew2' ng-click='managerChangePassword()'>Save</button>
+        <button ng-disabled="!admin.changePassNew ||!admin.changePassOld ||!admin.changePassNew2 || admin.changePassNew !== admin.changePassNew2" 
+        type="button" class="btn btn-primary" ng-click='managerChangePassword()'>Save</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -38,7 +38,7 @@
   </div>
   <div class="form-group">
     <div class="col-xs-offset-2 col-xs-10">
-      <button ng-class="{ 'disabled': !admin.email || !admin.password}" ng-click = 'signInAdmin()' type="submit" class="btn btn-default">Sign in</button>
+      <button ng-disabled="!admin.email || !admin.password" ng-click = 'signInAdmin()' type="submit" class="btn btn-default">Sign in</button>
       <br>
       <br>
       <p>Create Admin <a ui-sref='main_public.create'>Here!</a></p>
