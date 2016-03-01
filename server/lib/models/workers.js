@@ -5,7 +5,7 @@ var WorkersSchema = new Schema({
       first: String,
       last: String,
       email: {type: String, required: true, unique: true},
-      phone: String,
+      phone: Number,
       address: {
         street: String,
         street2: String,

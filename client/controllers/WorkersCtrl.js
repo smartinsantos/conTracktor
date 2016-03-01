@@ -27,6 +27,15 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
     });
   };
 
+//removes worker from the scope
+  $scope.backToWorkers = function() {
+    //work around fading after toogle modal
+    $('div.modal').removeClass('fade').addClass('hidden');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+    $state.reload('main_private.workers')
+  };
+
   $scope.getWorkers();
 
 }]);
