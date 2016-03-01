@@ -4,9 +4,10 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state', function($scop
 
     // Object for adding property
   $scope.property = {};
+  $scope.property.contacts = [];
 
   //We are going to save all the properties here on load
-  $scope.properties = '';
+  $scope.properties = [];
 
   $scope.getProperties = function() {
     Properties.getAll()
@@ -15,20 +16,37 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state', function($scop
     })
   };
 
-  $scope.createProperty = function () {
+  $scope.createProp = function () {
     var newProperty = $scope.property;
     Properties.create(newProperty)
     .then(function(res){
-      $scope.property = {};
-      $('#propertyModal').modal('toggle');
-      $scope.getProperties();
+      $scope.backToProperties();
     })
     .catch(function(err){
       console.log('error ocurred: ', err);
     });
   };
 
-  $scope.getProperties();
+  
+  $scope.addNewContact = function() {
+    var newContact = $scope.property.contacts.length+1;
+    $scope.property.contacts.push({});
+  };
+    
+  $scope.removeContact = function() {
+    var lastContact = $scope.property.contacts.length-1;
+    $scope.property.contacts.splice(lastContact);
+  };
 
+  //removes properties from the scope
+  $scope.backToProperties = function() {
+    //work around fading after toogle modal          $scope.worker = {};
+    $('div.modal').removeClass('fade').addClass('hidden');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+    $state.reload('main_private.properties')
+  };
+
+  $scope.getProperties();
 
 }]);

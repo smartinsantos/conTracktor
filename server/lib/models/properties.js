@@ -3,8 +3,8 @@ var Schema = db.Schema;
 
 var ContactsSchema = new Schema({
     name: String, 
-    phone:Number, 
-    email:String
+    phone: Number, 
+    email: String
 });
 
 var PropertiesSchema = new Schema({

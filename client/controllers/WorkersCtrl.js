@@ -5,7 +5,7 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
   $scope.worker = {};
 
   //We are going to save all the workers here on load
-  $scope.workers = {};
+  $scope.workers = [];
 
   $scope.getWorkers = function() {
     Workers.getAll()
