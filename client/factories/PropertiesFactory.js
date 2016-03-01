@@ -27,7 +27,7 @@ var getAll = function(){
       return response;
     })
     .catch(function(err){
-      console.log('createPropertie err: ', err);
+      console.log('createProperty err: ', err);
     });
   };
  

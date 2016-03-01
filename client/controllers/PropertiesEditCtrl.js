@@ -46,9 +46,17 @@ app.controller('PropertiesEditCtrl', ['$scope','Properties','$state', function($
     .catch(function(err){
       console.log('error ocurred: ', err);
     }); 
-
-
   }
+
+  $scope.addNewContact = function() {
+    var newContact = $scope.property.contacts.length+1;
+    $scope.property.contacts.push({});
+  };
+    
+  $scope.removeContact = function() {
+    var lastContact = $scope.property.contacts.length-1;
+    $scope.property.contacts.splice(lastContact);
+  };
 
   $scope.getProperty();
 

@@ -11,72 +11,108 @@
         <h4 class="modal-title" id="myModalLabel">Add Property</h4>
       </div>
       <div class="modal-body">
-
-        <form class="form-horizontal">
-          <div class="form-group">
+        <form name='propertyCreate' class="form-horizontal">
+          <div class="form-group" ng-class="{ 'has-error': propertyCreate.name.$touched && propertyCreate.name.$invalid }">
             <label for="propertyInputName" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-6">
-              <input required ng-model="property.name" type="text" class="form-control" id="propertyInputName" placeholder="Name">
+              <input name ='name'
+              required 
+              ng-model="property.name" 
+              type="text" 
+              class="form-control" 
+              id="propertyInputName" 
+              placeholder="Name">
+              <div class="help-block" ng-messages="propertyCreate.name.$error" ng-if="propertyCreate.name.$touched">
+                <p ng-message="required">Name is required.</p>
+              </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="propertyInputContact" class="col-sm-2 control-label">Contact</label>
+          
+          <div class="form-group" ng-class="{ 'has-error': propertyCreate.street.$touched && propertyCreate.street.$invalid || propertyCreate.city.$touched && propertyCreate.city.$invalid || propertyCreate.state.$touched && propertyCreate.state.$invalid || propertyCreate.zip.$touched && propertyCreate.zip.$invalid }">
+            <label for="propertyInputAddress" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-6">
-              <input required ng-model="property.contacts.name" type="text" class="form-control" id="propertyInputContact" placeholder="Name">            
-              <input required ng-model="property.contacts.phone" type="text" class="form-control" placeholder="Phone">
-              <input required ng-model="property.contacts.email" type="text" class="form-control" placeholder="Email">
+              <input name = 'street' required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAddress" placeholder="Street">
+              <input name = 'street2' required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2">
+              <input name = 'city' required ng-model="property.address.city" type="text" class="form-control" placeholder="City">
+              <input name = 'state' required ng-model="property.address.state" type="text" class="form-control" placeholder="State">
+              <input name = 'zip' required ng-model="property.address.zip" type="number" class="form-control" placeholder="Zip code">
+              <div class="help-block" ng-messages="propertyCreate.street.$error" ng-if="propertyCreate.street.$touched || propertyCreate.city.$touched || propertyCreate.state.$touched || propertyCreate.zip.$touched">
+                <p ng-message="required">Address is required.</p>
+              </div>
+
             </div>
           </div>
-          <div class="form-group">
-            <label for="propertyInputAddress" class="col-sm-2 control-label">Adress</label>
-            <div class="col-sm-6">
-              <input required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAddress" placeholder="Street">
-              <input required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2">
-              <input required ng-model="property.address.city" type="text" class="form-control" placeholder="City">
-              <input required ng-model="property.address.state" type="text" class="form-control" placeholder="State">
-              <input required ng-model="property.address.zip" type="text" class="form-control" placeholder="Zip code">
-            </div>
+          <div class="page-header col-xs-12">
+            <h3 class ='text-center'>Property Contacts</h3>
+            <button class="btn btn-default center-block" type="button" ng-click='addNewContact()'>Add Contact</button>  
+          </div>
+          <div class='col-xs-12' ng-repeat='contact in property.contacts'>
+            <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeContact()"><span aria-hidden="true">&times;</span></button>
+            <br><br>
+            <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="contactName" class="col-xs-2 control-label">Name</label>
+                  <div class="col-xs-9">
+                    <input required ng-model="contact.name" type="text" class="form-control" id="contactName" placeholder="Name">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contactPhone" class="col-xs-2 control-label">Phone</label>
+                  <div class="col-xs-9">
+                    <input required ng-model="contact.phone" type="number" class="form-control" id="contactPhone" placeholder="Phone Number">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="contactEmail" class="col-xs-2 control-label">Email</label>
+                  <div class="col-xs-9">
+                    <input required ng-model="contact.email" type="email" class="form-control" id="contactEmail" placeholder="Email">
+                  </div>
+                </div>
+            </form>
           </div>
         </form>
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click= "createProperty()">Save</button>
+        <button type="button" class="btn btn-default" ng-click='backToProperties()'>Close</button>
+        <button ng-disabled="!property.name || !property.address.street || !property.address.city || !property.address.state || !property.address.zip"
+        type="button" class="btn btn-primary" ng-click= "createProp()">Save</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="panel panel-default">
-  <!-- Default panel contents -->
- <!--  <div class="panel-heading">Panel heading</div> -->
-    <!-- Table -->
-    <table class="table table-bordered table table-striped">
-      <tr>
-        <th>Name</th>
-        <th>Contact</th>   
-        <th>Address</th>
-        <th ng-if='!manager'>Edit Property</th>
-      </tr>
-      <tr ng-repeat = 'property in properties'>
-        <td>{{property.name}}</td>
-        <td><p>Name: {{property.contacts.name}}</p> 
-            <p>Phone: {{property.contacts.phone}}</p> 
-            <address>
-              <p>email: <a href="mailto:{{property.contacts.email}}">{{property.contacts.email}}</a></p>
-              </address> 
-        </td>
-        <td>
+  <table class="table table-bordered table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Contacts</th>   
+      <th>Address</th>
+      <th ng-if='!manager'>Edit Property</th>
+    </tr>
+    <tr ng-repeat = 'property in properties'>
+      <td>{{property.name}}</td>
+      <td>
+        <div ng-repeat = 'contact in property.contacts'>
+          <p>Name: {{property.contact.name}}</p> 
+          <p>Phone: {{contact.phone}}</p> 
           <address>
-          {{property.address.street}}
-          {{property.address.street2}}
-          {{property.address.city}}
-          {{property.address.state}}
-          {{property.address.zip}}
+            <p>email: <a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
           </address>
-        </td>
-        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
-      </tr>
-    </table>
+        </div> 
+      </td>
+      <td>
+        <address>
+        {{property.address.street}}
+        {{property.address.street2}}
+        {{property.address.city}}
+        {{property.address.state}}
+        {{property.address.zip}}
+        </address>
+      </td>
+      <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
+    </tr>
+  </table>
 </div>
+

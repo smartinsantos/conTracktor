@@ -60,14 +60,8 @@ helpers.validPassword = function(enteredPassword, passwordHash) {
 helpers.createPropertie = function (attrs) {
   console.log('Creating Propertie...')
   // Create this object incase attrs contains any extra data we dont want/need
-  var propAttrs = {
-    name: attrs.name,
-    address: attrs.address,
-    contacts: attrs.contacts,
-    description: attrs.description,
-  };
-
-  console.log(attrs);
+  var propAttrs = attrs; 
+  console.log(propAttrs);
   
   var propertie = new Propertie(propAttrs);
   return propertie.save(function(err){
@@ -109,8 +103,6 @@ helpers.createWorker = function (attrs) {
 helpers.createJob = function (attrs) {
   console.log('Creating Job....');
   var jobAttrs = attrs;
-
-console.log('Job Attrs', jobAttrs)
   
   var job = new Job(jobAttrs);
     return job.save(function(err){
