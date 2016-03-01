@@ -3,11 +3,11 @@
 </div>
 
 <div class = 'col-xs-10'>
-  <form class="form-horizontal">
+  <form name ='jobCreate' class="form-horizontal">
       <div class="form-group">
         <label for="jobManager" class="col-xs-2 control-label">Manager</label>
         <div class="col-xs-10">
-          <select ng-model = 'job.manager'class="form-control" id='jobManager'>
+          <select name = 'manager' ng-model = 'job.manager'class="form-control" id='jobManager'>
             <option  value='{{admin._id}}' ng-repeat ='admin in admins'>
             {{admin.first}} {{admin.last}}
             </option>
@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="jobProperty" class="col-xs-2 control-label">Property</label>
         <div class="col-xs-10">
-          <select ng-model = 'job.propertie' class="form-control" id='jobProperty'>
+          <select name = 'property' ng-model = 'job.propertie' class="form-control" id='jobProperty'>
             <option  value = '{{property._id}}' ng-repeat ='property in properties'>
             {{property.name}}
             </option>
@@ -26,10 +26,19 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': jobCreate.unit.$touched && jobCreate.unit.$invalid }">
         <label for="jobUnit" class="col-xs-2 control-label">Unit</label>
         <div class="col-xs-10">
-          <input required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
+          <input name ='unit' 
+            required 
+            ng-model="job.unit" 
+            type="text" 
+            class="form-control" 
+            id="jobUnit" 
+            placeholder="Unit">
+            <div class="help-block" ng-messages="jobCreate.unit.$error" ng-if="jobCreate.unit.$touched">
+              <p ng-message="required">Unit is required.</p>
+            </div>
         </div>
       </div>
 
@@ -53,12 +62,12 @@
           <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
         </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="jobDateCompleted" class="col-xs-2 control-label">Date Completed</label>
         <div class="col-xs-10">
           <input required ng-model="job.date_completed" type="date" class="form-control" id="jobDateCompleted" placeholder="Date Requested" format-date>
         </div>
-      </div>
+      </div> -->
   </form>
 </div>
 
@@ -124,7 +133,6 @@
 </div>
 
 <div class = 'col-xs-10' ng-repeat='cost in job.costs'>
-  
   <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeCost()"><span aria-hidden="true">&times;</span></button>
   <br><br>
   <form class="form-horizontal">
@@ -142,12 +150,16 @@
           <input required ng-model="cost.value" type="number" class="form-control" id="costValue" placeholder="Value">
         </div>
       </div>
-
   </form>
 </div>
 
 <div class="modal-footer col-xs-12">
+  <div class="help-block col-xs-12" ng-if='!job.manager || !job.propertie ||!job.unit'>
+    <p class='col-xs-4 col-xs-offset-8'>Property, Manager & Unit are required.</p>
+  </div>
   <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Go Back</button>
-  <button type="button" class="btn btn-info" ng-click = 'createJob()'>Save & Add Other</button>
-  <button type="button" class="btn btn-primary" ng-click = 'createJob("goBack")'>Save & Continue</button>
+  <button ng-disabled="!job.manager || !job.propertie || !job.unit" 
+    type="button" class="btn btn-info" ng-click = 'createJob()'>Save & Add Other</button>
+  <button ng-disabled="!job.manager || !job.propertie || !job.unit" 
+    type="button" class="btn btn-primary" ng-click = 'createJob("goBack")'>Save & Continue</button>
 </div>
