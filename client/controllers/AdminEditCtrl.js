@@ -13,8 +13,8 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     $state.go('main_private.managers');
   }
 
-  $scope.backToDash = function(){
-    $state.go('main_private.dash');
+  $scope.backToJobs = function(){
+    $state.go('main_private.jobs');
   }
 
   $scope.getAdmin = function(){

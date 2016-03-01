@@ -65,7 +65,11 @@ browserify.settings({
   ]
 });
 
-// Serve Foundation JS
+//Serve jQuery 
+router.get('/js/jquery.js', function(req, res){
+  res.sendFile(Path.resolve('./node_modules/jquery/dist/jquery.min.js'));
+  });
+// Serve bootstrap JS
 router.get('/js/bootstrap.js', function(req, res){
   res.sendFile(Path.resolve('./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'));
   });
