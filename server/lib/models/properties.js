@@ -1,9 +1,15 @@
 var db = require('mongoose');
 var Schema = db.Schema;
 
+var ContactsSchema = new Schema({
+    name: String, 
+    phone:Number, 
+    email:String
+});
+
 var PropertiesSchema = new Schema({
      name: {type: String, unique: true, required: true},
-     contacts: {name: String, phone:Number, email:String},
+     contacts: [ContactsSchema],
      address: {
         street: String,
         street2: String,

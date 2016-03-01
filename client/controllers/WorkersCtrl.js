@@ -5,7 +5,7 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
   $scope.worker = {};
 
   //We are going to save all the workers here on load
-  $scope.workers = '';
+  $scope.workers = {};
 
   $scope.getWorkers = function() {
     Workers.getAll()
@@ -18,9 +18,7 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
     var newWorker = $scope.worker;
     Workers.create(newWorker)
     .then(function(res){
-      $scope.worker = {};
-      $('#workerModal').modal('toggle');
-      $scope.getWorkers();
+      $scope.backToWorkers();
     })
     .catch(function(err){
       console.log('error ocurred: ', err);
@@ -29,7 +27,7 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
 
 //removes worker from the scope
   $scope.backToWorkers = function() {
-    //work around fading after toogle modal
+    //work around fading after toogle modal          $scope.worker = {};
     $('div.modal').removeClass('fade').addClass('hidden');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
