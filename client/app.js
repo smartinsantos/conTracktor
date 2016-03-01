@@ -31,25 +31,24 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/',
       authenticate: false,
       templateUrl: 'views/main_public.html',
-      controller: 'MainPublicCtrl'
+      controller: 'MainPublicCtrl',
+      redirectTo: 'main_public.signin',
     })
 
     .state('main_public.create', {  
       url: 'create',
       authenticate: false,
       templateUrl: 'views/createAdmin.html',
-      controller: 'MainPublicCtrl',
     })
 
     .state('main_public.signin', {
       url: 'signin',
       authenticate: false,
       templateUrl: 'views/signinAdmin.html',
-      controller: 'MainPublicCtrl',
     })
 
     .state('main_private', {
-        url: '/',
+        url: '/private',
         authenticate: true,
         templateUrl: 'views/main_private.html',
         controller: 'MainPrivateCtrl',
@@ -79,14 +78,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
         templateUrl: 'views/manager_profile.html',
         controller: 'AdminEditCtrl',
         params:{sessionId:null}
-    })
-
-    .state('main_private.dash', {
-      url: 'dash',
-      authenticate: true,
-      templateUrl: 'views/dash.html',
-      controller: 'DashCtrl',
-      params:{sessionId:null}
     })
 
     .state('main_private.reports', {
@@ -180,21 +171,34 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 });
 
-  app.directive("formatDate", function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, elem, attr, modelCtrl) {
-            modelCtrl.$formatters.push(function(modelValue) {
-                if (modelValue){
-                    return new Date(modelValue);
-                }
-                else {
-                    return null;
-                }
-            });
-        }
-    };
-  });
+//allows to redirect to sub state on load
+app.run(['$rootScope', '$state', function($rootScope, $state) {
+
+    $rootScope.$on('$stateChangeStart', function(evt, to, params) {
+      if (to.redirectTo) {
+        evt.preventDefault();
+        $state.go(to.redirectTo, params)
+      }
+    });
+}]);
+
+//format date directory to be able to display in mm/dd/yyyy format 
+app.directive("formatDate", function() {
+  return {
+      require: 'ngModel',
+      link: function(scope, elem, attr, modelCtrl) {
+          modelCtrl.$formatters.push(function(modelValue) {
+              if (modelValue){
+                  return new Date(modelValue);
+              }
+              else {
+                  return null;
+              }
+          });
+      }
+  };
+});
+
 
 require('./factories');
 require('./controllers');
