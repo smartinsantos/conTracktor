@@ -84,38 +84,35 @@
 </div>
 
 <div class="panel panel-default">
-  <!-- Default panel contents -->
- <!--  <div class="panel-heading">Panel heading</div> -->
-    <!-- Table -->
-    <table class="table table-bordered table table-striped">
-      <tr>
-        <th>Name</th>
-        <th>Contacts</th>   
-        <th>Address</th>
-        <th ng-if='!manager'>Edit Property</th>
-      </tr>
-      <tr ng-repeat = 'property in properties'>
-        <td>{{property.name}}</td>
-        <td>
-          <div ng-repeat = 'contact in property.contacts'>
-            <p>Name: {{property.contact.name}}</p> 
-            <p>Phone: {{contact.phone}}</p> 
-            <address>
-              <p>email: <a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
-            </address>
-          </div> 
-        </td>
-        <td>
+  <table class="table table-bordered table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>Contacts</th>   
+      <th>Address</th>
+      <th ng-if='!manager'>Edit Property</th>
+    </tr>
+    <tr ng-repeat = 'property in properties'>
+      <td>{{property.name}}</td>
+      <td>
+        <div ng-repeat = 'contact in property.contacts'>
+          <p>Name: {{property.contact.name}}</p> 
+          <p>Phone: {{contact.phone}}</p> 
           <address>
-          {{property.address.street}}
-          {{property.address.street2}}
-          {{property.address.city}}
-          {{property.address.state}}
-          {{property.address.zip}}
+            <p>email: <a href="mailto:{{contact.email}}">{{contact.email}}</a></p>
           </address>
-        </td>
-        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
-      </tr>
-    </table>
+        </div> 
+      </td>
+      <td>
+        <address>
+        {{property.address.street}}
+        {{property.address.street2}}
+        {{property.address.city}}
+        {{property.address.state}}
+        {{property.address.zip}}
+        </address>
+      </td>
+      <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.properties_edit({id:property._id})'>Edit</button></td>
+    </tr>
+  </table>
 </div>
 
