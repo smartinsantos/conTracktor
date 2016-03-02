@@ -6,95 +6,68 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Edit Property</div>
   <div class='panel-body'>
-<!--     <form name ='propertyEdit' class="form-horizontal">
-      <div class="form-group">
-        <label for="propertyInputName2" class="col-xs-2 control-label">Name</label>
-        <div class="col-xs-8">
-          <input required ng-model="property.name" type="text" class="form-control" id="propertyInputName2" placeholder="First">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="propertyInputContact2" class="col-xs-2 control-label">Contact</label>
-        <div class="col-xs-8">
-          <input required ng-model="property.contacts.name" type="text" class="form-control" id="propertyInputContact2" placeholder="Name">
-          <input required ng-model="property.contacts.phone" type="text" class="form-control"  placeholder="Phone">
-          <input required ng-model="property.contacts.email" type="text" class="form-control"  placeholder="Email">
-
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="propertyInputAdress2" class="col-xs-2 control-label">Adress</label>
-        <div class="col-xs-8">
-          <input required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAdress2" placeholder="Street"><br>
-          <input required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2"><br>
-          <input required ng-model="property.address.city" type="text" class="form-control" placeholder="City"><br>
-          <input required ng-model="property.address.state" type="text" class="form-control" placeholder="State"><br>
-          <input required ng-model="property.address.zip" type="text" class="form-control" placeholder="Zip code">
-        </div>
-      </div>
-    </form> -->
-      <form name='propertyEdit' class="form-horizontal">
-        <div class="form-group" ng-class="{ 'has-error': propertyEdit.name.$touched && propertyEdit.name.$invalid }">
-          <label for="propertyInputName" class="col-xs-2 control-label">Name</label>
-          <div class="col-xs-9">
-            <input name ='name'
-            required 
-            ng-model="property.name" 
-            type="text" 
-            class="form-control" 
-            id="propertyInputName" 
-            placeholder="Name">
-            <div class="help-block" ng-messages="propertyEdit.name.$error" ng-if="propertyEdit.name.$touched">
-              <p ng-message="required">Name is required.</p>
-            </div>
+    <form name='propertyEdit' class="form-horizontal">
+      <div class="form-group" ng-class="{ 'has-error': propertyEdit.name.$touched && propertyEdit.name.$invalid }">
+        <label for="propertyInputName" class="col-xs-2 control-label">Name</label>
+        <div class="col-xs-9">
+          <input name ='name'
+          required 
+          ng-model="property.name" 
+          type="text" 
+          class="form-control" 
+          id="propertyInputName" 
+          placeholder="Name">
+          <div class="help-block" ng-messages="propertyEdit.name.$error" ng-if="propertyEdit.name.$touched">
+            <p ng-message="required">Name is required.</p>
           </div>
         </div>
-        
-        <div class="form-group" ng-class="{ 'has-error': propertyEdit.street.$touched && propertyEdit.street.$invalid || propertyEdit.city.$touched && propertyEdit.city.$invalid || propertyEdit.state.$touched && propertyEdit.state.$invalid || propertyEdit.zip.$touched && propertyEdit.zip.$invalid }">
-          <label for="propertyInputAddress" class="col-xs-2 control-label">Address</label>
-          <div class="col-xs-9">
-            <input name = 'street' required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAddress" placeholder="Street">
-            <input name = 'street2' required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2">
-            <input name = 'city' required ng-model="property.address.city" type="text" class="form-control" placeholder="City">
-            <input name = 'state' required ng-model="property.address.state" type="text" class="form-control" placeholder="State">
-            <input name = 'zip' required ng-model="property.address.zip" type="number" class="form-control" placeholder="Zip code">
-            <div class="help-block" ng-messages="propertyEdit.street.$error" ng-if="propertyEdit.street.$touched || propertyCreate.city.$touched || propertyCreate.state.$touched || propertyCreate.zip.$touched">
-              <p ng-message="required">Address is required.</p>
+      </div>
+      
+      <div class="form-group" ng-class="{ 'has-error': propertyEdit.street.$touched && propertyEdit.street.$invalid || propertyEdit.city.$touched && propertyEdit.city.$invalid || propertyEdit.state.$touched && propertyEdit.state.$invalid || propertyEdit.zip.$touched && propertyEdit.zip.$invalid }">
+        <label for="propertyInputAddress" class="col-xs-2 control-label">Address</label>
+        <div class="col-xs-9">
+          <input name = 'street' required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAddress" placeholder="Street">
+          <input name = 'street2' required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2">
+          <input name = 'city' required ng-model="property.address.city" type="text" class="form-control" placeholder="City">
+          <input name = 'state' required ng-model="property.address.state" type="text" class="form-control" placeholder="State">
+          <input name = 'zip' required ng-model="property.address.zip" type="number" class="form-control" placeholder="Zip code">
+          <div class="help-block" ng-messages="propertyEdit.street.$error" ng-if="propertyEdit.street.$touched || propertyCreate.city.$touched || propertyCreate.state.$touched || propertyCreate.zip.$touched">
+            <p ng-message="required">Address is required.</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="page-header col-xs-12">
+        <h3 class ='text-center'>Property Contacts</h3>
+        <button class="btn btn-default center-block" type="button" ng-click='addNewContact()'>Add Contact</button>  
+      </div>
+      <div class='col-xs-12' ng-repeat='contact in property.contacts'>
+        <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeContact()"><span aria-hidden="true">&times;</span></button>
+        <br><br>
+        <form class="form-horizontal">
+            <div class="form-group">
+              <label for="contactName" class="col-xs-2 control-label">Name</label>
+              <div class="col-xs-9">
+                <input required ng-model="contact.name" type="text" class="form-control" id="contactName" placeholder="Name">
+              </div>
             </div>
 
-          </div>
-        </div>
-        <div class="page-header col-xs-12">
-          <h3 class ='text-center'>Property Contacts</h3>
-          <button class="btn btn-default center-block" type="button" ng-click='addNewContact()'>Add Contact</button>  
-        </div>
-        <div class='col-xs-12' ng-repeat='contact in property.contacts'>
-          <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeContact()"><span aria-hidden="true">&times;</span></button>
-          <br><br>
-          <form class="form-horizontal">
-              <div class="form-group">
-                <label for="contactName" class="col-xs-2 control-label">Name</label>
-                <div class="col-xs-9">
-                  <input required ng-model="contact.name" type="text" class="form-control" id="contactName" placeholder="Name">
-                </div>
+            <div class="form-group">
+              <label for="contactPhone" class="col-xs-2 control-label">Phone</label>
+              <div class="col-xs-9">
+                <input required ng-model="contact.phone" type="number" class="form-control" id="contactPhone" placeholder="Phone Number">
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="contactPhone" class="col-xs-2 control-label">Phone</label>
-                <div class="col-xs-9">
-                  <input required ng-model="contact.phone" type="number" class="form-control" id="contactPhone" placeholder="Phone Number">
-                </div>
+            <div class="form-group">
+              <label for="contactEmail" class="col-xs-2 control-label">Email</label>
+              <div class="col-xs-9">
+                <input required ng-model="contact.email" type="email" class="form-control" id="contactEmail" placeholder="Email">
               </div>
-
-              <div class="form-group">
-                <label for="contactEmail" class="col-xs-2 control-label">Email</label>
-                <div class="col-xs-9">
-                  <input required ng-model="contact.email" type="email" class="form-control" id="contactEmail" placeholder="Email">
-                </div>
-              </div>
-          </form>
-        </div>
-      </form>
+            </div>
+        </form>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" ng-click='backToProperties()'>Close</button>

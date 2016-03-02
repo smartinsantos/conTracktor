@@ -1,7 +1,7 @@
 app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager', function($scope,$state, Jobs,Properties,Admin,Workers,manager) {
   
   console.log('JobsCtrl Loaded....')
- 
+
  //filter object for job 'search'
   $scope.filter = {};
 
@@ -137,6 +137,13 @@ $scope.job.costs = [];
       $scope.job.totalCost += e.value; 
     }) 
   };
+
+//work around to clear the filter when worker does not exist
+$scope.clearFilter = function(){
+  if($scope.filter.services.worker._id===''){
+    delete($scope.filter.services);
+  };
+};
 
 //refresh Jobs on Load on load
   if ($state.current.name === 'main_private.jobs'){
