@@ -3,11 +3,11 @@
 </div>
 
 <div class = 'col-xs-10'>
-  <form class="form-horizontal">
+  <form name='jobEdit' class="form-horizontal">
       <div class="form-group">
         <label for="jobManager2" class="col-xs-2 control-label">Manager</label>
         <div class="col-xs-10">
-          <select ng-model = 'job.manager' class="form-control" id='jobManager2'>
+          <select name ='manager' ng-model = 'job.manager' class="form-control" id='jobManager2'>
             <option  value='{{admin._id}}' ng-repeat ='admin in admins' ng-selected="{{job.manager == admin._id}}">
             {{admin.first}} {{admin.last}}
             </option>
@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="jobProperty2" class="col-xs-2 control-label">Property</label>
         <div class="col-xs-10">
-          <select ng-model = 'job.propertie' class="form-control" id='jobProperty2'>
+          <select name ='property' ng-model = 'job.propertie' class="form-control" id='jobProperty2'>
             <option  value = '{{property._id}}' ng-repeat ='property in properties' ng-selected="{{job.propertie == property._id}}">
             {{property.name}}
             </option>
@@ -29,7 +29,10 @@
       <div class="form-group">
         <label for="jobUnit" class="col-xs-2 control-label">Unit</label>
         <div class="col-xs-10">
-          <input required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
+          <input name ='unit' required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
+          <div class="help-block" ng-messages="jobCreate.unit.$error" ng-if="jobCreate.unit.$touched">
+            <p ng-message="required">Unit is required.</p>
+          </div>
         </div>
       </div>
 
