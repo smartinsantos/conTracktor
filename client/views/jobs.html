@@ -2,7 +2,6 @@
   <h1 class ='text-center'>In Progress Jobs</h1><br>
     <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_create">Add new</button>
 </div>
-
 <div class="page-header col-xs-12"> 
   <div class="form-group col-xs-8 col-xs-offset-2 text-center">
     <label for="searchJobBox1">Filter</label>
@@ -12,7 +11,7 @@
     <label for="jobPropertyFilter" class="col-xs-2 control-label">Property</label>
     <div>
       <select ng-model = 'filter.propertie._id' class="form-control" id='jobPropertyFilter'>
-        <option></option>
+        <option value =''>All</option>
         <option  value = '{{property._id}}' ng-repeat ='property in properties'>
         {{property.name}}
         </option>
@@ -22,8 +21,8 @@
   <div class="form-group col-xs-2 text-center">
     <label for="jobWorkerFilter" class="col-xs-2 control-label">Worker</label>
     <div>
-      <select ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
-        <option value = ''></option>
+      <select ng-change='clearFilter()' ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
+        <option value =''>All</option>
         <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
         {{worker.first}} {{worker.last}}
         </option>
@@ -34,7 +33,7 @@
     <label for="jobManagerFilter" class="col-xs-2 control-label">Manager</label>
     <div>
       <select ng-model = 'filter.manager._id' class="form-control" id='jobManagerFilter'>
-        <option></option>
+        <option value =''>All</option>
         <option  value = '{{admin._id}}' ng-repeat ='admin in admins'>
         {{admin.first}} {{admin.last}}
         </option>
@@ -42,6 +41,7 @@
     </div>
   </div>
 </div>
+
 <div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default" ng-repeat = 'job in jobs| filter: filter:strict'>
     <div class="panel-heading" role="tab">

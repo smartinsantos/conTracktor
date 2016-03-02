@@ -19,7 +19,7 @@
     <button class="btn btn-default center-block" type="button" ng-click='getJobsCompletedByDate(startDate,endDate)'>Get Jobs</button><br>
   </div> 
 </div>
-<div class="page-header col-xs-12">
+<div class="page-header col-xs-12" ng-if='jobs.length>0'>
     <div class="form-group col-xs-8 col-xs-offset-2 text-center">
       <label for="searchJobBox1">Filter</label>
       <input ng-model = 'filter.$' type="text" class="form-control" id="searchJobBox1" placeholder="Quick Filter...">
@@ -28,6 +28,7 @@
       <label for="jobPropertyFilter" class="col-xs-2 control-label">Property</label>
       <div>
         <select ng-model = 'filter.propertie._id' class="form-control" id='jobPropertyFilter'>
+          <option value =''>All</option>
           <option  value = '{{property._id}}' ng-repeat ='property in properties'>
           {{property.name}}
           </option>
@@ -37,8 +38,9 @@
     <div class="form-group col-xs-2 text-center">
       <label for="jobWorkerFilter" class="col-xs-2 control-label">Worker</label>
       <div>
-        <select ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
-          <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
+        <select ng-change='clearFilter()' ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
+          <option value =''>All</option>
+          <option value = '{{worker._id}}' ng-repeat ='worker in workers'>
           {{worker.first}} {{worker.last}}
           </option>
         </select>
@@ -48,6 +50,7 @@
       <label for="jobManagerFilter" class="col-xs-2 control-label">Manager</label>
       <div>
         <select ng-model = 'filter.manager._id' class="form-control" id='jobManagerFilter'>
+          <option value =''>All</option>
           <option  value = '{{admin._id}}' ng-repeat ='admin in admins'>
           {{admin.first}} {{admin.last}}
           </option>
