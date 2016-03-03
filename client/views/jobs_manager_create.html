@@ -1,38 +1,33 @@
 <div class="page-header">
-  <h1 class ='text-center'>Edit Job</h1> 
+  <h3 class ='text-center'>Job Information</h3>
 </div>
 
-  <div class='col-xs-10'>
-    <form name='jobEdit' class="form-horizontal">
-      <div class="form-group" ng-if='!manager'>
-        <label for="jobManager2" class="col-xs-2 control-label">Manager</label>
-        <div class="col-xs-10">
-          <select name ='manager' ng-model = 'job.manager' class="form-control" id='jobManager2'>
-            <option  value='{{admin._id}}' ng-repeat ='admin in admins' ng-selected="{{job.manager == admin._id}}">
-            {{admin.first}} {{admin.last}}
-            </option>
-          </select>
-        </div>
-      </div>
-
+<div class = 'col-xs-10'>
+  <form name ='jobCreate' class="form-horizontal">
       <div class="form-group">
-        <label for="jobProperty2" class="col-xs-2 control-label">Property</label>
+        <label for="jobProperty" class="col-xs-2 control-label">Property</label>
         <div class="col-xs-10">
-          <select name ='property' ng-model = 'job.propertie' class="form-control" id='jobProperty2'>
-            <option  value = '{{property._id}}' ng-repeat ='property in properties' ng-selected="{{job.propertie == property._id}}">
+          <select name = 'property' ng-model = 'job.propertie' class="form-control" id='jobProperty'>
+            <option  value = '{{property._id}}' ng-repeat ='property in properties'>
             {{property.name}}
             </option>
           </select>
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-class="{ 'has-error': jobCreate.unit.$touched && jobCreate.unit.$invalid }">
         <label for="jobUnit" class="col-xs-2 control-label">Unit</label>
         <div class="col-xs-10">
-          <input name ='unit' required ng-model="job.unit" type="text" class="form-control" id="jobUnit" placeholder="Unit">
-          <div class="help-block" ng-messages="jobCreate.unit.$error" ng-if="jobCreate.unit.$touched">
-            <p ng-message="required">Unit is required.</p>
-          </div>
+          <input name ='unit' 
+            required 
+            ng-model="job.unit" 
+            type="text" 
+            class="form-control" 
+            id="jobUnit" 
+            placeholder="Unit">
+            <div class="help-block" ng-messages="jobCreate.unit.$error" ng-if="jobCreate.unit.$touched">
+              <p ng-message="required">Unit is required.</p>
+            </div>
         </div>
       </div>
 
@@ -56,12 +51,12 @@
           <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
         </div>
       </div>
-    </form>
-  </div>
+  </form>
+</div>
 
-<!-- <div class="page-header col-xs-12">
+<div class="page-header col-xs-12">
   <h3 class ='text-center'>Attachments To Be Implemented...</h3>
-</div> -->
+</div>
 
   
 <div class="page-header col-xs-12">
@@ -84,7 +79,7 @@
         <label for="serviceWorker" class="col-xs-2 control-label">Worker</label>
         <div class="col-xs-10">
           <select ng-model = 'service.worker' class="form-control" id='serviceWorker'>
-            <option value = '{{worker._id}}' ng-repeat ='worker in workers' ng-selected="{{service.worker == worker._id}}">
+            <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
             {{worker.first}} {{worker.last}}
             </option>
           </select>
@@ -102,7 +97,7 @@
       <div class="form-group">
         <label for="serviceDateAssigned" class="col-xs-2 control-label">Date Requested</label>
         <div class="col-xs-10">
-          <input required ng-model="service.date_assigned" type="date" class="form-control" id="serviceDateAssigned" placeholder="Date Requested" format-date>
+          <input required ng-model="service.date_assigned" type="date" class="form-control" id="serviceDateAssigned" placeholder="Date Requested">
         </div>
       </div>
 
@@ -113,7 +108,6 @@
         </div>
       </div>
   </form>
-  <!-- <button class="btn btn-warning left-block" ng-show="$last" ng-click="removeService()">Remove</button> -->
 </div>
 
 <div class="page-header col-xs-12">
@@ -122,7 +116,6 @@
 </div>
 
 <div class = 'col-xs-10' ng-repeat='cost in job.costs'>
-  
   <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeCost()"><span aria-hidden="true">&times;</span></button>
   <br><br>
   <form class="form-horizontal">
@@ -140,7 +133,6 @@
           <input required ng-model="cost.value" type="number" class="form-control" id="costValue" placeholder="Value">
         </div>
       </div>
-
   </form>
 </div>
 
@@ -168,27 +160,10 @@
     </div>
   </div>
   <div class="col-xs-12">
-  <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Go Back</button>
-  <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
-    type="button" class="btn btn-primary" ng-click = 'editJob()'>Save Changes</button>
-  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteJob" >Delete</button>
+    <button type="button" class="btn btn-default" ng-click='backToJobs()'>Go Back</button>
+    <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
+      type="button" class="btn btn-info" ng-click = 'createJob()'>Save & Add Other</button>
+    <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
+      type="button" class="btn btn-primary" ng-click = 'createJob("goBack")'>Save & Continue</button>
+  </div>
 </div>
-
-
-<div class="modal fade" id="deleteJob" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Job </h4>
-      </div>
-      <div class="modal-body">
-        <p>Warning! This Action Can't Be Undone!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" ng-click='deleteJob()'>Delete</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

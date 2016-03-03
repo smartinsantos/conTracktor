@@ -1,7 +1,19 @@
 app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $timeout) {
   
-var getAll = function(){
+  var getAll = function(){
     return $http.get('/jobs/')  
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('getJobs err:', err);
+      return err;
+    })
+  };
+
+  //Gets all jobs from one particular manager  
+  var getAllManagerJobs = function(managerId){
+    return $http.get('/jobs/manager/' + managerId)  
     .then(function(res){
       return res.data;
     })
@@ -81,6 +93,7 @@ var getAll = function(){
   return {
   create:create,
   getAll:getAll,
+  getAllManagerJobs:getAllManagerJobs,
   getOne:getOne,
   getIncompleted:getIncompleted,
   getCompletedByDate:getCompletedByDate,

@@ -129,6 +129,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       params:{sessionId:null}
     })
 
+    .state('main_private.jobs_manager_create', {
+      url: 'mjobs/create',
+      authenticate: true,
+      templateUrl: 'views/jobs_manager_create.html',
+      controller: 'JobsManagerCtrl',
+      params:{sessionId:null}
+    })
+
     .state('main_private.jobs_manager_edit', {
       url: 'mjobs/{id}/edit',
       authenticate: true,

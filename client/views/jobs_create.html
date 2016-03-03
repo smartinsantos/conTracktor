@@ -4,7 +4,7 @@
 
 <div class = 'col-xs-10'>
   <form name ='jobCreate' class="form-horizontal">
-      <div class="form-group">
+      <div class="form-group" ng-if='!manager'>
         <label for="jobManager" class="col-xs-2 control-label">Manager</label>
         <div class="col-xs-10">
           <select name = 'manager' ng-model = 'job.manager'class="form-control" id='jobManager'>

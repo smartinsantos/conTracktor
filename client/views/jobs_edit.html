@@ -4,7 +4,7 @@
 
   <div class='col-xs-10'>
     <form name='jobEdit' class="form-horizontal">
-      <div class="form-group">
+      <div class="form-group" ng-if='!manager'>
         <label for="jobManager2" class="col-xs-2 control-label">Manager</label>
         <div class="col-xs-10">
           <select name ='manager' ng-model = 'job.manager' class="form-control" id='jobManager2'>
@@ -145,7 +145,7 @@
 </div>
 
 <div class="modal-footer row col-xs-12">
-    <div class='col-xs-6'>
+  <div class='col-xs-6'>
     <div class="checkbox col-xs-12">
       <label>
         <input type="checkbox" ng-model="checkJobCompleted"> Job Completed?
