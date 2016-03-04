@@ -5,7 +5,7 @@ app.controller('JobsManagerEditCtrl', ['$scope','$state','Jobs','Workers','Prope
 //set manager 
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
   $scope.getJob = function(){
-    Jobs.getOne($scope.sessionId)
+    Jobs.getOne($state.params.id)
     .then(function(job){
       $scope.job = job;
     })
@@ -98,11 +98,15 @@ $scope.addNewService = function() {
     $scope.job.costs.splice(lastCost);
   };
 
-  $scope.calculateTotalCost= function(){
+  $scope.calculateTotalCost = function(){
     $scope.job.totalCost = 0;
     $scope.job.costs.forEach(function(e){
       $scope.job.totalCost += e.value; 
     }) 
+  };
+
+  $scope.backToJobs = function(){
+    $state.go('main_private.jobs_manager');
   };
 
 
