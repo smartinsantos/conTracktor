@@ -7,7 +7,7 @@ var db = require('../lib/db.js');
 var Workers = require('../lib/models/workers.js');
 var helpers = require('../helpers.js');
 
-var twilio = require('twilio')(process.env.ENV_TWILIO_SID_TEST, process.env.ENV_TWILIO_TOKEN_TEST);
+var twilio = require('twilio')(process.env.ENV_TWILIO_SID, process.env.ENV_TWILIO_TOKEN);
 
 // Get all projects for a user
 router.get('/', auth.requireAuth, function (req, res) {
@@ -85,24 +85,22 @@ router.delete('/:workerId', auth.requireAuth, function (req, res) {
 
 });
 
-router.post('/message/test', function (req, res) {
+router.post('/message', auth.requireAuth, function (req, res) {
+  //txt should be an object {to: phone_number_here, body:message_body_here}
+  var txt = req.body;
+  console.log('This is the message to be sent', txt)
 
   twilio.sendMessage({
-    to:'+12107184570', // Any number Twilio can deliver to
-    from: '+15005550006', // A number you bought from Twilio and can use for outbound communication
-    body: 'Testing Twilio!!!!!!!!!.' // body of the SMS message
-    }, function(err, responseData) { //this function is executed when a response is received from Twilio
-      if (!err) { // "err" is an error received during the request, if any
-          console.log('sending message');
-          // "responseData" is a JavaScript object containing data received from Twilio.
-          // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-          // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-          console.log(responseData.from); // outputs "+14506667788"
-          console.log(responseData.body); // outputs "word to your mother."
-          res.status(200).json({success:'Message Sent'})
+    to:'+12107184570',  
+    from: '+15126451934', 
+    body: txt.body 
+    }, function(err, responseData) { 
+      if (!err) { 
+
+        res.status(200).json({success:'Message Sent'})
       }else{
         console.log(err);
-        res.status(400).json({error:err})
+        res.status(400).json({error:'Message Not Delivered'})
       }
     });
 });

@@ -53,11 +53,22 @@ app.factory('Workers', ['$http', '$state', '$timeout', function($http, $state, $
     });
   };
 
+  var sendMessage = function(message){
+    return $http.post('/workers/message', message)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      console.log('sendMessage Err', err);
+    }); 
+  };
+
   return {
   create:create,
   getAll:getAll,
   getOne:getOne,
   edit:edit,
-  deleteWorker:deleteWorker
+  deleteWorker:deleteWorker,
+  sendMessage:sendMessage
   };
 }]);
