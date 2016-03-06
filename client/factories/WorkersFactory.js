@@ -53,8 +53,8 @@ app.factory('Workers', ['$http', '$state', '$timeout', function($http, $state, $
     });
   };
 
-  var sendMessage = function(message){
-    return $http.post('/workers/message', message)
+  var sendMessage = function(messageInfo){
+    return $http.post('/workers/message', messageInfo)
     .then(function(response){
       return response;
     })

@@ -5,6 +5,8 @@ var auth = require('../auth.js');
 //Uses DB config and Schema
 var db = require('../lib/db.js');
 var Workers = require('../lib/models/workers.js');
+var Jobs = require('../lib/models/jobs.js');
+
 var helpers = require('../helpers.js');
 
 var twilio = require('twilio')(process.env.ENV_TWILIO_SID, process.env.ENV_TWILIO_TOKEN);
@@ -87,17 +89,26 @@ router.delete('/:workerId', auth.requireAuth, function (req, res) {
 
 router.post('/message', auth.requireAuth, function (req, res) {
   //txt should be an object {to: phone_number_here, body:message_body_here}
-  var txt = req.body;
-  console.log('This is the message to be sent', txt)
+  var txt = req.body.message;
 
   twilio.sendMessage({
-    to:'+12107184570',  
+    to: '+1' + txt.to,  
     from: '+15126451934', 
     body: txt.body 
     }, function(err, responseData) { 
-      if (!err) { 
-
-        res.status(200).json({success:'Message Sent'})
+      if (!err) {
+        res.status(200).json({success:'Message Sent'}); 
+ 
+        //save notification sent in db
+        // Jobs.update({_id: req.body.job._id, "services._id": req.body.service._id}, {$set: {"notification_sent" : true}}, function(err, doc) {
+        //   if(!err){
+        //     console.log(doc)
+        //     res.status(200).json({success:'Message Sent'}); 
+        //   }else{
+        //     console.log(err)
+        //     res.status(400).json({error:'Message Not Delivered'});
+        //   }
+        // });
       }else{
         console.log(err);
         res.status(400).json({error:'Message Not Delivered'})

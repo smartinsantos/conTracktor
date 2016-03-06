@@ -41,6 +41,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   $scope.getAdmins();
   $scope.getProperties();
   $scope.getWorkers();    
+
  
 //CREATE JOBS
   $scope.jobs = [];
@@ -137,6 +138,42 @@ $scope.job.costs = [];
       $scope.job.totalCost += e.value; 
     }) 
   };
+
+//send messages to workers from twilio service
+
+$scope.sendServiceToWorker = function (job, service){
+  // console.log('this is the service to be sent: ', service)
+  // console.log('this is the propertie to be sent: ', job.propertie)
+  var messageInfo = {};
+      messageInfo.message = {};
+      messageInfo.job = job;
+      messageInfo.service = service;
+  //message object to be sent 
+  //date formating for better readability 
+  var date = new Date(service.date_assigned)
+  date = date.getMonth() + '/' + date.getDay() 
+  //if there is a worker assigned to the service
+  messageInfo.message.to = service.worker.phone;
+  messageInfo.message.body = '';
+    messageInfo.message.body += '---'+' Type: ' + service.item + '---'; 
+    messageInfo.message.body += ' Address: ' + job.propertie.address.street + ' ' + job.propertie.address.city + ', ' + job.propertie.address.zip + + '---'
+    messageInfo.message.body += ' Property: ' + job.propertie.name + '---';
+    messageInfo.message.body += ' Unit: ' + job.unit + '---';    
+    messageInfo.message.body += ' Date: ' + date + + '---'; 
+    if(service.description) {
+      messageInfo.message.body += ' Description: ' + service.description + '---'; 
+    };
+
+  Workers.sendMessage(messageInfo)
+  .then(function(resp){
+    //update notification data on db
+    service.notification_sent = true;
+    Jobs.edit(job);
+  });
+
+};
+
+
 
 //work around to clear the filter when worker does not exist
 $scope.clearFilter = function(){
