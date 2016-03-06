@@ -1,3 +1,100 @@
 <div class="page-header">
   <h1 class ='text-center'>Jobs Manager</h1>
+  <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_manager_create">Add new</button>
 </div>
+
+<div class="page-header col-xs-12"> 
+  <div class="form-group col-xs-8 col-xs-offset-2 text-center">
+    <label for="searchJobBox1">Filter</label>
+    <input ng-model = 'filter.$' type="text" class="form-control" id="searchJobBox1" placeholder="Quick Filter...">
+  </div> 
+  <div class="form-group col-xs-2 col-xs-offset-4 text-center">
+    <label for="jobPropertyFilter" class="col-xs-2 control-label">Property</label>
+    <div>
+      <select ng-model = 'filter.propertie._id' class="form-control" id='jobPropertyFilter'>
+        <option value =''>All</option>
+        <option  value = '{{property._id}}' ng-repeat ='property in properties'>
+        {{property.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group col-xs-2 text-center">
+    <label for="jobWorkerFilter" class="col-xs-2 control-label">Worker</label>
+    <div>
+      <select ng-change='clearFilter()' ng-model = 'filter.services.worker._id' class="form-control" id='jobWorkerFilter'>
+        <option value =''>All</option>
+        <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
+        {{worker.first}} {{worker.last}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat = 'job in jobs| filter: filter:strict'>
+    <div class="panel-heading" role="tab">
+      <ol class="panel-title breadcrumb" role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
+        <li>Property: {{job.propertie.name}}</li>
+        <li>Unit: {{job.unit}}</a></li>
+        <li ng-if='job.services.length>0'>Services: 
+          <span ng-repeat='service in job.services'>-{{service.item}}-</span>
+        </li>
+      </ol>
+    </div>
+    <div id="{{job._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+        <div class="list-group">
+        <div class="list-group-item">
+          <ul class="nav nav-pills nav-justified">
+            <li role="presentation" ui-sref = 'main_private.jobs_manager_edit({id:job._id})'><a href="#">Edit Job</a></li>
+            <li role="presentation"><a href="#">Send To Worker</a></li>
+          </ul>
+        </div>  
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><strong>General:</strong></h5>
+            <br>
+            <p class="list-group-item-text"><strong>Manager:</strong> {{job.manager.first}} {{job.manager.last}}</p>
+            <p class="list-group-item-text"><strong>Property:</strong> {{job.propertie.name}}</p>
+            <p class="list-group-item-text"><strong>Unit:</strong> {{job.unit}}</p>
+            <p class="list-group-item-text"><strong>Price:</strong> {{job.totalPrice}} $</p>
+            <p class="list-group-item-text"><strong>Cost:</strong> {{job.totalCost}} $</p>
+            <p class="list-group-item-text"><strong>Invoice Number:</strong> {{job.invoiceNumber}}</p>
+            <p class="list-group-item-text"><strong>poNumber:</strong> {{job.porNumber}}</p>
+            <p class="list-group-item-text"><strong>Quote:</strong> <a href='{{job.quote}}'>{{job.quote}}</a></p>
+            <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
+            <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
+            <div>
+              <p class="list-group-item-text"><strong>Attachments:</strong> To Be Implemented...</p>
+            </div>
+          </div>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><strong>Services:</strong></h5>
+            <div ng-repeat = 'service in job.services'>
+              <br>
+              <p class="list-group-item-text"><strong>Service:</strong> {{service.item}}</p>
+              <p class="list-group-item-text"><strong>Worker:</strong> {{service.worker.first}} {{service.worker.last}}</p>
+              <p class="list-group-item-text"><strong>Date Requested:</strong> {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
+              <p class="list-group-item-text"><strong>Price:</strong> {{service.price}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            <h5 class="list-group-item-heading"><strong>Costs:</strong></h5>
+            <div ng-repeat = 'cost in job.costs'>
+              <br>
+              <p class="list-group-item-text"><strong>Item:</strong> {{cost.item}}</p>
+              <p class="list-group-item-text"><strong>Value:</strong> {{cost.value}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

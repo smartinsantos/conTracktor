@@ -13,7 +13,11 @@ app.controller('MainPrivateCtrl', ['$scope','$state','Admin','Auth','manager', f
   $scope.manager = manager.value
   
   if (Auth.isLoggedIn()) {
-    $state.go('main_private.jobs');
+    if($scope.manager===true){
+      $state.go('main_private.jobs_manager', {'sessionId':$scope.sessionId});
+    }else{
+      $state.go('main_private.jobs');
+    }
   // Else, go to the public landing page
   } else {
     $state.go('main_public.signin');

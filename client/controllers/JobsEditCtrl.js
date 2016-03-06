@@ -115,7 +115,4 @@ $scope.addNewService = function() {
   };
 
 
-
-
-
 }]);

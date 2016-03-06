@@ -60,8 +60,8 @@
         <div class="list-group-item">
           <ul class="nav nav-pills nav-justified">
             <li role="presentation" ui-sref = 'main_private.jobs_edit({id:job._id})'><a href="#">Edit Job</a></li>
-            <li role="presentation"><a href="#">Send To Worker</a></li>
-          </ul>
+<!--             <li role="presentation"><a href='#' ng-click = 'sendJobToWorkers(job)'>Send Job To Workers</a></li>
+ -->          </ul>
         </div>  
           <div class="list-group-item">
             <h5 class="list-group-item-heading"><strong>General:</strong></h5>
@@ -72,7 +72,7 @@
             <p class="list-group-item-text"><strong>Price:</strong> {{job.totalPrice}} $</p>
             <p class="list-group-item-text"><strong>Cost:</strong> {{job.totalCost}} $</p>
             <p class="list-group-item-text"><strong>Invoice Number:</strong> {{job.invoiceNumber}}</p>
-            <p class="list-group-item-text"><strong>poNumber:</strong> {{job.porNumber}}</p>
+            <p class="list-group-item-text"><strong>poNumber:</strong> {{job.poNumber}}</p>
             <p class="list-group-item-text"><strong>Quote:</strong> <a href='{{job.quote}}'>{{job.quote}}</a></p>
             <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
             <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
@@ -87,9 +87,10 @@
             <div ng-repeat = 'service in job.services'>
               <br>
               <p class="list-group-item-text"><strong>Service:</strong> {{service.item}}</p>
-              <p class="list-group-item-text"><strong>Worker:</strong> {{service.worker.first}} {{service.worker.last}}</p>
+              <p class="list-group-item-text"><strong>Worker:</strong> {{service.worker.first}} {{service.worker.last}} </p>
               <p class="list-group-item-text"><strong>Date Requested:</strong> {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
               <p class="list-group-item-text"><strong>Price:</strong> {{service.price}}</p>
+              <button ng-disabled='!service.worker||!service.item' ng-click='sendServiceToWorker(job,service)' type="button" class="btn btn-info btn-xs" aria-label="Left Align">Send to Worker</button><span class="alert alert-success" role="alert" ng-if='service.notification_sent'>sent!</span>
             </div>
           </div>
         </div>

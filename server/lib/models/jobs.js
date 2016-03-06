@@ -16,7 +16,8 @@ var ServiceSchema = new Schema({
     description:String,
     worker: { type: Schema.Types.ObjectId, ref:'Worker'}, //Saves Worker ID 
     date_assigned: Date,
-    price:Number
+    price:Number,
+    notification_sent: Boolean
 });
 
 var JobsSchema = new Schema({ 
@@ -33,7 +34,6 @@ var JobsSchema = new Schema({
     notes: String,
     date_completed: Date,
     attachments: [AttachmentsSchema],
-    notification_sent: Boolean
 });
 
 
