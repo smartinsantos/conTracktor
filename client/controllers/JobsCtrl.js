@@ -166,14 +166,16 @@ $scope.sendServiceToWorker = function (job, service){
 
   Workers.sendMessage(messageInfo)
   .then(function(resp){
-    //update notification data on db
-    service.notification_sent = true;
-    Jobs.edit(job);
+    if(resp.status===200){
+      //update notification data on db
+      service.notification_sent = true;
+      Jobs.edit(job);      
+    }else{
+      
+    }
   });
 
 };
-
-
 
 //work around to clear the filter when worker does not exist
 $scope.clearFilter = function(){

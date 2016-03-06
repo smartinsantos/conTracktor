@@ -90,7 +90,7 @@
               <p class="list-group-item-text"><strong>Worker:</strong> {{service.worker.first}} {{service.worker.last}} </p>
               <p class="list-group-item-text"><strong>Date Requested:</strong> {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
               <p class="list-group-item-text"><strong>Price:</strong> {{service.price}}</p>
-              <button ng-disabled='!service.worker||!service.item' ng-click='sendServiceToWorker(job,service)' type="button" class="btn btn-info btn-xs" aria-label="Left Align">Send to Worker</button><span class="alert alert-success" role="alert" ng-if='service.notification_sent'>sent!</span>
+              <button ng-disabled='!service.worker||!service.item' ng-click='sendServiceToWorker(job,service)' type="button" class="btn btn-info btn-xs" aria-label="Left Align">Send to Worker</button> <span class="btn-success btn-xs" role="alert" ng-if='service.notification_sent'>sent!</span>
             </div>
           </div>
         </div>

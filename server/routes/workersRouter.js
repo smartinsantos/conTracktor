@@ -98,17 +98,6 @@ router.post('/message', auth.requireAuth, function (req, res) {
     }, function(err, responseData) { 
       if (!err) {
         res.status(200).json({success:'Message Sent'}); 
- 
-        //save notification sent in db
-        // Jobs.update({_id: req.body.job._id, "services._id": req.body.service._id}, {$set: {"notification_sent" : true}}, function(err, doc) {
-        //   if(!err){
-        //     console.log(doc)
-        //     res.status(200).json({success:'Message Sent'}); 
-        //   }else{
-        //     console.log(err)
-        //     res.status(400).json({error:'Message Not Delivered'});
-        //   }
-        // });
       }else{
         console.log(err);
         res.status(400).json({error:'Message Not Delivered'})
