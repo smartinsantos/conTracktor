@@ -151,30 +151,30 @@ $scope.sendServiceToWorker = function (job, service){
   //message object to be sent 
   //date formating for better readability 
   var date = new Date(service.date_assigned)
-  date = date.getMonth() + '/' + date.getDay() 
+  date = date.toString();
+  date = date.slice(0,10) 
   //if there is a worker assigned to the service
   messageInfo.message.to = service.worker.phone;
   messageInfo.message.body = '';
-    messageInfo.message.body += '---'+' Type: ' + service.item + '---'; 
-    messageInfo.message.body += ' Address: ' + job.propertie.address.street + ' ' + job.propertie.address.city + ', ' + job.propertie.address.zip + + '---'
-    messageInfo.message.body += ' Property: ' + job.propertie.name + '---';
-    messageInfo.message.body += ' Unit: ' + job.unit + '---';    
-    messageInfo.message.body += ' Date: ' + date + + '---'; 
+    messageInfo.message.body += '   '+' TYPE: ' + service.item + '   '; 
+    messageInfo.message.body += ' ADDRESS: ' + job.propertie.address.street + ' ' + job.propertie.address.city + ', ' + job.propertie.address.zip + + '   '
+    messageInfo.message.body += ' PROPERTY: ' + job.propertie.name + '   ';
+    messageInfo.message.body += ' UNIT: ' + job.unit + '   ';    
+    messageInfo.message.body += ' DATE: ' + date + '   '; 
     if(service.description) {
-      messageInfo.message.body += ' Description: ' + service.description + '---'; 
+      messageInfo.message.body += ' DESCRIPTION: ' + service.description + '   '; 
     };
 
   Workers.sendMessage(messageInfo)
   .then(function(resp){
-    if(resp.status===200){
+    if(resp){
       //update notification data on db
       service.notification_sent = true;
       Jobs.edit(job);      
     }else{
-      
-    }
+      service.notification_sent = false;
+    };
   });
-
 };
 
 //work around to clear the filter when worker does not exist
