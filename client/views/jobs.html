@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1 class ='text-center'>In Progress Jobs</h1><br>
-    <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_create">Add new</button>
+    <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_create"><i class="fa fa-plus-circle"></i> Add new</button>
 </div>
 <div class="page-header col-xs-12"> 
   <div class="form-group col-xs-8 col-xs-offset-2 text-center">
@@ -50,7 +50,7 @@
         <li><i class="fa fa-home"></i> {{job.propertie.name}}</li>
         <li><i class="fa fa-bed"></i> {{job.unit}}</a></li>
         <li ng-if='job.services.length>0'><i class="fa fa-cogs"></i> 
-          <span ng-repeat='service in job.services'><i class="fa fa-minus"></i> {{service.item}} </i></span>
+          <span ng-repeat='service in job.services'> {{service.item}}<i ng-if='!service.worker' class="fa fa-question"></i> <i ng-if='!service.notification_sent' class="fa fa-minus default"></i> <i ng-if='service.notification_sent'class="fa fa-check"></i> </span>
         </li>
       </ol>
     </div>
@@ -70,8 +70,8 @@
             <p class="list-group-item-text"><strong>Unit:</strong> {{job.unit}}</p>
             <p class="list-group-item-text"><strong>Price:</strong> {{job.totalPrice}} $</p>
             <p class="list-group-item-text"><strong>Cost:</strong> {{job.totalCost}} $</p>
-            <p class="list-group-item-text"><strong>Invoice Number:</strong> {{job.invoiceNumber}}</p>
-            <p class="list-group-item-text"><strong>poNumber:</strong> {{job.poNumber}}</p>
+            <p class="list-group-item-text"><strong>Invoice #:</strong> {{job.invoiceNumber}}</p>
+            <p class="list-group-item-text"><strong>PO #:</strong> {{job.poNumber}}</p>
             <p class="list-group-item-text"><strong>Quote:</strong> <a href='{{job.quote}}'>{{job.quote}}</a></p>
             <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
             <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
