@@ -77,6 +77,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       $scope.calculateTotalCost();
     };
     var newJob = $scope.job;
+    console.log(newJob)
     Jobs.create(newJob)
     .then(function(res){
       //if created clean scope choose addother or goback

@@ -6,9 +6,7 @@ var auth = require('../auth.js');
 var db = require('../lib/db.js');
 var Workers = require('../lib/models/workers.js');
 var Jobs = require('../lib/models/jobs.js');
-
 var helpers = require('../helpers.js');
-
 var twilio = require('twilio')(process.env.ENV_TWILIO_SID, process.env.ENV_TWILIO_TOKEN);
 
 // Get all projects for a user
