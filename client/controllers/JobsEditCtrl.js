@@ -114,5 +114,48 @@ $scope.addNewService = function() {
     }) 
   };
 
+//UPLOAD FILES
+  $scope.getAwsUrl = function() {
+    console.log('getting Url....')
+    fileInfo = {};
+    fileInfo.name = $scope.file.name;
+    fileInfo.size = $scope.file.size;
+    fileInfo.type = $scope.file.type;
+
+    Jobs.getAwsUrl(fileInfo)
+    .then(function(response){
+     console.log('response.data: ', response.data)
+      
+      if (typeof response.data.signedRequest === 'undefined' || typeof response.data.url === 'undefined') {
+        // This shouldnt happen
+        console.log('SignedRequest or URL was undefined');
+        return;
+      }
+
+      // In order for this to work, we must use the ol' fashion XMLHttpRequest object
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('PUT', response.data.signedRequest);
+      xhr.onload = function (e) {
+        var amazonResult = e.response;
+        if (xhr.status === 200) {
+          var url = response.data.url
+          // $scope.add(url);
+        } else if (xhr.status === 403) {
+          // Something was changed in the signed url, its not what the server signed
+          // Amazon rejected the upload
+        }
+        // $scope.__log('Saved!');
+        // $scope.closeAccordion();
+      };
+
+      xhr.onerror = function () {
+        console.log('Error uploading file');
+      };
+      xhr.send($scope.file);
+    })
+
+  }
+
 
 }]);

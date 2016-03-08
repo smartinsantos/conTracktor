@@ -90,6 +90,23 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
     });
   };
 
+  var getAwsUrl = function(fileInfo){
+
+    return $http.post('/jobs/signedUrlAWS',fileInfo)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      console.log('signedUrlAWS err: ', err);
+    });
+  }
+
+
+  var uploadFile = function(file){
+
+
+  };
+
   return {
   create:create,
   getAll:getAll,
@@ -98,7 +115,9 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   getIncompleted:getIncompleted,
   getCompletedByDate:getCompletedByDate,
   edit:edit,
-  deleteJob:deleteJob
+  deleteJob:deleteJob,
+  getAwsUrl:getAwsUrl,
+  uploadFile:uploadFile
   };
 
 }]);

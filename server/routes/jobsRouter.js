@@ -9,6 +9,9 @@ var Jobs = require('../lib/models/jobs.js');
 var Workers = require('../lib/models/workers.js');
 var helpers = require('../helpers.js');
 
+var aws = require('aws-sdk');
+var uuid = require('node-uuid');
+
 
 // Get all projects for a user
 router.get('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
@@ -151,5 +154,57 @@ router.delete('/:jobId', auth.requireAuth, function (req, res) {
   }); 
 
 });
+
+// Handles generating a signed url to allow client to upload to AWS S3
+router.post('/signedUrlAws', auth.requireAuth, function(req, res) {
+  console.log('fileInfo on server', req.body)
+  var file = req.body;
+  // Check if file size was sent with request
+  if (typeof file.size === 'undefined') {
+    res.json({ error: 'Error getting file information' });
+    return;
+  }
+
+  if (file.size > 75000000) {
+    res.json({ error: 'Error processing file' });
+    return;
+  }
+
+  // Generate a unique file name, extremely low chance of collisions
+  var uniqueName = uuid.v4();
+
+  // We configured AWS in app.js
+  var s3 = new aws.S3();
+  var bucket = process.env.AWS_BUCKET;
+
+  // Pass this to the function that generates a signed URL
+  // This prevents the client from uploading something different than what we have specified (Amazon will 403)
+  var params = {
+    Bucket: bucket, // S3 bucket to upload to
+    Key: 'files/' + uniqueName + '-' + file.name, // Give the file a unique name
+    ContentType: file.type, // We are always expecting a WAV file. NOTE: There are a few different mime types that can signify a WAV file
+    ACL: 'public-read', // The file we upload should be readable by the public
+    Expires: 180, // Signed URL will expire 3 minutes after being generated
+  };
+
+  // Generate a signed url that the client can upload to with their recording
+  s3.getSignedUrl('putObject', params, (err, data) => {
+    if (err) {
+      console.log('Error creating a signed url');
+      res.json({ error: 'Error creating a signed url' });
+      return;
+    }
+
+    // Information to send back to client
+    var returnData = {
+      signedRequest: data, // Url the client should PUT recording
+      url: 'https://' + bucket + '.s3.amazonaws.com/' + params.Key, // Url the client can access recording after upload
+    };
+    console.log('S3 DATA: ', data)
+    res.json(returnData);
+  });
+
+});
+
 
 module.exports = router;
