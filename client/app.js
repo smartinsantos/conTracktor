@@ -96,6 +96,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       params:{sessionId:null}
     })
 
+    .state('main_private.jobs_review', {
+      url: 'ajobs/review',
+      authenticate: true,
+      templateUrl: 'views/jobs_review.html',
+      controller: 'JobsCtrl',
+      params:{sessionId:null}
+    })
+
     .state('main_private.jobs_create', {
       url: 'ajobs/create',
       authenticate: true,
