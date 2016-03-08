@@ -77,6 +77,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       $scope.calculateTotalCost();
     };
     var newJob = $scope.job;
+    console.log(newJob)
     Jobs.create(newJob)
     .then(function(res){
       //if created clean scope choose addother or goback
@@ -185,7 +186,7 @@ $scope.clearFilter = function(){
 };
 
 //refresh Jobs on Load on load
-  if ($state.current.name === 'main_private.jobs'){
+  if ($state.current.name === 'main_private.jobs' || $state.current.name==='main_private.jobs_review'){
     $scope.getJobsIncompleted();
   }else if($state.current.name === 'main_private.jobs_completed'){
     //default values for dates on state load

@@ -146,12 +146,19 @@
 
 <div class="modal-footer row col-xs-12">
   <div class='col-xs-6'>
-    <div class="checkbox col-xs-12">
-      <label>
-        <input type="checkbox" ng-model="checkJobCompleted"> Job Completed?
-      </label>
+    <div class ='col-xs-12'>
+      <div class='checkbox'>
+        <label >
+          <input type="checkbox" ng-model="job.ready_review">  Ready for Invoice?
+        </label>        
+      </div>
+      <div class='checkbox'>
+        <label ng-show='job.ready_review'>
+          <input type="checkbox" ng-model="checkJobCompleted">  Job Completed?
+        </label>          
+      </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-show='job.ready_review'>
       <label for="jobDateCompleted" class="col-xs-2 control-label">Date</label>
       <div class="col-xs-10">
         <input ng-disabled = '!checkJobCompleted'required ng-model="job.date_completed" type="date" class="form-control" id="jobDateCompleted" placeholder="Date Requested" format-date>        

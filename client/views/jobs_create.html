@@ -148,33 +148,40 @@
 </div>
 
 <div class="modal-footer row col-xs-12">
-  <div class='col-xs-6'>
-    <div class="checkbox col-xs-12">
-      <label>
-        <input type="checkbox" ng-model="checkJobCompleted"> Job Completed?
-      </label>
-    </div>
-    <div class="form-group">
-      <label for="jobDateCompleted" class="col-xs-2 control-label">Date</label>
-      <div class="col-xs-10">
-        <input ng-disabled = '!checkJobCompleted'required ng-model="job.date_completed" type="date" class="form-control" id="jobDateCompleted" placeholder="Date Requested" format-date>        
+    <div class='col-xs-6'>
+      <div class ='col-xs-12'>
+        <div class='checkbox'>
+          <label >
+            <input type="checkbox" ng-model="job.ready_review">  Ready for Invoice?
+          </label>        
+        </div>
+        <div class='checkbox'>
+          <label ng-show='job.ready_review'>
+            <input type="checkbox" ng-model="checkJobCompleted">  Job Completed?
+          </label>          
+        </div>
+      </div>
+      <div class="form-group" ng-show='job.ready_review'>
+        <label for="jobDateCompleted" class="col-xs-2 control-label">Date</label>
+        <div class="col-xs-10">
+          <input ng-disabled = '!checkJobCompleted'required ng-model="job.date_completed" type="date" class="form-control" id="jobDateCompleted" placeholder="Date Requested" format-date>        
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="col-xs-6">
-    <div class='err-message'>
-      <p ng-if='!job.manager'>Manager required</p>
-      <p ng-if='!job.propertie'>Property required</p>   
-      <p ng-if='!job.unit && jobCreate.unit.$touched'>Unit required</p>
-      <p ng-if='checkJobCompleted && !job.date_completed'>If completed, date is required</p>  
+    <div class="col-xs-6">
+      <div class='err-message'>
+        <p ng-if='!job.manager'>Manager required</p>
+        <p ng-if='!job.propertie'>Property required</p>   
+        <p ng-if='!job.unit && jobCreate.unit.$touched'>Unit required</p>
+        <p ng-if='checkJobCompleted && !job.date_completed'>If completed, date is required</p>  
+      </div>
     </div>
-  </div>
-  <div class="col-xs-12">
-    <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Go Back</button>
-    <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
-      type="button" class="btn btn-info" ng-click = 'createJob()'>Save & Add Other</button>
-    <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
-      type="button" class="btn btn-primary" ng-click = 'createJob("goBack")'>Save & Continue</button>
-  </div>
+    <div class="col-xs-12">
+      <br>
+      <button type="button" class="btn btn-default" ui-sref='main_private.jobs'>Go Back</button>
+      <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
+        type="button" class="btn btn-info" ng-click = 'createJob()'>Save & Add Other</button>
+      <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
+        type="button" class="btn btn-primary" ng-click = 'createJob("goBack")'>Save & Continue</button>
+    </div>
 </div>

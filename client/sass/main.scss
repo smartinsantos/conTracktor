@@ -2,10 +2,14 @@
 //makes navbar collaps at 500px
 $grid-float-breakpoint: 720px;
 //importing bootstrap
-@import '_bootstrap-sprockets.scss';
-@import '_bootstrap.scss';
+@import 'bootstrap-variables.sass';
+@import 'bootstrap-sprockets.scss';
+@import 'bootstrap.scss';
 
-
+//CSS
+html,body {
+    height:100%;
+}
 
 .page-header {
   margin-top: 0px;
@@ -21,3 +25,19 @@ $grid-float-breakpoint: 720px;
 .err-message{
   color:red !important;
 }
+
+.job-element{
+    background-color:#efefef;
+}
+
+.job-item{
+  height: 100%;
+}
+
+.job-subitem {
+  min-height: 380px;
+  height: 100%;
+
+
+}
+

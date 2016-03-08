@@ -1,6 +1,5 @@
 <div class="page-header">
-  <h1 class ='text-center'>In Progress Jobs</h1><br>
-    <button class="btn btn-default center-block" type="button" ui-sref="main_private.jobs_create"><i class="fa fa-plus-circle"></i> Add new</button>
+  <h1 class ='text-center'>Ready for Review Jobs</h1><br>
 </div>
 <div class="page-header col-xs-12"> 
   <div class="form-group col-xs-8 col-xs-offset-2 text-center">
@@ -43,7 +42,7 @@
 </div>
 
 <div class="panel-group col-xs-12" id="jobs_incompleted_accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default" ng-repeat = 'job in jobs| filter: filter:strict' ng-if='!job.ready_review'>
+  <div class="panel panel-default" ng-repeat = 'job in jobs| filter: filter:strict' ng-if='job.ready_review'>
     <div class="panel-heading" role="tab">
       <ol class="panel-title breadcrumb" role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
         <li><i class="fa fa-user"></i> {{job.manager.first}} {{job.manager.last}}</li>
