@@ -157,7 +157,6 @@ router.delete('/:jobId', auth.requireAuth, function (req, res) {
 
 // Handles generating a signed url to allow client to upload to AWS S3
 router.post('/signedUrlAws', auth.requireAuth, function(req, res) {
-  console.log('fileInfo on server', req.body)
   var file = req.body;
   // Check if file size was sent with request
   if (typeof file.size === 'undefined') {
@@ -200,10 +199,8 @@ router.post('/signedUrlAws', auth.requireAuth, function(req, res) {
       signedRequest: data, // Url the client should PUT recording
       url: 'https://' + bucket + '.s3.amazonaws.com/' + params.Key, // Url the client can access recording after upload
     };
-    console.log('S3 DATA: ', data)
     res.json(returnData);
   });
-
 });
 
 

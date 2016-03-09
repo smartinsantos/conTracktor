@@ -70,6 +70,7 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   };
  
   var edit = function(jobInfo){
+    console.log('editing job: ', jobInfo)
     var jobId = jobInfo._id;
     return $http.put('/jobs/'+ jobId, jobInfo)
     .then(function(res){
@@ -102,11 +103,6 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   }
 
 
-  var uploadFile = function(file){
-
-
-  };
-
   return {
   create:create,
   getAll:getAll,
@@ -116,8 +112,7 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   getCompletedByDate:getCompletedByDate,
   edit:edit,
   deleteJob:deleteJob,
-  getAwsUrl:getAwsUrl,
-  uploadFile:uploadFile
+  getAwsUrl:getAwsUrl
   };
 
 }]);

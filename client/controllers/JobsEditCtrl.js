@@ -115,8 +115,9 @@ $scope.addNewService = function() {
   };
 
 //UPLOAD FILES
-  $scope.getAwsUrl = function() {
-    console.log('getting Url....')
+
+  $scope.uploadToS3 = function() {
+    //sends a post to the server to get the signedUrl to upload file on client side 
     fileInfo = {};
     fileInfo.name = $scope.file.name;
     fileInfo.size = $scope.file.size;
@@ -124,38 +125,48 @@ $scope.addNewService = function() {
 
     Jobs.getAwsUrl(fileInfo)
     .then(function(response){
-     console.log('response.data: ', response.data)
-      
+      //response is an object with the signed url and url path to the file      
       if (typeof response.data.signedRequest === 'undefined' || typeof response.data.url === 'undefined') {
         // This shouldnt happen
         console.log('SignedRequest or URL was undefined');
-        return;
+        throw 'Failed to create signedRequest with AWS S3'
       }
+      $scope.loading = true;
+      $.ajax({
+        url: response.data.signedRequest,
+        type: 'PUT',
+        data: $scope.file,
+        processData: false,
+        contentType: $scope.file.type,
+      })
+      .success(function(res){
+        console.log('file ' + $scope.file.name + ' uploaded.');
+        $scope.job.attachments.push({fileName:$scope.file.name, url:response.data.url})
+        Jobs.edit($scope.job)
+        .then(function(res){
+          $scope.loading = false; 
+        });
+      });
+    });
+  };
 
-      // In order for this to work, we must use the ol' fashion XMLHttpRequest object
-      var xhr = new XMLHttpRequest();
-
-      xhr.open('PUT', response.data.signedRequest);
-      xhr.onload = function (e) {
-        var amazonResult = e.response;
-        if (xhr.status === 200) {
-          var url = response.data.url
-          // $scope.add(url);
-        } else if (xhr.status === 403) {
-          // Something was changed in the signed url, its not what the server signed
-          // Amazon rejected the upload
-        }
-        // $scope.__log('Saved!');
-        // $scope.closeAccordion();
-      };
-
-      xhr.onerror = function () {
-        console.log('Error uploading file');
-      };
-      xhr.send($scope.file);
-    })
-
-  }
-
+  $scope.deleteAttachment = function (attachment){
+    var idx = $scope.job.attachments.indexOf(attachment);
+    $scope.job.attachments.splice(idx, 1);
+      $.ajax({
+        url: attachment.url,
+        type: 'DELETE',
+        // data: $scope.file,
+        // processData: false,
+        // contentType: $scope.file.type,
+      })
+      .success(function(res){
+        console.log('job deleted from amazon!')
+        Jobs.edit($scope.job)
+        .then(function(res){
+          console.log('job deleted')
+        })
+      });
+  };
 
 }]);

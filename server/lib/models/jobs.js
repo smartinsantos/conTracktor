@@ -7,7 +7,7 @@ var CostSchema = new Schema({
 });
 
 var AttachmentsSchema = new Schema({
-    item: String,
+    fileName: String,
     url: String
 })
 
