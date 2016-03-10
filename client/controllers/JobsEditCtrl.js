@@ -157,6 +157,7 @@ $scope.addNewService = function() {
     .then(function(res){
       var idx = $scope.job.attachments.indexOf(attachment);
       $scope.job.attachments.splice(idx, 1);
+      Jobs.edit($scope.job);
     })
       
   };

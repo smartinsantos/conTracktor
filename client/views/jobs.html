@@ -76,7 +76,10 @@
             <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
             <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
             <div>
-              <p class="list-group-item-text"><strong>Attachments:</strong> To Be Implemented...</p>
+              <p class="list-group-item-text"><strong>Attachments:</strong></p>
+                <div ng-repeat = 'attachment in job.attachments'>
+                  <p><a href='{{attachment.url}}' download="{{attachment.fileName}}">{{attachment.fileName}}</a></p>
+                </div>
             </div>
           </div>
         </div>

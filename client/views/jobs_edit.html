@@ -57,11 +57,11 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-show = 'job.attachments.length>0'>
         <label for="jobAttachments" class="col-xs-2 control-label">Attached Files</label>
         <div class="col-xs-10" id="jobAttachments">
           <div ng-repeat = 'attachment in job.attachments'>
-            <p><a href='{{attachment.url}}' download="{{attachment.fileName}}">{{attachment.fileName}}</a><span ng-click='deleteAttachment(attachment)'> Delete</span></p>
+            <p><a href='{{attachment.url}}' download="{{attachment.fileName}}">{{attachment.fileName}}   </a><span ng-click='deleteAttachment(attachment)'><a href='#'><i class="fa fa-minus-circle"></i></a></span></p>
           </div>
         </div>
       </div>
