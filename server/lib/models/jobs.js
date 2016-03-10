@@ -25,9 +25,9 @@ var JobsSchema = new Schema({
     manager: { type: Schema.Types.ObjectId, ref:'Admin', required:true}, // Saves Manager Name       
     propertie: { type: Schema.Types.ObjectId, ref: 'Propertie', required:true}, //Saves Property Name 
     unit: String,
-    completed: Boolean,
     costs: [CostSchema],
     services:[ServiceSchema], 
+    attachments: [AttachmentsSchema],
     totalPrice: Number,
     totalCost:Number,
     poNumber: { type : String, unique: true, sparse:true },
@@ -35,7 +35,7 @@ var JobsSchema = new Schema({
     notes: String,
     ready_review: Boolean,
     date_completed: Date,
-    attachments: [AttachmentsSchema],
+    // completed: Boolean,
 });
 
 
