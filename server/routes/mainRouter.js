@@ -73,6 +73,12 @@ router.get('/js/jquery.js', function(req, res){
 router.get('/js/bootstrap.js', function(req, res){
   res.sendFile(Path.resolve('./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'));
   });
+
+//Serve jsPDF
+//Serve jQuery 
+router.get('/js/jspdf.js', function(req, res){
+  res.sendFile(Path.resolve('./node_modules/jspdf/dist/jspdf.min.js'));
+  });
 // Serve Angular and Angular modules
 router.get('/js/angular.js', browserify(sharedAngular));
 // Serve application js files
