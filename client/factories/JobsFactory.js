@@ -70,6 +70,7 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   };
  
   var edit = function(jobInfo){
+    console.log('editing job: ', jobInfo)
     var jobId = jobInfo._id;
     return $http.put('/jobs/'+ jobId, jobInfo)
     .then(function(res){
@@ -90,6 +91,18 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
     });
   };
 
+  var getAwsUrl = function(fileInfo){
+
+    return $http.post('/jobs/signedUrlAWS',fileInfo)
+    .then(function(response){
+      return response;
+    })
+    .catch(function(err){
+      console.log('signedUrlAWS err: ', err);
+    });
+  }
+
+
   return {
   create:create,
   getAll:getAll,
@@ -98,7 +111,8 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   getIncompleted:getIncompleted,
   getCompletedByDate:getCompletedByDate,
   edit:edit,
-  deleteJob:deleteJob
+  deleteJob:deleteJob,
+  getAwsUrl:getAwsUrl
   };
 
 }]);

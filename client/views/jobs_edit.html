@@ -56,12 +56,42 @@
           <textarea ng-model='job.notes' class="form-control" rows="5" class="form-control" id="jobNotes" placeholder="Notes..."></textarea>
         </div>
       </div>
+
+      <div class="form-group">
+        <label for="jobAttachments" class="col-xs-2 control-label">Attached Files</label>
+        <div class="col-xs-10" id="jobAttachments">
+          <div ng-repeat = 'attachment in job.attachments'>
+            <p><a href='{{attachment.url}}' download="{{attachment.fileName}}">{{attachment.fileName}}</a><span ng-click='deleteAttachment(attachment)'> Delete</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="jobAddAttachment" class="col-xs-2 control-label">Add File</label>
+        <div class="col-xs-10" id="jobAddAttachment">
+          <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h6 class="panel-title">Upload File</h6>
+              </div>
+              <div class="panel-body">
+                <input class="" type="file" name="file" file></input><br>
+                <a class="btn btn-sm btn-primary btn-block" ng-click="uploadToS3()">Upload</a>
+              </div>            
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </form>
   </div>
 
-<!-- <div class="page-header col-xs-12">
-  <h3 class ='text-center'>Attachments To Be Implemented...</h3>
-</div> -->
+
+
+
+</div>
 
   
 <div class="page-header col-xs-12">

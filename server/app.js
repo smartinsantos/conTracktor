@@ -10,6 +10,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var sass = require('node-sass-endpoint');
 
+//amazon web services
+var aws = require('aws-sdk');
+
 var passport = require('passport');
 require('./passport.js');
 
@@ -25,8 +28,17 @@ router.get('/api/tags-example', function(req, res) {
 if(process.env.NODE_ENV !== 'test') {
   // We're in development or production mode;
   // create and run a real server.
-  var app = express();
   
+  // Set up AWS to use our authorization keys
+  aws.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  });
+
+  // Set the region in which our S3 bucket is located
+  aws.config.region = process.env.AWS_REGION;
+
+  var app = express();  
    // Use morgan to log requests to our express server to the console
   app.use(morgan('dev'));
   // Parse incoming request bodies as JSON
