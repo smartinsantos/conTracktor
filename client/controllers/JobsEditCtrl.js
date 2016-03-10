@@ -141,7 +141,7 @@ $scope.addNewService = function() {
       })
       .success(function(res){
         console.log('file ' + $scope.file.name + ' uploaded.');
-        $scope.job.attachments.push({fileName:$scope.file.name, url:response.data.url})
+        $scope.job.attachments.push({fileName:$scope.file.name, awsKey:response.data.awsKey, url:response.data.url})
         Jobs.edit($scope.job)
         .then(function(res){
           $scope.loading = false; 
@@ -151,22 +151,14 @@ $scope.addNewService = function() {
   };
 
   $scope.deleteAttachment = function (attachment){
-    var idx = $scope.job.attachments.indexOf(attachment);
-    $scope.job.attachments.splice(idx, 1);
-      $.ajax({
-        url: attachment.url,
-        type: 'DELETE',
-        // data: $scope.file,
-        // processData: false,
-        // contentType: $scope.file.type,
-      })
-      .success(function(res){
-        console.log('job deleted from amazon!')
-        Jobs.edit($scope.job)
-        .then(function(res){
-          console.log('job deleted')
-        })
-      });
+    var fileInfo = {};
+        fileInfo.awsKey = attachment.awsKey;
+    Jobs.deleteAwsBucket(fileInfo)
+    .then(function(res){
+      var idx = $scope.job.attachments.indexOf(attachment);
+      $scope.job.attachments.splice(idx, 1);
+    })
+      
   };
 
 }]);

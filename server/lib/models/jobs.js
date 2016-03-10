@@ -8,6 +8,7 @@ var CostSchema = new Schema({
 
 var AttachmentsSchema = new Schema({
     fileName: String,
+    awsKey:String,
     url: String
 })
 
