@@ -16,7 +16,6 @@ var uuid = require('node-uuid');
 // Get all projects for a user
 router.get('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
 // var isAdmin = req.session.passport.user.admin;
-
   Jobs.find({}, function (err, doc) {
     if (err){ 
       console.log('error getting Jobs',err);
@@ -55,7 +54,33 @@ router.get('/incompleted', auth.requireAuth,auth.requireAdmin, function (req, re
   });
 });
 
-router.get('/completed/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
+//********************TODO
+router.get('/all/date/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
+  //parse param dateQuery to Obj  
+  var dateInfo = helpers.paramParser(req.params.dateQuery)
+  //transform object into dates
+  var startDate = new Date(dateInfo.startDate);
+  var endDate = new Date(dateInfo.endDate);
+  Jobs.find({date_completed:{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
+    if (err){ 
+      console.log('error getting Jobs',err);
+      return err;
+    };
+    return doc;
+  })
+  .populate('manager','first last email phone _id')
+  .populate('propertie')
+  .populate('services.worker')
+  .then(function(jobs){
+    res.status(200).json(jobs);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  });
+});
+//********************
+
+router.get('/completed/date/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
   //parse param dateQuery to Obj  
   var dateInfo = helpers.paramParser(req.params.dateQuery)
   //transform object into dates

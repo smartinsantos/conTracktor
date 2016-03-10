@@ -43,21 +43,37 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
     });
   };
 
-  var getCompletedByDate = function(startDate,endDate){
+//********************TODO
+  var getAllByDate = function(startDate,endDate){
     //Transform Dates to 
     var startDate = startDate.toJSON()
     var endDate = endDate.toJSON()
     var dateQuery = jQuery.param({startDate:startDate,endDate:endDate});
 
-    return $http.get('/jobs/completed/' + dateQuery)
+    return $http.get('/jobs/all/date' + dateQuery)
     .then(function(res){
       return res.data;
     })
     .catch(function(err){
       console.log('getJobs completed err: ', err);
     });
+  };
+//********************
 
-  }
+  var getCompletedByDate = function(startDate,endDate){
+    //Transform Dates to 
+    var startDate = startDate.toJSON()
+    var endDate = endDate.toJSON()
+    var dateQuery = jQuery.param({startDate:startDate,endDate:endDate});
+
+    return $http.get('/jobs/completed/date/' + dateQuery)
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('getJobs completed err: ', err);
+    });
+  };
 
   var create = function (newJob){
     return $http.post('/jobs/', newJob)
