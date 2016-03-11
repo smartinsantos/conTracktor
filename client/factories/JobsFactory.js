@@ -44,13 +44,13 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   };
 
 //********************TODO
-  var getAllByDate = function(startDate,endDate){
+  var getAllByServiceDate = function(startDate,endDate){
     //Transform Dates to 
     var startDate = startDate.toJSON()
     var endDate = endDate.toJSON()
     var dateQuery = jQuery.param({startDate:startDate,endDate:endDate});
 
-    return $http.get('/jobs/all/date' + dateQuery)
+    return $http.get('/jobs/services/date/' + dateQuery)
     .then(function(res){
       return res.data;
     })
@@ -135,6 +135,7 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   getAllManagerJobs:getAllManagerJobs,
   getOne:getOne,
   getIncompleted:getIncompleted,
+  getAllByServiceDate:getAllByServiceDate,
   getCompletedByDate:getCompletedByDate,
   edit:edit,
   deleteJob:deleteJob,
