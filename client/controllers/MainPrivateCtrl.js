@@ -16,7 +16,9 @@ app.controller('MainPrivateCtrl', ['$scope','$state','Admin','Auth','manager', f
     if($scope.manager===true){
       $state.go('main_private.jobs_manager', {'sessionId':$scope.sessionId});
     }else{
-      $state.go('main_private.jobs');
+      // $state.go('main_private.jobs');
+      $state.go('main_private.reports');
+
     }
   // Else, go to the public landing page
   } else {

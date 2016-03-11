@@ -55,13 +55,13 @@ router.get('/incompleted', auth.requireAuth,auth.requireAdmin, function (req, re
 });
 
 //********************TODO
-router.get('/all/date/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
+router.get('/services/date/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
   //parse param dateQuery to Obj  
   var dateInfo = helpers.paramParser(req.params.dateQuery)
   //transform object into dates
   var startDate = new Date(dateInfo.startDate);
   var endDate = new Date(dateInfo.endDate);
-  Jobs.find({date_completed:{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
+  Jobs.find({'services.date_assigned':{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
     if (err){ 
       console.log('error getting Jobs',err);
       return err;

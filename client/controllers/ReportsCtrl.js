@@ -1,13 +1,24 @@
 app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties', function($scope,$state,Reports,Jobs,Admin,Workers,Properties) {
   
   console.log('ReportsCtrl Loaded....')
+  
+//default values for dates on state load
+  $scope.report = {};
+  $scope.report.date = {}; 
+  $scope.report.date.end = new Date();
+  $scope.report.date.start = new Date();
+  $scope.report.date.start.setMonth($scope.report.date.start.getMonth() - 1);
 
-  $scope.report;
+//jobs retrieved on report criteria 
+  $scope.report.jobs =[]; 
 
-  //default values for dates on state load
-  $scope.endDate = new Date();
-  $scope.startDate = new Date();
-  $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+  //work around to clear the filter when worker does not exist
+$scope.clearFilter = function(){
+  if($scope.filter.services.worker._id===''){
+    delete($scope.filter.services);
+  };
+};
+
 
    //filter object for job 'search'
   $scope.filter = {};
@@ -50,16 +61,50 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
   $scope.getWorkers();    
 
  
-//CREATE JOBS
-  $scope.jobs = [];
-  $scope.job = {};
+// 
+  $scope.generateReport = function (){
+    var startDate = $scope.report.date.start;
+    var endDate = $scope.report.date.end;
+    $scope.report.jobs = [];
 
-  $scope.getJobs = function(startDate,endDate) {
-    Jobs.getAll()
+    Jobs.getAllByServiceDate(startDate,endDate)
     .then(function(jobs){
-      $scope.jobs = jobs;
+      
+      jobs.forEach(function(job){
+        job.services.forEach(function(service){
+          service.date_assigned = new Date(service.date_assigned)
+          console.log(service.date_assigned>=$scope.report.date.start)
+        })
+      })
+      
+      if($scope.report.reportType ==='manager'){
+        jobs.forEach(function(job){
+          if(job.manager._id === $scope.report.manager){
+            $scope.report.jobs.push(job);
+          }
+        });
+      }else if($scope.report.reportType ==='worker'){
+
+        jobs.forEach(function(job){
+          job.services.forEach(function(service){
+            if(service.worker._id === $scope.report.worker){
+              $scope.report.jobs.push(job);
+            }
+          });
+        });
+      }else if($scope.report.reportType ==='property'){
+        jobs.forEach(function(job){
+          if(job.propertie._id === $scope.report.property){
+            $scope.report.jobs.push(job);
+          }
+        });
+      }      
+    console.log($scope.report.jobs)
+    
+    }).catch(function(err){
+      console.log('Err getting report data: ', err)
     })
-  };
+  }
 
 //**************************TODO
   function demoFromHTML() {
