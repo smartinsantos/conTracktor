@@ -100,7 +100,7 @@
       <td>
         
         <div ng-repeat = 'service in job.services'>          
-          <p ng-show ='service.date_assigned<=report.date.start && service.date_assigned<=report.date.end'>
+          <p ng-show ='service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>
           {{service.item}}
           {{service.date_assigned}}
           {{service.worker.first}} {{service.worker.last}}
