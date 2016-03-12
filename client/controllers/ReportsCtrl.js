@@ -1,6 +1,7 @@
 app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties', function($scope,$state,Reports,Jobs,Admin,Workers,Properties) {
   
   console.log('ReportsCtrl Loaded....')
+  $scope.priceCounter = 0;
   
 //default values for dates on state load
   $scope.report = {};
@@ -8,6 +9,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
   $scope.report.date.end = new Date();
   $scope.report.date.start = new Date();
   $scope.report.date.start.setMonth($scope.report.date.start.getMonth() - 1);
+
 
 //jobs retrieved on report criteria 
   $scope.report.jobs =[]; 
@@ -65,18 +67,15 @@ $scope.clearFilter = function(){
   $scope.generateReport = function (){
     var startDate = $scope.report.date.start;
     var endDate = $scope.report.date.end;
+  //formating date to be compared on ng-if html
+    $scope.startDateCompare = startDate.toISOString();
+    $scope.endDateCompare = endDate.toISOString();
+
     $scope.report.jobs = [];
 
     Jobs.getAllByServiceDate(startDate,endDate)
     .then(function(jobs){
-      
-      jobs.forEach(function(job){
-        job.services.forEach(function(service){
-          service.date_assigned = new Date(service.date_assigned)
-          console.log(service.date_assigned>=$scope.report.date.start)
-        })
-      })
-      
+          
       if($scope.report.reportType ==='manager'){
         jobs.forEach(function(job){
           if(job.manager._id === $scope.report.manager){
