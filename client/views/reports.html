@@ -26,6 +26,7 @@
         </label>
       </div>
     </div>
+
     <div class="form-group col-xs-12 col-sm-4" ng-show='report.reportType'>
       <h5>Pick Start-End Date</h5>
       <div class="col-xs-12">
@@ -37,8 +38,8 @@
           <input required ng-model="report.date.end" type="date" class="form-control" id="jobSearchEnd" format-date>
       </div>
     </div>
-    <div class='col-xs-12 col-sm-4' ng-show ='report.reportType'>
-      
+    
+    <div class='form-group col-xs-12 col-sm-4' ng-show ='report.reportType'>  
       <h5>Select Field</h5>
       <div class="form-group text-center" ng-if = 'report.reportType==="manager"'>
         <label for="reportManagerFilter" class="col-xs-2 control-label">Manager</label>
@@ -72,24 +73,22 @@
             </option>
           </select>
         </div>
-      </div>   
-    </div>
-  </div><br>
-  <div class='col-xs-12'>
-    <button class="btn btn-default center-block" type="button" ng-click='generateReport()'><i class="fa fa-plus-circle"></i> Generate Report</button>
+      </div><br>   
+      <div class='col-xs-12'>
+        <button class="btn btn-default center-block" type="button" ng-click='generateReport()'><i class="fa fa-plus-circle"></i> Generate Report</button>
+      </div>
+    </div><br>
+
+
   </div>
 </div>
 
-<div class="panel panel-default">
-  <table class="table table-bordered table table-striped">
+<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "manager"'>
+  <table class="table table-bordered table">
     <tr>
       <th>Property</th>
       <th>Apt#</th>   
-      <th>Services</th>
-      <!-- <th>Description</th>
-      <th>Worker</th>
-      <th>Price</th>
-      <th>Assigned Date</th> -->
+      <th>Job</th>
       <th>PO #</th>
       <th>Invoice #</th>
       <th>Edit</th>
@@ -98,20 +97,102 @@
       <td>{{job.propertie.name}}</td>
       <td>{{job.unit}}</td>
       <td>
-        
-        <div ng-repeat = 'service in job.services'>          
-          <p ng-show ='service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>
-          {{service.item}}
-          {{service.date_assigned}}
-          {{service.worker.first}} {{service.worker.last}}
-          {{service.descrition}}
-          {{service.price}}
-          </p>
-        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Worker</th>
+              <th>Price</th>
+              <th>Description</th>
+            </tr>
+        <!--     ng-if ='service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare' -->
+            <tr ng-repeat = 'service in job.services'>
+              <td>{{service.item}}</td>
+              <td ng-class="{ 'date-error': service.date_assigned<=startDateCompare || service.date_assigned>=endDateCompare }">{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
+              <td>{{service.worker.first}} {{service.worker.last}}</td>
+              <td>{{service.price}} $</td>
+              <td>{{service.description}}</td>
+            </tr>
+            <tr>
+              <td></td><td></td>
+              <td>
+                <div>
+                  <p>Job Total Price: </p>
+                  <p ng-if ='job.totalCost'>Job Total Cost: </p>            
+                </div>                
+              </td>
+              <td>
+                <div>
+                  <p>{{job.totalPrice}} $</p>
+                  <p ng-if ='job.totalCost'>{{job.totalCost}} $</p>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          </table>
+        </div>                
       </td>
       <td>{{job.poNumber}}</td>
       <td>{{job.invoiceNumber}}</td>
-      <td>edit</td>
+      <td><a class="btn btn-primary" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
+    </tr>
+  </table>
+</div>
+
+<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "worker"'>
+  <table class="table table-bordered table">
+    <tr>
+      <th>Property</th>
+      <th>Apt#</th>   
+      <th>Job</th>
+      <th>PO #</th>
+      <th>Invoice #</th>
+      <th>Edit</th>
+    </tr>
+    <tr ng-repeat = 'job in report.jobs'>
+      <td>{{job.propertie.name}}</td>
+      <td>{{job.unit}}</td>
+      <td>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Worker</th>
+              <th>Price</th>
+              <th>Description</th>
+            </tr>
+        <!--     ng-if ='service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare' -->
+            <tr ng-repeat = 'service in job.services'>
+              <td>{{service.item}}</td>
+              <td ng-class="{ 'date-error': service.date_assigned<=startDateCompare || service.date_assigned>=endDateCompare }">{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
+              <td>{{service.worker.first}} {{service.worker.last}}</td>
+              <td>{{service.price}} $</td>
+              <td>{{service.description}}</td>
+            </tr>
+            <tr>
+              <td></td><td></td>
+              <td>
+                <div>
+                  <p>Job Total Price: </p>
+                  <p ng-if ='job.totalCost'>Job Total Cost: </p>            
+                </div>                
+              </td>
+              <td>
+                <div>
+                  <p>{{job.totalPrice}} $</p>
+                  <p ng-if ='job.totalCost'>{{job.totalCost}} $</p>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          </table>
+        </div>                
+      </td>
+      <td>{{job.poNumber}}</td>
+      <td>{{job.invoiceNumber}}</td>
+      <td><a class="btn btn-primary" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
     </tr>
   </table>
 </div>

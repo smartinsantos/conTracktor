@@ -233,7 +233,6 @@ app.directive('file', function() {
   };
 });
 
-
 require('./factories');
 require('./controllers');
 require('./directives');

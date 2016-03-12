@@ -1,6 +1,7 @@
 app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties', function($scope,$state,Reports,Jobs,Admin,Workers,Properties) {
   
   console.log('ReportsCtrl Loaded....')
+  $scope.priceCounter = 0;
   
 //default values for dates on state load
   $scope.report = {};
