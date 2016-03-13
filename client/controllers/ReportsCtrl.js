@@ -78,7 +78,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 
         jobs.forEach(function(job){
           for(var i=0;i< job.services.length;i++){
-            if(job.services[i].worker._id === $scope.report.worker){
+            if(job.services[i].worker._id === $scope.report.worker && job.services[i].date_assigned>=$scope.startDateCompare && job.services[i].date_assigned<=$scope.endDateCompare){
               $scope.report.jobs.push(job);
               break;
             }
@@ -98,26 +98,22 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
     })
   }
 
-  $scope.clearReport = function(){
-    $scope.report = {};
-    $scope.report.date = {}; 
-    $scope.report.date.end = new Date();
-    $scope.report.date.start = new Date();
-    $scope.report.date.start.setMonth($scope.report.date.start.getMonth() - 1);
-
-
-  //jobs retrieved on report criteria 
+//clear report jobs on report change
+  $scope.clearReport = function(){  
     $scope.report.jobs =[]; 
-  }
+  };
 
+  $scope.$watch('report.reportType', function(value) {
+         $scope.clearReport();
+   });
 
 //**************************TODO
-  function demoFromHTML() {
+  $scope.demoFromHTML = function() {
     var pdf = new jsPDF('p', 'pt', 'letter');
     
     pdf.cellInitialize();
     pdf.setFontSize(10);
-    $.each( $('#customers tr'), function (i, row){
+    $.each( $('tr'), function (i, row){
         $.each( $(row).find("td, th"), function(j, cell){
             var txt = $(cell).text().trim() || " ";
             var width = (j==4) ? 40 : 70; //make with column smaller
