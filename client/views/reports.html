@@ -9,20 +9,20 @@
       <h5>Report Type</h5>
       <div class="radio">
         <label>
-          <input ng-model='report.reportType'  type="radio" name="reportType" value='manager' ng-checked>
-          Manager Report (Explanation)
+          <input  ng-model='report.reportType'  type="radio" name="reportType" value='manager' ng-checked>
+          Jobs Manager Report
         </label>
       </div>
       <div class="radio">
         <label>
-          <input ng-model='report.reportType'  type="radio" name="reportType" value='worker'>
-          Services by Worker
+          <input  ng-model='report.reportType'  type="radio" name="reportType" value='worker'>
+          Jobs by Worker Report
         </label>
       </div>
       <div class="radio">
         <label>
           <input ng-model='report.reportType'  type="radio" name="reportType" value='property'>
-          Services by Property
+          Jobs by Property Report
         </label>
       </div>
     </div>
@@ -45,7 +45,7 @@
         <label for="reportManagerFilter" class="col-xs-2 control-label">Manager</label>
         <div>
           <select ng-model = 'report.manager' class="form-control" id='reportManagerFilter'>
-            <option  value = '{{admin._id}}' ng-repeat ='admin in admins'>
+            <option value = '{{admin._id}}' ng-repeat ='admin in admins'>
             {{admin.first}} {{admin.last}}
             </option>
           </select>
@@ -54,9 +54,8 @@
       <div class="form-group text-center" ng-if = 'report.reportType==="worker"'>
         <label for="reportWorkerFilter" class="col-xs-2 control-label">Worker</label>
         <div>
-          <select ng-change='clearFilter()' ng-model = 'report.worker' class="form-control" id='reportWorkerFilter'>
-            <option value =''>All</option>
-            <option  value = '{{worker._id}}' ng-repeat ='worker in workers'>
+         <select  ng-model = 'report.worker' class="form-control" id='reportWorkerFilter'>
+            <option value='{{worker._id}}' ng-repeat ='worker in workers'>
             {{worker.first}} {{worker.last}}
             </option>
           </select>
@@ -67,7 +66,6 @@
         <label for="reportPropertyFilter" class="col-xs-2 control-label">Property</label>
         <div>
           <select ng-model = 'report.propertie' class="form-control" id='reportPropertyFilter'>
-            <option value =''>All</option>
             <option  value = '{{property._id}}' ng-repeat ='property in properties'>
             {{property.name}}
             </option>
@@ -82,7 +80,6 @@
 
   </div>
 </div>
-
 <div class="panel panel-default col-xs-12" ng-if ='report.reportType === "manager"'>
   <table class="table table-bordered table">
     <tr>
@@ -106,7 +103,6 @@
               <th>Price</th>
               <th>Description</th>
             </tr>
-        <!--     ng-if ='service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare' -->
             <tr ng-repeat = 'service in job.services'>
               <td>{{service.item}}</td>
               <td ng-class="{ 'date-error': service.date_assigned<=startDateCompare || service.date_assigned>=endDateCompare }">{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
@@ -141,14 +137,11 @@
 </div>
 
 <div class="panel panel-default col-xs-12" ng-if ='report.reportType === "worker"'>
-  <table class="table table-bordered table">
+<table class="table table-bordered table">
     <tr>
       <th>Property</th>
       <th>Apt#</th>   
-      <th>Job</th>
-      <th>PO #</th>
-      <th>Invoice #</th>
-      <th>Edit</th>
+      <th>Job</th> 
     </tr>
     <tr ng-repeat = 'job in report.jobs'>
       <td>{{job.propertie.name}}</td>
@@ -161,9 +154,40 @@
               <th>Date</th>
               <th>Worker</th>
               <th>Price</th>
+            </tr>
+            <tr ng-repeat = 'service in job.services'>
+              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.item}}</td>
+              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
+              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.worker.first}} {{service.worker.last}}</td>
+              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.price}} $</td>
+            </tr>
+          </table>
+        </div>                
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "property"'>
+  <table class="table table-bordered table">
+    <tr>
+      <th>Apt#</th>   
+      <th>Job</th>
+      <th>PO #</th>
+      <th>Invoice #</th>
+    </tr>
+    <tr ng-repeat = 'job in report.jobs'>
+      <td>{{job.unit}}</td>
+      <td>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Worker</th>
+              <th>Price</th>
               <th>Description</th>
             </tr>
-        <!--     ng-if ='service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare' -->
             <tr ng-repeat = 'service in job.services'>
               <td>{{service.item}}</td>
               <td ng-class="{ 'date-error': service.date_assigned<=startDateCompare || service.date_assigned>=endDateCompare }">{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
@@ -192,7 +216,6 @@
       </td>
       <td>{{job.poNumber}}</td>
       <td>{{job.invoiceNumber}}</td>
-      <td><a class="btn btn-primary" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
     </tr>
   </table>
 </div>

@@ -14,14 +14,6 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 //jobs retrieved on report criteria 
   $scope.report.jobs =[]; 
 
-  //work around to clear the filter when worker does not exist
-$scope.clearFilter = function(){
-  if($scope.filter.services.worker._id===''){
-    delete($scope.filter.services);
-  };
-};
-
-
    //filter object for job 'search'
   $scope.filter = {};
 
@@ -75,7 +67,7 @@ $scope.clearFilter = function(){
 
     Jobs.getAllByServiceDate(startDate,endDate)
     .then(function(jobs){
-          
+
       if($scope.report.reportType ==='manager'){
         jobs.forEach(function(job){
           if(job.manager._id === $scope.report.manager){
@@ -85,15 +77,16 @@ $scope.clearFilter = function(){
       }else if($scope.report.reportType ==='worker'){
 
         jobs.forEach(function(job){
-          job.services.forEach(function(service){
-            if(service.worker._id === $scope.report.worker){
+          for(var i=0;i< job.services.length;i++){
+            if(job.services[i].worker._id === $scope.report.worker){
               $scope.report.jobs.push(job);
+              break;
             }
-          });
+          };
         });
       }else if($scope.report.reportType ==='property'){
         jobs.forEach(function(job){
-          if(job.propertie._id === $scope.report.property){
+          if(job.propertie._id === $scope.report.propertie){
             $scope.report.jobs.push(job);
           }
         });
@@ -104,6 +97,19 @@ $scope.clearFilter = function(){
       console.log('Err getting report data: ', err)
     })
   }
+
+  $scope.clearReport = function(){
+    $scope.report = {};
+    $scope.report.date = {}; 
+    $scope.report.date.end = new Date();
+    $scope.report.date.start = new Date();
+    $scope.report.date.start.setMonth($scope.report.date.start.getMonth() - 1);
+
+
+  //jobs retrieved on report criteria 
+    $scope.report.jobs =[]; 
+  }
+
 
 //**************************TODO
   function demoFromHTML() {
