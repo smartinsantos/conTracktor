@@ -8,7 +8,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
   $scope.report.date = {}; 
   $scope.report.date.end = new Date();
   $scope.report.date.start = new Date();
-  $scope.report.date.start.setMonth($scope.report.date.start.getMonth() - 1);
+  $scope.report.date.start.setDate($scope.report.date.start.getDate() - 7);
 
 
 //jobs retrieved on report criteria 
@@ -90,9 +90,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
             $scope.report.jobs.push(job);
           }
         });
-      }      
-    console.log($scope.report.jobs)
-    
+      }          
     }).catch(function(err){
       console.log('Err getting report data: ', err)
     })
@@ -107,22 +105,27 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
          $scope.clearReport();
    });
 
-//**************************TODO
-  $scope.demoFromHTML = function() {
-    var pdf = new jsPDF('p', 'pt', 'letter');
-    
-    pdf.cellInitialize();
-    pdf.setFontSize(10);
-    $.each( $('tr'), function (i, row){
-        $.each( $(row).find("td, th"), function(j, cell){
-            var txt = $(cell).text().trim() || " ";
-            var width = (j==4) ? 40 : 70; //make with column smaller
-            pdf.cell(10, 50, width, 30, txt, i);
-        });
-    });
-    
-    pdf.save('sample-file.pdf');
+// prints html contents
+$scope.printHTML = function(content) {
+     
+  var printContents = $('#printableArea').html();
+
+  if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+      var popupWin = window.open('', '_blank', 'width=1200,height=680,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+      popupWin.window.focus();
+      popupWin.document.write('<!DOCTYPE html><html><head>' +
+          '<link rel="stylesheet" type="text/css" href="main.css"/>' +
+          '</head><body onload="window.print()" onfocus="window.close()"><div>' + printContents + '</div></html>');
+      popupWin.onfocus=function(){ popupWin.document.close();}
+  } else {
+      var popupWin = window.open('', '_blank', 'width=1200,height=680');
+      popupWin.document.open();
+      popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="main.css" /></head><body onload="window.print()">' + printContents + '</html>');
+      popupWin.document.close();
+  }
+  popupWin.document.close();
+  return true;
 }
-//********************
+
 
 }]);

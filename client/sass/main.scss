@@ -6,6 +6,16 @@ $grid-float-breakpoint: 720px;
 @import 'bootstrap-sprockets.scss';
 @import 'bootstrap.scss';
 
+//print reports css
+@media print {
+  @page {
+    size: landscape;
+    margin:10;
+  }
+  
+  .no-print { display: none; }/* Hide everything ... */
+}
+
 //CSS
 html,body {
     height:100%;
