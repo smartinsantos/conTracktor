@@ -80,7 +80,7 @@
 
   </div>
 </div>
-<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "manager"'>
+<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "manager"' id="printableArea">
   <table class="table table-bordered table">
     <tr>
       <th>Property</th>
@@ -88,7 +88,7 @@
       <th>Job</th>
       <th>PO #</th>
       <th>Invoice #</th>
-      <th>Edit</th>
+      <th class='no-print'>Edit</th>
     </tr>
     <tr ng-repeat = 'job in report.jobs'>
       <td>{{job.propertie.name}}</td>
@@ -131,12 +131,12 @@
       </td>
       <td>{{job.poNumber}}</td>
       <td>{{job.invoiceNumber}}</td>
-      <td><a class="btn btn-primary" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
+      <td class= 'no-print'><a class="btn btn-primary" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
     </tr>
   </table>
 </div>
 
-<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "worker"'>
+<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "worker"' id="printableArea">
 <table class="table table-bordered table">
     <tr>
       <th>Property</th>
@@ -168,7 +168,7 @@
   </table>
 </div>
 
-<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "property"'>
+<div class="panel panel-default col-xs-12" ng-if ='report.reportType === "property"' id="printableArea">
   <table class="table table-bordered table">
     <tr>
       <th>Apt#</th>   
@@ -176,7 +176,7 @@
       <th>PO #</th>
       <th>Invoice #</th>
     </tr>
-    <tr ng-repeat = 'job in report.jobs'>
+    <tr class ='outer-table' ng-repeat = 'job in report.jobs'>
       <td>{{job.unit}}</td>
       <td>
         <div class="table-responsive">
@@ -219,4 +219,6 @@
     </tr>
   </table>
 </div>
-<button ng-click='demoFromHTML()'>PDF</button>
+<div>
+  <button ng-if='report.jobs.length>0' class="btn btn-default btn-lg center-block" ng-click='printHTML()'><i class="fa fa-print"></i> Print</button>
+</div>
