@@ -91,7 +91,10 @@
       <th class='no-print'>Edit</th>
     </tr>
     <tr ng-repeat = 'job in report.jobs'>
-      <td>{{job.propertie.name}}</td>
+      <td>
+        <p>{{job.propertie.name}}</p>
+        <p class='i-red' ng-if='!job.ready_review'><i class="fa fa-exclamation"></i> This job has not been assigned for review</p>
+      </td>
       <td>{{job.unit}}</td>
       <td>
         <div class="table-responsive">
