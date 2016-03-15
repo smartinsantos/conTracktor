@@ -1,6 +1,6 @@
-app.controller('PropertiesCtrl', ['$scope','Properties','$state', function($scope, Properties,$state) {
+app.controller('PropertiesCtrl', ['$scope','Properties','$state','Toastr', function($scope, Properties,$state,Toastr) {
   
-  console.log('PropertiesCtrl Loaded....')
+  // console.log('PropertiesCtrl Loaded....')
 
     // Object for adding property
   $scope.property = {};
@@ -20,9 +20,15 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state', function($scop
     var newProperty = $scope.property;
     Properties.create(newProperty)
     .then(function(res){
-      $scope.backToProperties();
+      if(res===undefined){
+        throw 'Error Ocurred';
+      }else{
+        Toastr.success('Created!');
+        $scope.backToProperties();
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
       console.log('error ocurred: ', err);
     });
   };

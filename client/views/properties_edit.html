@@ -26,10 +26,10 @@
       <div class="form-group" ng-class="{ 'has-error': propertyEdit.street.$touched && propertyEdit.street.$invalid || propertyEdit.city.$touched && propertyEdit.city.$invalid || propertyEdit.state.$touched && propertyEdit.state.$invalid || propertyEdit.zip.$touched && propertyEdit.zip.$invalid }">
         <label for="propertyInputAddress" class="col-xs-2 control-label">Address</label>
         <div class="col-xs-9">
-          <input name = 'street' required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAddress" placeholder="Street">
-          <input name = 'street2' required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2">
-          <input name = 'city' required ng-model="property.address.city" type="text" class="form-control" placeholder="City">
-          <input name = 'state' required ng-model="property.address.state" type="text" class="form-control" placeholder="State">
+          <input name = 'street' required ng-model="property.address.street" type="text" class="form-control" id="propertyInputAddress" placeholder="Street"><br>
+          <input name = 'street2' required ng-model="property.address.street2" type="text" class="form-control" placeholder="Street 2"><br>
+          <input name = 'city' required ng-model="property.address.city" type="text" class="form-control" placeholder="City"><br>
+          <input name = 'state' required ng-model="property.address.state" type="text" class="form-control" placeholder="State"><br>
           <input name = 'zip' required ng-model="property.address.zip" type="number" class="form-control" placeholder="Zip code">
           <div class="help-block" ng-messages="propertyEdit.street.$error" ng-if="propertyEdit.street.$touched || propertyCreate.city.$touched || propertyCreate.state.$touched || propertyCreate.zip.$touched">
             <p ng-message="required">Address is required.</p>
@@ -39,7 +39,7 @@
       </div>
       <div class="page-header col-xs-12">
         <h3 class ='text-center'>Property Contacts</h3>
-        <button class="btn btn-default center-block" type="button" ng-click='addNewContact()'>Add Contact</button>  
+        <button class="btn btn-default center-block" type="button" ng-click='addNewContact()'><i class="fa fa-plus-circle"></i> Add Contact</button>  
       </div>
       <div class='col-xs-12' ng-repeat='contact in property.contacts'>
         <button type="button" class="close" aria-label="Close" ng-show="$last" ng-click="removeContact()"><span aria-hidden="true">&times;</span></button>
@@ -70,10 +70,10 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" ng-click='backToProperties()'>Close</button>
+    <button type="button" class="btn btn-default" ng-click='backToProperties()'><i class="fa fa-arrow-circle-o-left"></i> To Properties</button>
     <button ng-disabled="!property.name || !property.address.street || !property.address.city || !property.address.state || !property.address.zip" 
-      type="button" class="btn btn-primary" ng-click='editProperty()'>Save</button>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProperty" >Delete</button>
+      type="button" class="btn btn-primary" ng-click='editProperty()'><i class="fa fa-floppy-o"></i> Save</button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProperty"><i class="fa fa-trash"></i> Delete</button>
   </div>
 </div>
 
@@ -89,8 +89,8 @@
         <p>Warning! This Action Can't Be Undone!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" ng-click='deleteProperty()'>Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteProperty()'><i class="fa fa-trash"></i> Delete</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

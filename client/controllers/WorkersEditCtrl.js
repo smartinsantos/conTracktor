@@ -1,6 +1,6 @@
 app.controller('WorkersEditCtrl', ['$scope','Workers','$state','Toastr', function($scope, Workers,$state,Toastr) {
   
-  console.log('WorkersEditCtrl Loaded....')
+  // console.log('WorkersEditCtrl Loaded....')
   // Object for adding workers
   $scope.worker = {};
 
