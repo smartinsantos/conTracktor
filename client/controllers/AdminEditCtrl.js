@@ -1,4 +1,4 @@
-app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Admin,$state) {
+app.controller('AdminEditCtrl', ['$scope','Admin','$state','Toastr', function($scope, Admin,$state,Toastr) {
   
   console.log('AdminEditCtrl Loaded....')
 
@@ -43,9 +43,11 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     var adminInfo = $scope.admin;
     Admin.edit(adminInfo)
     .then(function(res){
-      $state.go('main_private.dash');
+      // $scope.backToJobs();
+      Toastr.success('Saved!')
     })
     .catch(function(err){
+      Toastr.error('Error Ocurred!: ' + err)
     console.log('error ocurred: ', err);
     })
   };

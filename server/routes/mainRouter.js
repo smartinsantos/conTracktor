@@ -74,16 +74,18 @@ router.get('/js/bootstrap.js', function(req, res){
   res.sendFile(Path.resolve('./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js'));
   });
 
-//Serve jsPDF
-//Serve jQuery 
-router.get('/js/jspdf.js', function(req, res){
-  res.sendFile(Path.resolve('./node_modules/jspdf/dist/jspdf.min.js'));
+//Serve Toastr 
+router.get('/js/toastr.js', function(req, res){
+  res.sendFile(Path.resolve('./node_modules/toastr/build/toastr.min.js'));
   });
+router.get('/css/toastr.css', function(req, res){
+  res.sendFile(Path.resolve('./node_modules/toastr/build/toastr.min.css'));
+  });
+
 // Serve Angular and Angular modules
 router.get('/js/angular.js', browserify(sharedAngular));
 // Serve application js files
 router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }));
-
 
 //Serving Sass Files
 router.get(
