@@ -11,4 +11,3 @@ require('./PropertiesEditCtrl');
 require('./WorkersCtrl');
 require('./WorkersEditCtrl');
 require('./ReportsCtrl');
-require('./DashCtrl');

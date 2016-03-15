@@ -57,7 +57,7 @@ app.factory('Admin', ['$http', '$state', '$timeout','manager', function($http, $
       return response;
     })
     .catch(function(err){
-      console.log('editWorker err: ', err);
+      console.log('editAdmin err: ', err);
     });
   };
 

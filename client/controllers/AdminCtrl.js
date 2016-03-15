@@ -1,6 +1,6 @@
-app.controller('AdminCtrl', ['$scope','$state','Admin', function($scope,$state, Admin) {
+app.controller('AdminCtrl', ['$scope','$state','Admin','Toastr', function($scope,$state, Admin, Toastr) {
   
-  console.log('AdminCtrl Loaded....')
+  // console.log('AdminCtrl Loaded....')
   //data of admin
   $scope.admin = {};
   $scope.admin.admin = false;
@@ -12,9 +12,15 @@ app.controller('AdminCtrl', ['$scope','$state','Admin', function($scope,$state, 
     Admin.create(newAdmin)
     .then(function(admin){
       //Work around to fix modal bug were still fading app after toggle
+     if(admin===undefined){
+      throw 'Error Ocurred'
+     }else{
       $scope.backToAdmins();
+      Toastr.success('Created!')      
+     }
     })
     .catch(function(err){
+      Toastr.error(err)
       console.log('error ocurred: ', err);
     });
   };

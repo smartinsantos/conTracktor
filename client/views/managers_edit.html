@@ -80,10 +80,10 @@
       </div>      
     </form>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" ng-click='backToManagers()'>Close</button>
-      <button type="button" class="btn btn-primary" ng-click='editAdmin()' ng-disabled="!admin.email || !admin.phone || !admin.first || !admin.last" >Save</button>
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAdmin" >Delete</button>
-      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess" >Revoke Access</button>
+      <button type="button" class="btn btn-default" ng-click='backToManagers()'><i class="fa fa-arrow-circle-o-left"></i> To Managers</button>
+      <button type="button" class="btn btn-primary" ng-click='editAdmin()' ng-disabled="!admin.email || !admin.phone || !admin.first || !admin.last"><i class="fa fa-floppy-o"></i> Save</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAdmin"><i class="fa fa-trash"></i> Delete</button>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess"><i class="fa fa-user-times"></i> Revoke Access</button>
     </div>
   </div>
 </div>
@@ -100,8 +100,8 @@
         <p>Warning! This Action Can't Be Undone!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" ng-click='deleteAdmin()'>Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteAdmin()'><i class="fa fa-trash"></i> Delete</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -118,8 +118,8 @@
         <p>Are you Sure you Want to Remove Access?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-info" ng-click='disableAdmin()'>Revoke Access</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+        <button type="button" class="btn btn-info" ng-click='disableAdmin()'><i class="fa fa-user-times"></i> Revoke Access</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

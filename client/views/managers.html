@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1 class ='text-center'>Admins/Managers</h1>
-  <button class="btn btn-default center-block" type="button" data-toggle="modal" data-target="#managerModal">Add new</button>
+  <button class="btn btn-default center-block" type="button" data-toggle="modal" data-target="#managerModal"><i class="fa fa-plus-circle"></i> Add Manager</button>
 </div>
 
 
@@ -126,11 +126,11 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click='backToAdmins()'>Close</button>
+        <button type="button" class="btn btn-default" ng-click='backToAdmins()'><i class="fa fa-arrow-circle-o-left"></i> To Admins</button>
         <button ng-disabled="!admin.email || !admin.password || !admin.token || !admin.phone || !admin.first || !admin.last" 
           type="button" 
           class="btn btn-primary" 
-          ng-click='createAdmin()'>Save</button>
+          ng-click='createAdmin()'><i class="fa fa-floppy-o"></i> Save</button>
       </div>
     </div>
   </div>
@@ -138,24 +138,20 @@
 
 
 <div class="panel panel-default">
-  <!-- Default panel contents -->
- <!--  <div class="panel-heading">Panel heading</div> -->
- 
-    <!-- Table -->
-    <table class="table table-bordered table table-striped">
+    <table class="table table-bordered table">
       <tr>
         <th>Name</th>
         <th>Email</th>   
         <th>Phone</th>
-        <th>Administrator</th>    
+        <th>Administrator ?</th>    
         <th>Edit Manager</th>
       </tr>
       <tr ng-repeat = 'admin in admins'>
         <td>{{admin.first}}  {{admin.last}}</td>
         <td><a href="mailto:{{admin.email}}">{{admin.email}}</a></td>
         <td>{{admin.phone}}</td>
-        <td>{{admin.admin}}</td>
-        <td><button class='btn center-block btn-info' ui-sref = 'main_private.managers_edit({id:admin._id})'>Edit</button></td>
+        <td ng-class="{ 'admin-rights': admin.admin}">{{admin.admin}}</td>
+        <td><button class='btn center-block btn-info' ui-sref = 'main_private.managers_edit({id:admin._id})'><i class="fa fa-pencil"></i> Edit</button></td>
       </tr>
     </table>
 </div>
