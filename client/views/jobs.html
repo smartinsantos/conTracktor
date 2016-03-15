@@ -50,7 +50,7 @@
         <li><i class="fa fa-home"></i> {{job.propertie.name}}</li>
         <li><i class="fa fa-bed"></i> {{job.unit}}</a></li>
         <li ng-if='job.services.length>0'><i class="fa fa-cogs"></i> 
-          <span ng-repeat='service in job.services'> {{service.item}}<i ng-if='!service.worker' class="fa fa-question"></i> <i ng-if='!service.notification_sent' class="fa fa-minus default"></i> <i ng-if='service.notification_sent'class="fa fa-check"></i> </span>
+          <span ng-repeat='service in job.services'> <span class='i-bold'>{{service.item}}</span> <i class="fa fa-user"></i>:<span ng-if='service.worker'>{{service.worker.first[0]}}{{service.worker.last[0]}}</span> <i ng-if='!service.worker' class="fa fa-question"></i> <i class="fa fa-envelope-o">:</i><i ng-if='!service.notification_sent' class="fa fa-minus default i-red"></i><i ng-if='service.notification_sent'class="fa fa-check i-green"></i>    </span>
         </li>
       </ol>
     </div>
@@ -68,15 +68,14 @@
             <p class="list-group-item-text"><strong>Manager:</strong> {{job.manager.first}} {{job.manager.last}}</p>
             <p class="list-group-item-text"><strong>Property:</strong> {{job.propertie.name}}</p>
             <p class="list-group-item-text"><strong>Unit:</strong> {{job.unit}}</p>
-            <p class="list-group-item-text"><strong>Price:</strong> {{job.totalPrice}} $</p>
-            <p class="list-group-item-text"><strong>Cost:</strong> {{job.totalCost}} $</p>
+            <p class="list-group-item-text"><strong>Price:</strong> {{job.totalPrice}} <i class="fa fa-usd"></i></p>
+            <p class="list-group-item-text"><strong>Cost:</strong> {{job.totalCost}} <i class="fa fa-usd"></i></p>
             <p class="list-group-item-text"><strong>Invoice #:</strong> {{job.invoiceNumber}}</p>
             <p class="list-group-item-text"><strong>PO #:</strong> {{job.poNumber}}</p>
-            <p class="list-group-item-text"><strong>Quote:</strong> <a href='{{job.quote}}'>{{job.quote}}</a></p>
             <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
             <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
             <div>
-              <p class="list-group-item-text"><strong>Attachments:</strong></p>
+              <p class="list-group-item-text"><strong><i class="fa fa-paperclip"></i> Attachments:</strong></p>
                 <div ng-repeat = 'attachment in job.attachments'>
                   <p><a href='{{attachment.url}}' download="{{attachment.fileName}}">{{attachment.fileName}}</a></p>
                 </div>
@@ -92,7 +91,7 @@
               <p class="list-group-item-text"><strong>Service:</strong> {{service.item}}</p>
               <p class="list-group-item-text"><strong>Worker:</strong> {{service.worker.first}} {{service.worker.last}} </p>
               <p class="list-group-item-text"><strong>Date Requested:</strong> {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
-              <p class="list-group-item-text"><strong>Price:</strong> {{service.price}}</p>
+              <p class="list-group-item-text"><strong>Price:</strong> {{service.price}} <i class="fa fa-usd"></i></p>
               <button ng-disabled='!service.worker||!service.item' ng-click='sendServiceToWorker(job,service)' type="button" class="btn btn-info btn-xs" aria-label="Left Align">Send to Worker</button> <span class="label label-success" role="alert" ng-if='service.notification_sent'>sent!</span><span class="label label-danger btn-xs" role="alert" ng-if='!service.notification_sent'>Not sent</span>
             </div>
           </div>
@@ -104,7 +103,7 @@
             <div ng-repeat = 'cost in job.costs'>
               <br>
               <p class="list-group-item-text"><strong>Item:</strong> {{cost.item}}</p>
-              <p class="list-group-item-text"><strong>Value:</strong> {{cost.value}}</p>
+              <p class="list-group-item-text"><strong>Value:</strong> {{cost.value}} <i class="fa fa-usd"></i></p>
             </div>
           </div>
         </div>
