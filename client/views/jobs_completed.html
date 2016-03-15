@@ -60,7 +60,7 @@
   </div>
 </div>
 
-<div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
+<!-- <div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default" ng-repeat = 'job in jobs| filter:filter:strict'>
     <div class="panel-heading" role="tab">
       <ol class="panel-title breadcrumb" role="button" data-toggle="collapse" data-parent="#jobs_incompleted_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
@@ -120,6 +120,79 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ -->
+
+ <div class="panel-group col-xs-12" id="jobs_completed_accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat = 'job in jobs| filter: filter:strict'>
+    <div class="panel-heading" role="tab">
+      <ol class="panel-title breadcrumb" role="button" data-toggle="collapse" data-parent="#jobs_completed_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
+        <li><i class="fa fa-user"></i> {{job.manager.first}} {{job.manager.last}}</li>
+        <li><i class="fa fa-home"></i> {{job.propertie.name}}</li>
+        <li><i class="fa fa-bed"></i> {{job.unit}}</a></li>
+        <li ng-if='job.services.length>0'><i class="fa fa-cogs"></i> 
+          <span ng-repeat='service in job.services'> <span class='i-bold'>{{service.item}}</span> <i class="fa fa-user"></i>:<span ng-if='service.worker'>{{service.worker.first[0]}}{{service.worker.last[0]}}</span>   </span>
+        </li>
+      </ol>
+    </div>
+    <div id="{{job._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body job-element">
+        <div class='list-group col-xs-12 col-sm-12'>
+          <button type="button" class="btn btn-default btn btn-block" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil-square-o"></i> Edit Job</button>
+        </div>
+        
+        <div class="list-group col-xs-12 col-sm-4 job-item">
+                  
+          <div class="list-group-item job-subitem">
+            <h5 class="list-group-item-heading"><strong>General:</strong></h5>
+            <br>
+            <p class="list-group-item-text"><strong>Manager:</strong> {{job.manager.first}} {{job.manager.last}}</p>
+            <p class="list-group-item-text"><strong>Property:</strong> {{job.propertie.name}}</p>
+            <p class="list-group-item-text"><strong>Unit:</strong> {{job.unit}}</p>
+            <p class="list-group-item-text"><strong>Price:</strong> {{job.totalPrice}} <i class="fa fa-usd"></i></p>
+            <p class="list-group-item-text"><strong>Cost:</strong> {{job.totalCost}} <i class="fa fa-usd"></i></p>
+            <p class="list-group-item-text"><strong>Invoice #:</strong> {{job.invoiceNumber}}</p>
+            <p class="list-group-item-text"><strong>PO #:</strong> {{job.poNumber}}</p>
+            <p class="list-group-item-text"><strong>Notes:</strong> {{job.notes}}</p>            
+            <p class="list-group-item-text"><strong>Job Completed:</strong> In Progress</p>
+            <div>
+              <p class="list-group-item-text"><strong><i class="fa fa-paperclip"></i> Attachments:</strong></p>
+                <div ng-repeat = 'attachment in job.attachments'>
+                  <p><a href='{{attachment.url}}' download="{{attachment.fileName}}">{{attachment.fileName}}</a></p>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group col-xs-12 col-sm-4 job-item">
+          <div class="list-group-item job-subitem">
+            <h5 class="list-group-item-heading"><strong>Services:</strong></h5>
+            <div ng-repeat = 'service in job.services'>
+              <br>
+              <p class="list-group-item-text"><strong>Service:</strong> {{service.item}}</p>
+              <p class="list-group-item-text"><strong>Worker:</strong> {{service.worker.first}} {{service.worker.last}} </p>
+              <p class="list-group-item-text"><strong>Date Requested:</strong> {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
+              <p class="list-group-item-text"><strong>Price:</strong> {{service.price}} <i class="fa fa-usd"></i></p>
+              <!-- <button ng-disabled='!service.worker||!service.item' ng-click='sendServiceToWorker(job,service)' type="button" class="btn btn-info btn-xs" aria-label="Left Align">Send to Worker</button> <span class="label label-success" role="alert" ng-if='service.notification_sent'>sent!</span><span class="label label-danger btn-xs" role="alert" ng-if='!service.notification_sent'>Not sent</span> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group col-xs-12 col-sm-4 job-item">
+          <div class="list-group-item job-subitem">
+            <h5 class="list-group-item-heading"><strong>Costs:</strong></h5>
+            <div ng-repeat = 'cost in job.costs'>
+              <br>
+              <p class="list-group-item-text"><strong>Item:</strong> {{cost.item}}</p>
+              <p class="list-group-item-text"><strong>Value:</strong> {{cost.value}} <i class="fa fa-usd"></i></p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
