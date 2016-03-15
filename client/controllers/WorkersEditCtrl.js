@@ -1,4 +1,4 @@
-app.controller('WorkersEditCtrl', ['$scope','Workers','$state', function($scope, Workers,$state) {
+app.controller('WorkersEditCtrl', ['$scope','Workers','$state','Toastr', function($scope, Workers,$state,Toastr) {
   
   console.log('WorkersEditCtrl Loaded....')
   // Object for adding workers
@@ -23,10 +23,15 @@ app.controller('WorkersEditCtrl', ['$scope','Workers','$state', function($scope,
     var workerInfo = $scope.worker;
     Workers.edit(workerInfo)
     .then(function(res){
-      $state.go('main_private.workers');
-
+      if(res===undefined){
+        throw 'Error Ocurred';
+      }else{
+        Toastr.success('Saved!');
+        $state.go('main_private.workers');
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
     console.log('error ocurred: ', err);
     })
   }
@@ -35,13 +40,19 @@ app.controller('WorkersEditCtrl', ['$scope','Workers','$state', function($scope,
     var workerId = $state.params.id;
     Workers.deleteWorker(workerId)
     .then(function(res){
-      //Work around to fix modal bug were still fading app after toggle
-      $('div.modal').removeClass('fade').addClass('hidden');
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-      $state.go('main_private.workers');
+      if(res===undefined){
+        throw 'Error Ocurred';
+      }else{
+        Toastr.success('Deleted')
+        //Work around to fix modal bug were still fading app after toggle
+        $('div.modal').removeClass('fade').addClass('hidden');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $state.go('main_private.workers');                
+      }
     })
     .catch(function(err){
+      Toastr.error(err)
       console.log('error ocurred: ', err);
     }); 
 

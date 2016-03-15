@@ -1,4 +1,4 @@
-app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Workers,$state) {
+app.controller('WorkersCtrl', ['$scope','Workers','$state','Toastr', function($scope, Workers,$state,Toastr) {
   
   console.log('WorkersCtrl Loaded....')
   // Object for adding workers
@@ -18,9 +18,16 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state', function($scope, Wor
     var newWorker = $scope.worker;
     Workers.create(newWorker)
     .then(function(res){
-      $scope.backToWorkers();
+      console.log(res);
+      if(res === undefined){
+        throw 'Error Ocurred';
+      }else{ 
+        Toastr.success('Worker Created')
+        $scope.backToWorkers();
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
       console.log('error ocurred: ', err);
     });
   };

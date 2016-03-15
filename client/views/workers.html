@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1 class ='text-center'>Workers</h1>
-  <button class="btn btn-default center-block" type="button" data-toggle="modal" data-target="#workerModal2">Add new</button>
+  <button class="btn btn-default center-block" type="button" data-toggle="modal" data-target="#workerModal2"><i class="fa fa-plus-circle"></i> Add Worker</button>
 </div>
 
 
@@ -88,11 +88,11 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click = 'backToWorkers()' data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" ng-click = 'backToWorkers()' data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
         <button ng-disabled="!worker.phone || !worker.first || !worker.last"
           type="button" 
           class="btn btn-primary" 
-          ng-click = 'createWorker()'>Save</button>
+          ng-click = 'createWorker()'><i class="fa fa-floppy-o"></i> Save</button>
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@
  <!--  <div class="panel-heading">Panel heading</div> -->
  
     <!-- Table -->
-    <table class="table table-bordered table table-striped">
+    <table class="table table-bordered table">
       <tr>
         <th>Name</th>
         <th>Email</th>   
@@ -125,7 +125,7 @@
           {{worker.address.zip}}
           </address>
         </td>
-        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'>Edit</button></td>
+        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'><i class="fa fa-pencil"></i> Edit</button></td>
       </tr>
     </table>
 </div>

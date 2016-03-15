@@ -56,7 +56,7 @@ router.post('/', auth.requireAuth, function (req, res) {
   })
   .catch(function(err){
     console.log('Error Creating Worker...', err)
-    res.status(400);
+    res.status(400).json({'error':true});
   })
 });
 

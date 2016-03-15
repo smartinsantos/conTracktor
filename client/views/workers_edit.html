@@ -74,10 +74,10 @@
       </div>
     </form>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" ng-click='backToWorkers()'>Close</button>
+      <button type="button" class="btn btn-default" ng-click='backToWorkers()'><i class="fa fa-arrow-circle-o-left"></i> To Workers</button>
       <button ng-disabled="!worker.phone || !worker.first || !worker.last" 
-      type="button" class="btn btn-primary" ng-click='editWorker()'>Save</button>
-      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteWorker" >Delete</button>
+      type="button" class="btn btn-primary" ng-click='editWorker()'><i class="fa fa-floppy-o"></i> Save</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteWorker"><i class="fa fa-trash"></i> Delete</button>
     </div>
   </div>
 </div>
@@ -94,8 +94,8 @@
         <p>Warning! This Action Can't Be Undone!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" ng-click='deleteWorker()'>Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteWorker()'><i class="fa fa-trash"></i> Delete</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
