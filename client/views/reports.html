@@ -93,7 +93,7 @@
     <tr ng-repeat = 'job in report.jobs'>
       <td>
         <p>{{job.propertie.name}}</p>
-        <p class='i-red' ng-if='!job.ready_review'><i class="fa fa-exclamation"></i> This job has not been assigned for review</p>
+        <p class='i-red' ng-if='!job.ready_review'><i class="fa fa-exclamation"></i> This job is not ready for review</p>
       </td>
       <td>{{job.unit}}</td>
       <td>
@@ -134,7 +134,7 @@
       </td>
       <td>{{job.poNumber}}</td>
       <td>{{job.invoiceNumber}}</td>
-      <td class= 'no-print'><a class="btn btn-primary" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
+      <td class= 'no-print'><a class="btn btn-info" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
     </tr>
   </table>
 </div>
