@@ -1,6 +1,6 @@
-app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Admin,$state) {
+app.controller('AdminEditCtrl', ['$scope','Admin','$state','Toastr', function($scope, Admin,$state,Toastr) {
   
-  console.log('AdminEditCtrl Loaded....')
+  // console.log('AdminEditCtrl Loaded....')
 
   // Object for adding workers
   $scope.admin = {};
@@ -32,10 +32,15 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     var adminInfo = $scope.admin;
     Admin.edit(adminInfo)
     .then(function(res){
-      $state.go('main_private.managers');
+       if(res===undefined){
+        throw 'Error Ocurred'
+       }else{
+        Toastr.success('Edited!')
+        $state.go('main_private.managers');      
+       }
     })
     .catch(function(err){
-    console.log('error ocurred: ', err);
+      Toastr.error(err)
     })
   };
 
@@ -43,26 +48,35 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
     var adminInfo = $scope.admin;
     Admin.edit(adminInfo)
     .then(function(res){
-      $state.go('main_private.dash');
+      if(res===undefined){
+        throw 'Error Ocurred'
+      }else{
+        Toastr.success('Saved!')
+      }
     })
     .catch(function(err){
+      Toastr.error('Error Ocurred!: ' + err)
     console.log('error ocurred: ', err);
     })
   };
 
   $scope.disableAdmin = function () {
     var adminInfo = $scope.admin;
-    adminInfo.disable=true; 
-    Admin.edit(adminInfo)
-    .then(function(res){
-      $('div.modal').removeClass('fade').addClass('hidden');
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-      $state.go('main_private.managers');
-    })
-    .catch(function(err){
-    console.log('error ocurred: ', err);
-    })
+    if(adminInfo.admin){
+      Toastr.error('Can not revoke access of Administrator')
+    }else{
+      adminInfo.disable=true; 
+      Admin.edit(adminInfo)
+      .then(function(res){
+        $('div.modal').removeClass('fade').addClass('hidden');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $state.go('main_private.managers');
+      })
+      .catch(function(err){
+      console.log('error ocurred: ', err);
+      })      
+    }
   }
 
   $scope.deleteAdmin = function(){
@@ -89,13 +103,16 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state', function($scope, Adm
 
     Admin.changePassword(passwordInfo)
     .then(function(res){
-      // $('div.modal').removeClass('fade').addClass('hidden');
-      // $('body').removeClass('modal-open');
-      // $('.modal-backdrop').remove();
-      $('#changePassword').modal('toggle');
-      $state.go('main_private.manager_profile');
+      if(res===undefined){
+        throw 'Error Ocurred';
+      }else{      
+        $('#changePassword').modal('toggle');
+        $state.go('main_private.manager_profile');
+        Toastr.success('Password Changed');
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
       console.log('error ocurred changing password: ', err);
     })
   }; 

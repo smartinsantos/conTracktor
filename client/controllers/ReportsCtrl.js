@@ -1,6 +1,6 @@
 app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties', function($scope,$state,Reports,Jobs,Admin,Workers,Properties) {
   
-  console.log('ReportsCtrl Loaded....')
+  // console.log('ReportsCtrl Loaded....')
   $scope.priceCounter = 0;
   
 //default values for dates on state load
@@ -98,7 +98,17 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 
 //clear report jobs on report change
   $scope.clearReport = function(){  
-    $scope.report.jobs =[]; 
+    $scope.report.jobs =[];
+    if($scope.report.reportType === 'manager'){
+      $scope.report.worker = '';
+      $scope.report.propertie = '';
+    }else if($scope.report.reportType === 'worker'){
+      $scope.report.manager = '';
+      $scope.report.propertie = '';
+    }else if($scope.report.reportType === 'property'){
+      $scope.report.manager = '';
+      $scope.report.worker = '';
+    }
   };
 
   $scope.$watch('report.reportType', function(value) {

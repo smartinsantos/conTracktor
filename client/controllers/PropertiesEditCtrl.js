@@ -1,6 +1,6 @@
-app.controller('PropertiesEditCtrl', ['$scope','Properties','$state', function($scope, Properties,$state) {
+app.controller('PropertiesEditCtrl', ['$scope','Properties','$state','Toastr', function($scope, Properties,$state,Toastr) {
   
-  console.log('PropertiesEditCtrl Loaded....')
+  // console.log('PropertiesEditCtrl Loaded....')
 
 
 // Object for adding Property
@@ -25,10 +25,14 @@ app.controller('PropertiesEditCtrl', ['$scope','Properties','$state', function($
     var propertieInfo = $scope.property;
     Properties.edit(propertieInfo)
     .then(function(res){
-      $state.go('main_private.properties');
-
+      if(res===undefined){
+        throw 'Error Ocurred'
+      }else{
+        Toastr.success('Saved!');
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
     console.log('error ocurred: ', err);
     })
   }
@@ -37,13 +41,19 @@ app.controller('PropertiesEditCtrl', ['$scope','Properties','$state', function($
     var propertyId = $state.params.id;
     Properties.deletePropertie(propertyId)
     .then(function(res){
+      if(res===undefined){
+        throw 'Error Ocurred'
+      }else{
+      Toastr.success('Deleted!');
       //Work around to fix modal bug were still fading app after toggle
       $('div.modal').removeClass('fade').addClass('hidden');
       $('body').removeClass('modal-open');
       $('.modal-backdrop').remove();
-      $state.go('main_private.properties');
+      $state.go('main_private.properties');        
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
       console.log('error ocurred: ', err);
     }); 
   }

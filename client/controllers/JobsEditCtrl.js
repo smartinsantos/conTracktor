@@ -1,6 +1,6 @@
-app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','Workers', function($scope,$state,Jobs,Admin,Properties,Workers) {
+app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','Workers','Toastr', function($scope,$state,Jobs,Admin,Properties,Workers,Toastr) {
   
-  console.log('JobsEditCtrl Loaded....')
+  // console.log('JobsEditCtrl Loaded....')
 
 //get all managers
   $scope.admins = [];
@@ -19,10 +19,16 @@ app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','W
     var jobInfo = $scope.job;
     Jobs.edit(jobInfo)
     .then(function(res){
-      $state.go('main_private.jobs');
+      if(res){
+        Toastr.success('Saved!');
+      // $state.go('main_private.jobs');
+      }else{
+        throw 'Error Ocurred'
+      }
     })
     .catch(function(err){
-    console.log('error ocurred: ', err);
+      Toastr.error(err);
+      console.log('error ocurred: ', err);
     })
   };
 
@@ -30,13 +36,19 @@ app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','W
     var jobId = $state.params.id;
     Jobs.deleteJob(jobId)
     .then(function(res){
-      //Work around to fix modal bug were still fading app after toggle
-      $('div.modal').removeClass('fade').addClass('hidden');
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-      $state.go('main_private.jobs');
+      if(res){
+        Toastr.success('Deleted!');
+        //Work around to fix modal bug were still fading app after toggle
+        $('div.modal').removeClass('fade').addClass('hidden');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $state.go('main_private.jobs');       
+      }else{
+        throw 'Error Ocurred'
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
       console.log('error ocurred: ', err);
     }); 
 
@@ -144,7 +156,12 @@ $scope.addNewService = function() {
         $scope.job.attachments.push({fileName:$scope.file.name, awsKey:response.data.awsKey, url:response.data.url})
         Jobs.edit($scope.job)
         .then(function(res){
-          $scope.loading = false; 
+          if(res){
+            Toastr.success('File Uploaded!')
+            $scope.loading = false; 
+          }else{
+            Toastr.error('Error Ocurred');
+          }
         });
       });
     });
@@ -157,7 +174,14 @@ $scope.addNewService = function() {
     .then(function(res){
       var idx = $scope.job.attachments.indexOf(attachment);
       $scope.job.attachments.splice(idx, 1);
-      Jobs.edit($scope.job);
+      Jobs.edit($scope.job)
+      .then(function(res){
+        if(res===undefined){
+          Toastr.error('Error Ocurred')
+        }else{
+          Toastr.success('Deleted!')
+        }
+      })
     })
       
   };

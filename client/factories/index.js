@@ -4,4 +4,4 @@ require('./JobsFactory');
 require('./PropertiesFactory');
 require('./ReportsFactory');
 require('./WorkersFactory');
-require('./DashFactory');
+require('./ToastrFactory');

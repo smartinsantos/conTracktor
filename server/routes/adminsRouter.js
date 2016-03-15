@@ -84,10 +84,8 @@ router.post('/signout',  function (req, res) {
   res.status(200).json({'success':true});
 });
 
-// TODO : this currently does nothing
 // Get user info by id
 router.get('/:userId', function (req, res) {
-  
   var userId = req.params.userId;
   Admins.findOne({'_id':req.params.userId}, function(err,doc){
       if(err){
@@ -106,6 +104,10 @@ router.get('/:userId', function (req, res) {
 
 // Update user info by id
 router.put('/:userId', function (req, res) {
+//to be implemented add extra layer of security to be editable
+  // if(process.env.ENV_ADMIN_TOKEN !== req.body.token ){ 
+  //   res.status(401).json({ message: 'Invalid Token' });
+  // }
   var user = req.body;
   // disabling Adim by assgining secret password 
   if(user.disable){

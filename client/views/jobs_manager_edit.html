@@ -168,10 +168,10 @@
     </div>
   </div>
   <div class="col-xs-12">
-  <button type="button" class="btn btn-default" ng-click='backToJobs()'>Go Back</button>
+  <button type="button" class="btn btn-default" ng-click='backToJobs()'><i class="fa fa-arrow-circle-o-left"></i> To Jobs</button>
   <button ng-disabled="!job.manager || !job.propertie || !job.unit || checkJobCompleted && !job.date_completed" 
-    type="button" class="btn btn-primary" ng-click = 'editJob()'>Save Changes</button>
-  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteJob" >Delete</button>
+    type="button" class="btn btn-primary" ng-click = 'editJob()'><i class="fa fa-floppy-o"></i> Save Changes</button>
+  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteJob"><i class="fa fa-trash"></i> Delete</button>
 </div>
 
 
@@ -186,8 +186,8 @@
         <p>Warning! This Action Can't Be Undone!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" ng-click='deleteJob()'>Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+        <button type="button" class="btn btn-danger" ng-click='deleteJob()'><i class="fa fa-trash"></i> Delete</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

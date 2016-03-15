@@ -44,13 +44,13 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-info center-block" data-toggle="modal" data-target="#changePassword" >Change Password</button>
+      <button type="button" class="btn btn-info center-block" data-toggle="modal" data-target="#changePassword" ><i class="fa fa-pencil"></i> Change Password</button>
       <br>
     </form>
       <div class="modal-footer">
-      <button type="button" class="btn btn-default" ng-click='backToJobs()'>Close</button>
+      <button type="button" class="btn btn-default" ng-click='backToJobs()'><i class="fa fa-arrow-circle-o-left"></i> To Jobs</button>
       <button ng-disabled="!admin.phone" 
-      type="button" class="btn btn-primary" ng-click='editManager()'>Save</button>
+      type="button" class="btn btn-primary" ng-click='editManager()'><i class="fa fa-floppy-o"></i> Save</button>
     </div>
   </div>
 </div>
@@ -115,9 +115,9 @@
       </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
         <button ng-disabled="!admin.changePassNew ||!admin.changePassOld ||!admin.changePassNew2 || admin.changePassNew !== admin.changePassNew2" 
-        type="button" class="btn btn-primary" ng-click='managerChangePassword()'>Save</button>
+        type="button" class="btn btn-primary" ng-click='managerChangePassword()'><i class="fa fa-floppy-o"></i> Save</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

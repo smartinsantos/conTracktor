@@ -73,7 +73,7 @@
         </div>
       </div><br>   
       <div class='col-xs-12'>
-        <button class="btn btn-default center-block" type="button" ng-click='generateReport()'><i class="fa fa-plus-circle"></i> Generate Report</button>
+        <button class="btn btn-default center-block" type="button" ng-click='generateReport()' ng-disabled='!report.manager && !report.worker && !report.propertie'><i class="fa fa-plus-circle"></i> Generate Report</button>
       </div>
     </div><br>
 
@@ -220,5 +220,5 @@
   </table>
 </div>
 <div>
-  <button ng-if='report.jobs.length>0' class="btn btn-default btn-lg center-block" ng-click='printHTML()'><i class="fa fa-print"></i> Print</button>
+  <button ng-if='report.jobs.length>0' class="btn btn-default btn-lg center-block" ng-click='printHTML()'><i class="fa fa-print"></i> Print</button><br><br><br>
 </div>

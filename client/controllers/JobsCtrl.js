@@ -1,6 +1,6 @@
-app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager', function($scope,$state, Jobs,Properties,Admin,Workers,manager) {
+app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager','Toastr', function($scope,$state, Jobs,Properties,Admin,Workers,manager,Toastr) {
   
-  console.log('JobsCtrl Loaded....')
+  // console.log('JobsCtrl Loaded....')
 
  //filter object for job 'search'
   $scope.filter = {};
@@ -77,17 +77,17 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
       $scope.calculateTotalCost();
     };
     var newJob = $scope.job;
-    console.log(newJob)
     Jobs.create(newJob)
     .then(function(res){
       //if created clean scope choose addother or goback
       if(res){
+        Toastr.success('Job Saved!')
          $scope.job = {};   
         if(option === 'goBack'){
           //go to jobs
           $state.go('main_private.jobs');
         }else{
-          //reload current and refresh scope
+          Toastr.error('Error Ocurred')
           $state.reload('main_private.jobs_create');
         }
       }else{
@@ -184,6 +184,64 @@ $scope.clearFilter = function(){
     delete($scope.filter.services);
   };
 };
+
+//UPLOAD FILES
+  $scope.job.attachments = [];
+
+  $scope.uploadToS3 = function() {
+    //sends a post to the server to get the signedUrl to upload file on client side 
+    fileInfo = {};
+    fileInfo.name = $scope.file.name;
+    fileInfo.size = $scope.file.size;
+    fileInfo.type = $scope.file.type;
+
+    Jobs.getAwsUrl(fileInfo)
+    .then(function(response){
+      //response is an object with the signed url and url path to the file      
+      if (typeof response.data.signedRequest === 'undefined' || typeof response.data.url === 'undefined') {
+        // This shouldnt happen
+        console.log('SignedRequest or URL was undefined');
+        throw 'Failed to create signedRequest with AWS S3'
+      }
+      $scope.loading = true;
+      $.ajax({
+        url: response.data.signedRequest,
+        type: 'PUT',
+        data: $scope.file,
+        processData: false,
+        contentType: $scope.file.type,
+      })
+      .success(function(res){
+        Toastr.success('File Uploaded!')
+        console.log('file ' + $scope.file.name + ' uploaded.');
+        $scope.job.attachments.push({fileName:$scope.file.name, awsKey:response.data.awsKey, url:response.data.url})
+        $scope.$apply();
+        //not needed on create
+        // Jobs.edit($scope.job)
+        // .then(function(res){
+        //   $scope.loading = false; 
+        // });
+      })
+      .error(function(err){
+        Toastr.error('Error Uploading File')
+      })
+    });
+  };
+
+  $scope.deleteAttachment = function (attachment){
+    var fileInfo = {};
+        fileInfo.awsKey = attachment.awsKey;
+    Jobs.deleteAwsBucket(fileInfo)
+    .then(function(res){
+      console.log(res);
+      var idx = $scope.job.attachments.indexOf(attachment);
+      $scope.job.attachments.splice(idx, 1);
+      Toastr.success('File Deleted!')
+      // not needed on create
+      // Jobs.edit($scope.job);
+    })
+      
+  };
 
 //refresh Jobs on Load on load
   if ($state.current.name === 'main_private.jobs' || $state.current.name==='main_private.jobs_review'){
