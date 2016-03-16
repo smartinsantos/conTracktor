@@ -43,38 +43,6 @@ app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Worker
     })
   };
 
-  // $scope.createJob = function (option) {
-
-  //   if($scope.job.services.length > 0){
-  //     $scope.calculateTotalServicePrice();
-  //   };
-  //   if($scope.job.costs.length > 0 ){
-  //     $scope.calculateTotalCost();
-  //   };
-  //   var newJob = $scope.job;
-  //   Jobs.create(newJob)
-  //   .then(function(res){
-  //     //if created clean scope choose addother or goback
-  //     if(res){
-  //       $scope.job = {};
-  //       $scope.job.manager = $scope.sessionId;
-  //       if(option === 'goBack'){
-  //         //go to jobs
-  //         $state.go('main_private.jobs_manager');
-  //       }else{
-  //         console.log('reloading state')
-  //         //reload current and refresh scope
-  //         $state.reload('main_private.jobs_manager_create');
-  //       }
-  //     }else{
-  //       // TODO display error message on dom
-  //     }      
-  //   })
-  //   .catch(function(err){
-  //     console.log('error ocurred: ', err);
-  //   });
-  // };
-
     $scope.createJob = function (option) {
 
     if($scope.job.services.length > 0){

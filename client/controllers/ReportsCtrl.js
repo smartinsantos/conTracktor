@@ -1,4 +1,4 @@
-app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties', function($scope,$state,Reports,Jobs,Admin,Workers,Properties) {
+app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties','Auth', function($scope,$state,Reports,Jobs,Admin,Workers,Properties,Auth) {
   
 // console.log('ReportsCtrl Loaded....')
   $scope.priceCounter = 0;
@@ -13,6 +13,12 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
   $scope.report.date.start.setDate($scope.report.date.start.getDate() - 7); 
  }else{
   $scope.report = $state.params.currentStateData;
+ }
+
+ if($state.current.name === 'main_private.reports_manager'){
+    $scope.sessionId = $state.params.sessionId || Auth.sessionId();
+    $scope.report.reportType = 'manager';
+    $scope.report.manager = $scope.sessionId;
  }
 
 //filter object for job 'search'
@@ -51,7 +57,10 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
     };
 
   //load admins, properties
-  $scope.getAdmins();
+  if($state.current.name !== 'main_private.reports_manager'){
+    $scope.getAdmins();
+  }
+ 
   $scope.getProperties();
   $scope.getWorkers();    
 
