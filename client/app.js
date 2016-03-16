@@ -212,43 +212,7 @@ app.run(['$rootScope', '$state','$stateParams', function($rootScope, $state, $st
 }]);
 
 
-//format date directory to be able to display in mm/dd/yyyy format 
-app.directive("formatDate", function() {
-  return {
-      require: 'ngModel',
-      link: function(scope, elem, attr, modelCtrl) {
-          modelCtrl.$formatters.push(function(modelValue) {
-              if (modelValue){
-                  return new Date(modelValue);
-              }
-              else {
-                  return null;
-              }
-          });
-      }
-  };
-});
-
-app.directive('file', function() {
-  return {
-    restrict: 'AE',
-    scope: {
-      file: '@'
-    },
-    link: function(scope, el, attrs){
-      el.bind('change', function(event){
-        var files = event.target.files;
-        var file = files[0];
-        scope.file = file;
-        scope.$parent.file = file;
-        scope.$apply();
-      });
-    }
-  };
-});
-
-
+require('./directives');
 require('./factories');
 require('./controllers');
-require('./directives');
 

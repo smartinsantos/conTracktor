@@ -243,7 +243,6 @@ $scope.clearFilter = function(){
       
   };
 
-
 //refresh Jobs on Load
   if ($state.current.name === 'main_private.jobs' || $state.current.name==='main_private.jobs_review'){
     $scope.getJobsIncompleted();
