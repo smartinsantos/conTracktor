@@ -81,9 +81,17 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.reports', {
-      url: 'reports',
+      url: 'areports',
       authenticate: true,
       templateUrl: 'views/reports.html',
+      controller: 'ReportsCtrl',
+      params:{sessionId:null, currentStateData:null}
+    })
+
+    .state('main_private.reports_manager', {
+      url: 'meports',
+      authenticate: true,
+      templateUrl: 'views/reports_manager.html',
       controller: 'ReportsCtrl',
       params:{sessionId:null, currentStateData:null}
     })

@@ -55,7 +55,7 @@ router.get('/incompleted', auth.requireAuth,auth.requireAdmin, function (req, re
 });
 
 //********************TODO
-router.get('/services/date/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
+router.get('/services/date/:dateQuery', auth.requireAuth, function (req, res) {
   //parse param dateQuery to Obj  
   var dateInfo = helpers.paramParser(req.params.dateQuery)
   //transform object into dates
