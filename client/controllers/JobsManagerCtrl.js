@@ -1,9 +1,11 @@
-app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Workers','manager','Auth', function($scope,$state,Jobs,Properties,Workers,manager,Auth) {
+app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Workers','manager','Auth','Toastr', function($scope,$state,Jobs,Properties,Workers,manager,Auth,Toastr) {
   
-  // console.log('JobsManagerCtrl Loaded....')
+  console.log('JobsManagerCtrl Loaded....')
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
  //filter object for job 'search'
   $scope.filter = {};
+
+
 
 //get all properties 
   $scope.properties = [];
@@ -41,7 +43,39 @@ app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Worker
     })
   };
 
-  $scope.createJob = function (option) {
+  // $scope.createJob = function (option) {
+
+  //   if($scope.job.services.length > 0){
+  //     $scope.calculateTotalServicePrice();
+  //   };
+  //   if($scope.job.costs.length > 0 ){
+  //     $scope.calculateTotalCost();
+  //   };
+  //   var newJob = $scope.job;
+  //   Jobs.create(newJob)
+  //   .then(function(res){
+  //     //if created clean scope choose addother or goback
+  //     if(res){
+  //       $scope.job = {};
+  //       $scope.job.manager = $scope.sessionId;
+  //       if(option === 'goBack'){
+  //         //go to jobs
+  //         $state.go('main_private.jobs_manager');
+  //       }else{
+  //         console.log('reloading state')
+  //         //reload current and refresh scope
+  //         $state.reload('main_private.jobs_manager_create');
+  //       }
+  //     }else{
+  //       // TODO display error message on dom
+  //     }      
+  //   })
+  //   .catch(function(err){
+  //     console.log('error ocurred: ', err);
+  //   });
+  // };
+
+    $scope.createJob = function (option) {
 
     if($scope.job.services.length > 0){
       $scope.calculateTotalServicePrice();
@@ -54,18 +88,17 @@ app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Worker
     .then(function(res){
       //if created clean scope choose addother or goback
       if(res){
-        $scope.job = {};
+        Toastr.success('Job Saved!')
+         $scope.job = {}; 
         $scope.job.manager = $scope.sessionId;
         if(option === 'goBack'){
           //go to jobs
           $state.go('main_private.jobs_manager');
         }else{
-          console.log('reloading state')
-          //reload current and refresh scope
           $state.reload('main_private.jobs_manager_create');
         }
       }else{
-        // TODO display error message on dom
+        Toastr.error('Error Ocurred')
       }      
     })
     .catch(function(err){
@@ -114,6 +147,10 @@ $scope.job.services = [];
     }) 
   };
 
+  $scope.backToJobs = function(){
+    $state.go('main_private.jobs_manager');
+  };
+  
 //work around to clear the filter when worker does not exist
   $scope.clearFilter = function(){
     if($scope.filter.services.worker._id===''){
@@ -121,10 +158,104 @@ $scope.job.services = [];
     };
   };
 
-  $scope.backToJobs = function(){
-    $state.go('main_private.jobs_manager');
+
+$scope.sendServiceToWorker = function (job, service){
+  // console.log('this is the service to be sent: ', service)
+  // console.log('this is the propertie to be sent: ', job.propertie)
+  var messageInfo = {};
+      messageInfo.message = {};
+      messageInfo.job = job;
+      messageInfo.service = service;
+  //message object to be sent 
+  //date formating for better readability 
+  var date = new Date(service.date_assigned)
+  date = date.toString();
+  date = date.slice(0,10) 
+  //if there is a worker assigned to the service
+  messageInfo.message.to = service.worker.phone;
+  messageInfo.message.body = '';
+    messageInfo.message.body += '   '+' TYPE: ' + service.item + '   '; 
+    messageInfo.message.body += ' ADDRESS: ' + job.propertie.address.street + ' ' + job.propertie.address.city + ', ' + job.propertie.address.zip + + '   '
+    messageInfo.message.body += ' PROPERTY: ' + job.propertie.name + '   ';
+    messageInfo.message.body += ' UNIT: ' + job.unit + '   ';    
+    messageInfo.message.body += ' DATE: ' + date + '   '; 
+    if(service.description) {
+      messageInfo.message.body += ' DESCRIPTION: ' + service.description + '   '; 
+    };
+
+  Workers.sendMessage(messageInfo)
+  .then(function(resp){
+    if(resp){
+      //update notification data on db
+      service.notification_sent = true;
+      Jobs.edit(job);      
+    }else{
+      service.notification_sent = false;
+    };
+  });
+};
+
+
+//UPLOAD FILES
+  $scope.job.attachments = [];
+
+  $scope.uploadToS3 = function() {
+    //sends a post to the server to get the signedUrl to upload file on client side 
+    fileInfo = {};
+    fileInfo.name = $scope.file.name;
+    fileInfo.size = $scope.file.size;
+    fileInfo.type = $scope.file.type;
+
+    Jobs.getAwsUrl(fileInfo)
+    .then(function(response){
+      //response is an object with the signed url and url path to the file      
+      if (typeof response.data.signedRequest === 'undefined' || typeof response.data.url === 'undefined') {
+        // This shouldnt happen
+        console.log('SignedRequest or URL was undefined');
+        throw 'Failed to create signedRequest with AWS S3'
+      }
+      $scope.loading = true;
+      $.ajax({
+        url: response.data.signedRequest,
+        type: 'PUT',
+        data: $scope.file,
+        processData: false,
+        contentType: $scope.file.type,
+      })
+      .success(function(res){
+        Toastr.success('File Uploaded!')
+        console.log('file ' + $scope.file.name + ' uploaded.');
+        $scope.job.attachments.push({fileName:$scope.file.name, awsKey:response.data.awsKey, url:response.data.url})
+        $scope.$apply();
+        //not needed on create
+        // Jobs.edit($scope.job)
+        // .then(function(res){
+        //   $scope.loading = false; 
+        // });
+      })
+      .error(function(err){
+        Toastr.error('Error Uploading File')
+      })
+    });
   };
+
+  $scope.deleteAttachment = function (attachment){
+    var fileInfo = {};
+        fileInfo.awsKey = attachment.awsKey;
+    Jobs.deleteAwsBucket(fileInfo)
+    .then(function(res){
+      console.log(res);
+      var idx = $scope.job.attachments.indexOf(attachment);
+      $scope.job.attachments.splice(idx, 1);
+      Toastr.success('File Deleted!')
+      // not needed on create
+      // Jobs.edit($scope.job);
+    })
+      
+  };
+
 //refresh Jobs on Load on load
   $scope.getManagerJobs();
+
 
 }]);

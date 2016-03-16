@@ -47,6 +47,7 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   $scope.jobs = [];
   $scope.job = {};
 
+//gets all jobs (admin)
   $scope.getJobs = function() {
     Jobs.getAll()
     .then(function(jobs){
@@ -87,11 +88,10 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
           //go to jobs
           $state.go('main_private.jobs');
         }else{
-          Toastr.error('Error Ocurred')
           $state.reload('main_private.jobs_create');
         }
       }else{
-        // TODO display error message on dom
+          Toastr.error('Error Ocurred')
       }      
     })
     .catch(function(err){
