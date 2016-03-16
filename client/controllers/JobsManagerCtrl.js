@@ -5,8 +5,6 @@ app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Worker
  //filter object for job 'search'
   $scope.filter = {};
 
-
-
 //get all properties 
   $scope.properties = [];
 
