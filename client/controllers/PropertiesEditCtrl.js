@@ -2,7 +2,6 @@ app.controller('PropertiesEditCtrl', ['$scope','Properties','$state','Toastr', f
   
   // console.log('PropertiesEditCtrl Loaded....')
 
-
 // Object for adding Property
   $scope.property = {};
 

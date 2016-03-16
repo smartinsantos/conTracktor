@@ -1,5 +1,5 @@
 app.controller('MainPrivateCtrl', ['$scope','$state','Admin','Auth','manager', function($scope,$state,Admin,Auth,manager) {
-  console.log('MainPrivateCtrl Loaded...');
+  // console.log('MainPrivateCtrl Loaded...');
   //If parameter is not passed in garantees sessionId 
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
 
@@ -17,7 +17,7 @@ app.controller('MainPrivateCtrl', ['$scope','$state','Admin','Auth','manager', f
       $state.go('main_private.jobs_manager', {'sessionId':$scope.sessionId});
     }else{
       // $state.go('main_private.jobs');
-      $state.go('main_private.reports');
+      $state.go('main_private.jobs');
 
     }
   // Else, go to the public landing page

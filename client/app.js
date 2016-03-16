@@ -85,7 +85,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       authenticate: true,
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl',
-      params:{sessionId:null}
+      params:{sessionId:null, currentStateData:null}
     })
 
     .state('main_private.jobs', {
@@ -117,7 +117,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       authenticate: true,
       templateUrl: 'views/jobs_completed.html',
       controller: 'JobsCtrl',
-      params:{sessionId:null}
+      params:{sessionId:null, currentStateData:null}
     })
 
 
@@ -187,132 +187,32 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 });
 
-//allows to redirect to sub state on load
-app.run(['$rootScope', '$state', function($rootScope, $state) {
 
+app.run(['$rootScope', '$state','$stateParams', function($rootScope, $state, $stateParams) {
+    //allows to redirect to sub state on load
     $rootScope.$on('$stateChangeStart', function(evt, to, params) {
       if (to.redirectTo) {
         evt.preventDefault();
         $state.go(to.redirectTo, params)
       }
     });
+    
+    //allows to go to previous state
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+    $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
+        // to be used for back button //won't work when page is reloaded.
+        $rootScope.previousState_name = fromState.name;
+        $rootScope.previousState_params = fromParams;
+    });
+    //back button function called from back button's ng-click="back()"
+    $rootScope.back = function() {
+        $state.go($rootScope.previousState_name,$rootScope.previousState_params);
+    };
 }]);
 
-//format date directory to be able to display in mm/dd/yyyy format 
-app.directive("formatDate", function() {
-  return {
-      require: 'ngModel',
-      link: function(scope, elem, attr, modelCtrl) {
-          modelCtrl.$formatters.push(function(modelValue) {
-              if (modelValue){
-                  return new Date(modelValue);
-              }
-              else {
-                  return null;
-              }
-          });
-      }
-  };
-});
 
-app.directive('file', function() {
-  return {
-    restrict: 'AE',
-    scope: {
-      file: '@'
-    },
-    link: function(scope, el, attrs){
-      el.bind('change', function(event){
-        var files = event.target.files;
-        var file = files[0];
-        scope.file = file;
-        scope.$parent.file = file;
-        scope.$apply();
-      });
-    }
-  };
-});
-
-app.filter('phonenumber', function() {
-    /* 
-    Format phonenumber as: c (xxx) xxx-xxxx
-        or as close as possible if phonenumber length is not 10
-        if c is not '1' (country code not USA), does not use country code
-    */
-
-    return function (number) {
-        /* 
-        @param {Number | String} number - Number that will be formatted as telephone number
-        Returns formatted number: (###) ###-####
-            if number.length < 4: ###
-            else if number.length < 7: (###) ###
-
-        Does not handle country codes that are not '1' (USA)
-        */
-        if (!number) { return ''; }
-
-        number = String(number);
-
-        // Will return formattedNumber. 
-        // If phonenumber isn't longer than an area code, just show number
-        var formattedNumber = number;
-
-        // if the first character is '1', strip it out and add it back
-        var c = (number[0] == '1') ? '1 ' : '';
-        number = number[0] == '1' ? number.slice(1) : number;
-
-        // # (###) ###-#### as c (area) front-end
-        var area = number.substring(0,3);
-        var front = number.substring(3, 6);
-        var end = number.substring(6, 10);
-
-        if (front) {
-            formattedNumber = (c + "(" + area + ") " + front);  
-        }
-        if (end) {
-            formattedNumber += ("-" + end);
-        }
-        return formattedNumber;
-    };
-});
-
-app.directive('phonenumberDirective', ['$filter', function($filter) {
-    /*
-    Intended use:
-        <phonenumber-directive placeholder='prompt' model='someModel.phonenumber'></phonenumber-directive>
-    Where:
-        someModel.phonenumber: {String} value which to bind only the numeric characters [0-9] entered
-            ie, if user enters 617-2223333, value of 6172223333 will be bound to model
-        prompt: {String} text to keep in placeholder when no numeric input entered
-    */
-
-    function link(scope, element, attributes) {
-
-        // scope.inputValue is the value of input element used in template
-        scope.inputValue = scope.phonenumberModel;
-
-        scope.$watch('inputValue', function(value, oldValue) {
-
-            value = String(value);
-            var number = value.replace(/[^0-9]+/g, '');
-            scope.phonenumberModel = number;
-            scope.inputValue = $filter('phonenumber')(number);
-        });
-    }
-
-    return {
-        link: link,
-        restrict: 'E',
-        scope: {
-            phonenumberPlaceholder: '=placeholder',
-            phonenumberModel: '=model',
-        },
-        // templateUrl: '/static/phonenumberModule/template.html',
-        template: '<input ng-model="inputValue" type="tel" class="phonenumber" placeholder="{{phonenumberPlaceholder}}" title="Phonenumber (Format: (999) 9999-9999)">',
-    };
-}])
-
+require('./directives');
 require('./factories');
 require('./controllers');
-require('./directives');
 

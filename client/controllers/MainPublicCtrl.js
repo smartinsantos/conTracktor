@@ -1,5 +1,5 @@
 app.controller('MainPublicCtrl', ['$scope','$state','Auth','Admin','$timeout', function($scope,$state,Auth,Admin,$timeout) {
-  console.log('MainPublicCtrl loaded...')
+  // console.log('MainPublicCtrl loaded...')
   // Redirect to appropriate main page
   // If logged in, go to main controller
   if (Auth.isLoggedIn()) {
