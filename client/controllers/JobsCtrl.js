@@ -243,14 +243,32 @@ $scope.clearFilter = function(){
       
   };
 
-//refresh Jobs on Load on load
+
+//refresh Jobs on Load
   if ($state.current.name === 'main_private.jobs' || $state.current.name==='main_private.jobs_review'){
     $scope.getJobsIncompleted();
   }else if($state.current.name === 'main_private.jobs_completed'){
     //default values for dates on state load
-    $scope.endDate = new Date();
-    $scope.startDate = new Date();
-    $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+    if(!$state.params.currentStateData){
+      $scope.endDate = new Date();
+      $scope.startDate = new Date();
+      $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+    }else{
+      $scope.filter = $state.params.currentStateData.filter;
+      $scope.jobs = $state.params.currentStateData.jobs;
+      $scope.endDate = $state.params.currentStateData.endDate;
+      $scope.startDate = $state.params.currentStateData.startDate;
+    }
   };
+
+//listener of state starting exit to save current state data
+$scope.$on('$stateChangeStart', 
+function(event, toState, toParams, fromState, fromParams){
+  if($state.current.name === 'main_private.jobs_completed'){
+    $state.params.currentStateData = {filter:$scope.filter, jobs:$scope.jobs,endDate:$scope.endDate,startDate:$scope.startDate};
+  }
+})
+
+
 
 }]);

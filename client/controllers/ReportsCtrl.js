@@ -1,20 +1,23 @@
 app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties', function($scope,$state,Reports,Jobs,Admin,Workers,Properties) {
   
+  
+
   // console.log('ReportsCtrl Loaded....')
   $scope.priceCounter = 0;
   
 //default values for dates on state load
+ if(!$state.params.currentStateData){
   $scope.report = {};
   $scope.report.date = {}; 
+  $scope.report.jobs = [];
   $scope.report.date.end = new Date();
   $scope.report.date.start = new Date();
-  $scope.report.date.start.setDate($scope.report.date.start.getDate() - 7);
+  $scope.report.date.start.setDate($scope.report.date.start.getDate() - 7); 
+ }else{
+  $scope.report = $state.params.currentStateData;
+ }
 
-
-//jobs retrieved on report criteria 
-  $scope.report.jobs =[]; 
-
-   //filter object for job 'search'
+//filter object for job 'search'
   $scope.filter = {};
 
 //get all managers
@@ -63,8 +66,6 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
     $scope.startDateCompare = startDate.toISOString();
     $scope.endDateCompare = endDate.toISOString();
 
-    $scope.report.jobs = [];
-
     Jobs.getAllByServiceDate(startDate,endDate)
     .then(function(jobs){
 
@@ -97,7 +98,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
   }
 
 //clear report jobs on report change
-  $scope.clearReport = function(){  
+  $scope.clearReport = function(){
     $scope.report.jobs =[];
     if($scope.report.reportType === 'manager'){
       $scope.report.worker = '';
@@ -110,10 +111,6 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
       $scope.report.worker = '';
     }
   };
-
-  $scope.$watch('report.reportType', function(value) {
-         $scope.clearReport();
-   });
 
 // prints html contents
 $scope.printHTML = function(content) {
@@ -136,6 +133,12 @@ $scope.printHTML = function(content) {
   popupWin.document.close();
   return true;
 }
+
+//listener of state starting exit to save current state data
+$scope.$on('$stateChangeStart', 
+function(event, toState, toParams, fromState, fromParams){
+  $state.params.currentStateData = $scope.report;
+})
 
 
 }]);
