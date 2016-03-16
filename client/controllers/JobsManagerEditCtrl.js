@@ -1,6 +1,6 @@
 app.controller('JobsManagerEditCtrl', ['$scope','$state','Jobs','Workers','Properties','Auth', function($scope,$state,Jobs,Workers,Properties,Auth) {
   
-  console.log('JobsManagerEditCtrl Loaded....')
+  // console.log('JobsManagerEditCtrl Loaded....')
   $scope.job = {};
 //set manager 
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();

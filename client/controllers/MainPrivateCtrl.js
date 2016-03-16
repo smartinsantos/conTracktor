@@ -1,5 +1,5 @@
 app.controller('MainPrivateCtrl', ['$scope','$state','Admin','Auth','manager', function($scope,$state,Admin,Auth,manager) {
-  console.log('MainPrivateCtrl Loaded...');
+  // console.log('MainPrivateCtrl Loaded...');
   //If parameter is not passed in garantees sessionId 
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
 
