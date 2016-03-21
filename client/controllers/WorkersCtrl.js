@@ -4,16 +4,6 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state','Toastr', function($s
   // Object for adding workers
   $scope.worker = {};
 
-  //We are going to save all the workers here on load
-  $scope.workers = [];
-
-  $scope.getWorkers = function() {
-    Workers.getAll()
-    .then(function(workers){
-      $scope.workers = workers;
-    })
-  };
-
   $scope.createWorker = function () {
     var newWorker = $scope.worker;
     Workers.create(newWorker)
@@ -23,6 +13,7 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state','Toastr', function($s
         throw 'Error Ocurred';
       }else{ 
         Toastr.success('Worker Created')
+        $scope.getWorkers();
         $scope.backToWorkers();
       }
     })
@@ -41,6 +32,5 @@ app.controller('WorkersCtrl', ['$scope','Workers','$state','Toastr', function($s
     $state.reload('main_private.workers')
   };
 
-  $scope.getWorkers();
 
 }]);

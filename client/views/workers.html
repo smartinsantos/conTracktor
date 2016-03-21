@@ -125,7 +125,7 @@
           {{worker.address.zip}}
           </address>
         </td>
-        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id})'><i class="fa fa-pencil"></i> Edit</button></td>
+        <td ng-if='!manager'><button class='btn center-block btn-info' ui-sref = 'main_private.workers_edit({id:worker._id, editWorker: woker.first})'><i class="fa fa-pencil"></i> Edit</button></td>
       </tr>
     </table>
 </div>

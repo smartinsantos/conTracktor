@@ -48,7 +48,7 @@ if(process.env.NODE_ENV !== 'test') {
 
     app.use(session({
     name: 'conTracktor',
-    secret: 'Katz!',
+    secret: 'What a Secert Man!',
     resave: false, // Whether or not to save the session back to the store if no modification happened
     rolling: true, // Resets expiry date after each request
     saveUninitialized: false, // Save new sessions that havent been modified

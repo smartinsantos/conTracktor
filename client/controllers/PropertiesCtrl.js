@@ -6,16 +6,6 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state','Toastr', funct
   $scope.property = {};
   $scope.property.contacts = [];
 
-  //We are going to save all the properties here on load
-  $scope.properties = [];
-
-  $scope.getProperties = function() {
-    Properties.getAll()
-    .then(function(properties){
-      $scope.properties = properties;
-    })
-  };
-
   $scope.createProp = function () {
     var newProperty = $scope.property;
     Properties.create(newProperty)
@@ -24,6 +14,7 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state','Toastr', funct
         throw 'Error Ocurred';
       }else{
         Toastr.success('Created!');
+        $scope.getProperties();
         $scope.backToProperties();
       }
     })
@@ -33,7 +24,6 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state','Toastr', funct
     });
   };
 
-  
   $scope.addNewContact = function() {
     var newContact = $scope.property.contacts.length+1;
     $scope.property.contacts.push({});
@@ -53,6 +43,6 @@ app.controller('PropertiesCtrl', ['$scope','Properties','$state','Toastr', funct
     $state.reload('main_private.properties')
   };
 
-  $scope.getProperties();
+  // $scope.getProperties();
 
 }]);

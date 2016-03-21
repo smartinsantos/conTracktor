@@ -178,7 +178,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.workers', {
-      url: 'work/',
+      url: 'worker/',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl',
