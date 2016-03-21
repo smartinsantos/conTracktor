@@ -3,44 +3,6 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   console.log('JobsCtrl Loaded....')
  //filter object for job 'search'
   $scope.filter = {};
-
-//get all managers
-  $scope.admins = [];
-
-  $scope.getAdmins = function() {
-    Admin.getAll()
-    .then(function(admins){
-      $scope.admins = admins;
-    })
-  };
-
-
-//get all properties 
-  $scope.properties = [];
-
-  $scope.getProperties = function() {
-    Properties.getAll()
-    .then(function(properties){
-      $scope.properties = properties;
-    })
-  };
-
-
-//get all workers
-  $scope.workers = [];
-
-    $scope.getWorkers = function() {
-      Workers.getAll()
-      .then(function(workers){
-        $scope.workers = workers;
-      })
-    };
-
-  //load admins, properties
-  $scope.getAdmins();
-  $scope.getProperties();
-  $scope.getWorkers();    
-
  
 //CREATE JOBS
   $scope.jobs = [];

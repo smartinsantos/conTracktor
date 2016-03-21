@@ -4,30 +4,6 @@ app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Worker
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
  //filter object for job 'search'
   $scope.filter = {};
-
-//get all properties 
-  $scope.properties = [];
-
-  $scope.getProperties = function() {
-    Properties.getAll()
-    .then(function(properties){
-      $scope.properties = properties;
-    })
-  };
-
-//get all workers
-  $scope.workers = [];
-
-    $scope.getWorkers = function() {
-      Workers.getAll()
-      .then(function(workers){
-        $scope.workers = workers;
-      })
-    };
-
-  //load properties, workers
-  $scope.getProperties();
-  $scope.getWorkers();    
  
 //CREATE JOBS
   $scope.jobs = [];
