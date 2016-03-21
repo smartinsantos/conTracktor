@@ -35,11 +35,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       redirectTo: 'main_public.signin',
     })
 
-    .state('main_public.create', {  
-      url: 'create',
-      authenticate: false,
-      templateUrl: 'views/createAdmin.html',
-    })
+    // .state('main_public.create', {  
+    //   url: 'create',
+    //   authenticate: false,
+    //   templateUrl: 'views/createAdmin.html',
+    // })
 
     .state('main_public.signin', {
       url: 'signin',
