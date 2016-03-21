@@ -32,7 +32,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       authenticate: false,
       templateUrl: 'views/main_public.html',
       controller: 'MainPublicCtrl',
-      redirectTo: 'main_public.signin',
+      redirectTo: 'main_public.signin'
     })
 
     // .state('main_public.create', {  

@@ -89,7 +89,7 @@ router.get('/js/app.js', browserify('./client/app.js', { transform: ngAnnotate }
 
 //Serving Sass Files
 router.get(
-    '/main.css',
+    '*/main.css',
     sass.serve('./client/sass/main.scss', {
 
       // (dev only) defaults to parent folder of scss file.
