@@ -146,9 +146,11 @@
         <th>Administrator ?</th>    
         <th>Edit Manager</th>
       </tr>
-      <tr ng-repeat = 'admin in admins'>
-        <td><p>{{admin.first}}  {{admin.last}}</p>
-            <p ng-if='admin.access_disable' class='i-red'><i class="fa fa-exclamation"></i> access is revoked</p>
+      <tr ng-repeat = 'admin in admins' ng-class="{ 'danger': admin.access_disable, 'success' : admin.admin}">
+        <td>
+          <p>{{admin.first}}  {{admin.last}}
+            <span ng-if='admin.access_disable' class='i-red'><i class="fa fa-exclamation"></i> access is revoked</span>
+          </p>
         </td>
         <td><a href="mailto:{{admin.email}}">{{admin.email}}</a></td>
         <td>{{admin.phone}}</td>
