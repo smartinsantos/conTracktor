@@ -14,7 +14,7 @@ var Admins = require('../lib/models/admin.js');
 
 router.get('/', auth.requireAuth, auth.requireAdmin, function (req, res) {
 
-  Admins.find({},'first last email admin phone', function (err, doc) {
+  Admins.find({},'first last email admin phone access_disable', function (err, doc) {
     if (err){ 
       console.log('error getting Admins',err);
       return err;

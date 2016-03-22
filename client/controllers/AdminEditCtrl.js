@@ -26,7 +26,7 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state','Toastr', function($s
     .catch(function(err){
       console.log('error ocurred: ', err);
     }); 
-  }
+  };
 
   $scope.editAdmin = function () {
     var adminInfo = $scope.admin;
@@ -36,6 +36,7 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state','Toastr', function($s
         throw 'Error Ocurred'
        }else{
         Toastr.success('Edited!')
+        $scope.getAdmins();
         $state.go('main_private.managers');      
        }
     })
@@ -44,37 +45,28 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state','Toastr', function($s
     })
   };
 
-  $scope.editManager = function () {
-    var adminInfo = $scope.admin;
-    Admin.edit(adminInfo)
-    .then(function(res){
-      if(res===undefined){
-        throw 'Error Ocurred'
-      }else{
-        Toastr.success('Saved!')
-      }
-    })
-    .catch(function(err){
-      Toastr.error('Error Ocurred!: ' + err)
-    console.log('error ocurred: ', err);
-    })
-  };
-
-  $scope.disableAdmin = function () {
+  $scope.userDisable = function (access) {
     var adminInfo = $scope.admin;
     if(adminInfo.admin){
-      Toastr.error('Can not revoke access of Administrator')
+      Toastr.error('Can not revoke access of Administrator First Demote')
     }else{
-      adminInfo.disable=true; 
+      adminInfo.access_disable = access; 
       Admin.edit(adminInfo)
       .then(function(res){
-        $('div.modal').removeClass('fade').addClass('hidden');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-        $state.go('main_private.managers');
+        if (res===undefined){
+          throw 'Error Changing Access'
+        }else {        
+          $scope.getAdmins();
+          Toastr.success('Access Changed');
+          $('div.modal').removeClass('fade').addClass('hidden');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+          $state.go('main_private.managers');
+        }
       })
       .catch(function(err){
-      console.log('error ocurred: ', err);
+        Toastr.error(err);
+        console.log('error ocurred: ', err);
       })      
     }
   }
@@ -83,11 +75,17 @@ app.controller('AdminEditCtrl', ['$scope','Admin','$state','Toastr', function($s
     var adminId = $state.params.id;
     Admin.deleteAdmin(adminId)
     .then(function(res){
-      //Work around to fix modal bug were still fading app after toggle
-      $('div.modal').removeClass('fade').addClass('hidden');
-      $('body').removeClass('modal-open');
-      $('.modal-backdrop').remove();
-      $state.go('main_private.managers');
+      if(res===undefined){
+        throw err;
+      }else{
+        Toastr.success('Deleted!');
+        $scope.getAdmins();
+        //Work around to fix modal bug were still fading app after toggle
+        $('div.modal').removeClass('fade').addClass('hidden');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        $state.go('main_private.managers');        
+      }
     })
     .catch(function(err){
       console.log('error ocurred: ', err);
