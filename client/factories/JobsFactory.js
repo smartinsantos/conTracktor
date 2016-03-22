@@ -43,7 +43,6 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
     });
   };
 
-//********************TODO
   var getAllByServiceDate = function(startDate,endDate){
     //Transform Dates to 
     var startDate = startDate.toJSON()
@@ -58,7 +57,6 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
       console.log('getJobs completed err: ', err);
     });
   };
-//********************
 
   var getCompletedByDate = function(startDate,endDate){
     //Transform Dates to 

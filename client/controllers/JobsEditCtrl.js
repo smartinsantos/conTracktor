@@ -1,8 +1,8 @@
 app.controller('JobsEditCtrl', ['$scope','$state','Jobs','Admin','Properties','Workers','Toastr', function($scope,$state,Jobs,Admin,Properties,Workers,Toastr) {
   
-  // console.log('JobsEditCtrl Loaded....')
+  console.log('JobsEditCtrl Loaded....')
 
-
+  console.log($state.params)
   $scope.job = {};
 
   $scope.getJob = function(){

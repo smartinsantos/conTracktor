@@ -1,6 +1,6 @@
 app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager','Toastr', function($scope,$state, Jobs,Properties,Admin,Workers,manager,Toastr) {
   
-  console.log('JobsCtrl Loaded....')
+  // console.log('JobsCtrl Loaded....')
  //filter object for job 'search'
   $scope.filter = {};
  

@@ -91,19 +91,24 @@
       <td>
         <p>{{job.propertie.name}}</p>
         <p class='i-red' ng-if='!job.ready_review'><i class="fa fa-exclamation"></i> This job is not ready for invoice!</p>
+        <p class='i-green' ng-if='job.date_completed'><i class="fa fa-exclamation"></i> This job is completed</p>
       </td>
       <td>{{job.unit}}</td>
       <td>
         <div class="table-responsive">
           <table class="table">
             <tr>
+              <th class='no-print'>R</th>
               <th>Service</th>
               <th>Date</th>
               <th>Worker</th>
               <th>Price</th>
               <th>Description</th>
             </tr>
-            <tr ng-repeat = 'service in job.services'>
+            <tr class='no-print' ng-repeat = 'service in job.services' ng-class="{ 'success': service.check }">
+              <td>
+                <label><input type="checkbox" ng-model='service.check'></label>
+              </td>
               <td>{{service.item}}</td>
               <td ng-class="{ 'date-error': service.date_assigned<=startDateCompare || service.date_assigned>=endDateCompare }">{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
               <td>{{service.worker.first}} {{service.worker.last}}</td>
@@ -131,7 +136,10 @@
       </td>
       <td>{{job.poNumber}}</td>
       <td>{{job.invoiceNumber}}</td>
-      <td class= 'no-print'><a class="btn btn-info" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a></td>
+      <td class= 'no-print'>
+        <a class="btn btn-info btn-block" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a>
+        <a class="btn btn-success btn-block" ng-click='completeJob(job)'><i class="fa fa-check-circle-o"></i> Complete</a>
+        </td>
     </tr>
   </table>
 </div>

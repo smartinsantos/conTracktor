@@ -34,8 +34,8 @@ var JobsSchema = new Schema({
     invoiceNumber: { type : String, unique: true, sparse:true },
     notes: String,
     ready_review: Boolean,
+    completed: Boolean,
     date_completed: Date,
-    // completed: Boolean,
 });
 
 
