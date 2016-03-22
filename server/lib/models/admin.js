@@ -8,6 +8,7 @@ var AdminSchema = new Schema({
       password: String,
       phone: String,
       admin: Boolean, //if admin false means they are managers
+      access_disable:Boolean, // if true access to the system is revoked
 });
 
 

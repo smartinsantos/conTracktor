@@ -52,34 +52,6 @@ app.controller('JobsManagerEditCtrl', ['$scope','$state','Jobs','Workers','Prope
 
   };
 
-  
-
-//get all properties 
-  $scope.properties = [];
-
-  $scope.getProperties = function() {
-    Properties.getAll()
-    .then(function(properties){
-      $scope.properties = properties;
-    })
-  };
-
-
-//get all workers
-  $scope.workers = [];
-
-    $scope.getWorkers = function() {
-      Workers.getAll()
-      .then(function(workers){
-        $scope.workers = workers;
-      })
-    };
-
-//load admins, properties, workers on creating a job
-  $scope.getProperties();
-  $scope.getWorkers();    
-
-
 //ADD-REMOVE SERVICES  
 
 $scope.addNewService = function() {

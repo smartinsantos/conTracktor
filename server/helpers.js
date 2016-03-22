@@ -32,7 +32,8 @@ helpers.adminCreate = function (attrs) {
     first: attrs.first,
     last: attrs.last,
     admin: attrs.admin,
-    phone: attrs.phone
+    phone: attrs.phone,
+    access_disable: attrs.access_disable
   };
     var admin = new Admin(adminAttrs);
   return admin.save(function(err){

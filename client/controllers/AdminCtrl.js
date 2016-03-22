@@ -4,8 +4,8 @@ app.controller('AdminCtrl', ['$scope','$state','Admin','Toastr', function($scope
   //data of admin
   $scope.admin = {};
   $scope.admin.admin = false;
-  //all admins
-  $scope.admins = {};
+  $scope.admin.access_disable = false;
+  console.log($scope.admins)
 
   $scope.createAdmin = function () {
     var newAdmin = $scope.admin;
@@ -13,10 +13,11 @@ app.controller('AdminCtrl', ['$scope','$state','Admin','Toastr', function($scope
     .then(function(admin){
       //Work around to fix modal bug were still fading app after toggle
      if(admin===undefined){
-      throw 'Error Ocurred'
+      throw 'Error Ocurred - email has to be unique - check token!'
      }else{
+      Toastr.success('Created!')
+      $scope.getAdmins();      
       $scope.backToAdmins();
-      Toastr.success('Created!')      
      }
     })
     .catch(function(err){
@@ -25,21 +26,12 @@ app.controller('AdminCtrl', ['$scope','$state','Admin','Toastr', function($scope
     });
   };
 
-  $scope.getAdmins = function() {
-    Admin.getAll()
-    .then(function(admins){
-      $scope.admins = admins;
-    })
-  };
-
-$scope.backToAdmins = function() {
+  $scope.backToAdmins = function() {
     //work around fading after toogle modal
     $('div.modal').removeClass('fade').addClass('hidden');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
     $state.reload('main_private.managers')
   };
-
-
-  $scope.getAdmins();  
+  
 }]);

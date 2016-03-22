@@ -1,47 +1,8 @@
 app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Workers','manager','Toastr', function($scope,$state, Jobs,Properties,Admin,Workers,manager,Toastr) {
   
   // console.log('JobsCtrl Loaded....')
-
  //filter object for job 'search'
   $scope.filter = {};
-
-//get all managers
-  $scope.admins = [];
-
-  $scope.getAdmins = function() {
-    Admin.getAll()
-    .then(function(admins){
-      $scope.admins = admins;
-    })
-  };
-
-
-//get all properties 
-  $scope.properties = [];
-
-  $scope.getProperties = function() {
-    Properties.getAll()
-    .then(function(properties){
-      $scope.properties = properties;
-    })
-  };
-
-
-//get all workers
-  $scope.workers = [];
-
-    $scope.getWorkers = function() {
-      Workers.getAll()
-      .then(function(workers){
-        $scope.workers = workers;
-      })
-    };
-
-  //load admins, properties
-  $scope.getAdmins();
-  $scope.getProperties();
-  $scope.getWorkers();    
-
  
 //CREATE JOBS
   $scope.jobs = [];
@@ -100,8 +61,8 @@ app.controller('JobsCtrl', ['$scope','$state','Jobs','Properties','Admin','Worke
   };
 
 
-//ADD-REMOVE SERVICES
-$scope.job.services = [];
+  //ADD-REMOVE SERVICES
+  $scope.job.services = [];
   
   $scope.addNewService = function() {
     var newService = $scope.job.services.length+1;
@@ -120,8 +81,8 @@ $scope.job.services = [];
     }); 
   };
 
-//ADD-REMOVE COSTS
-$scope.job.costs = [];
+  //ADD-REMOVE COSTS
+  $scope.job.costs = [];
   
   $scope.addNewCost = function() {
     var newCost = $scope.job.costs.length+1;
@@ -177,6 +138,11 @@ $scope.sendServiceToWorker = function (job, service){
     };
   });
 };
+
+$scope.markAsSent = function(job,service){
+  service.notification_sent = true;
+  Jobs.edit(job);
+}
 
 //work around to clear the filter when worker does not exist
 $scope.clearFilter = function(){

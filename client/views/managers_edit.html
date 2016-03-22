@@ -83,7 +83,8 @@
       <button type="button" class="btn btn-default" ng-click='backToManagers()'><i class="fa fa-arrow-circle-o-left"></i> To Managers</button>
       <button type="button" class="btn btn-primary" ng-click='editAdmin()' ng-disabled="!admin.email || !admin.phone || !admin.first || !admin.last"><i class="fa fa-floppy-o"></i> Save</button>
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAdmin"><i class="fa fa-trash"></i> Delete</button>
-      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess"><i class="fa fa-user-times"></i> Revoke Access</button>
+      <button ng-if = '!admin.access_disable' type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess"><i class="fa fa-user-times"></i> Revoke Access</button>
+      <button ng-if = 'admin.access_disable' type="button" class="btn btn-info" data-toggle="modal" data-target="#removeAccess"><i class="fa fa-user-times"></i> Grant Access</button>
     </div>
   </div>
 </div>
@@ -110,16 +111,24 @@
 <div class="modal fade" id="removeAccess" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" ng-if = '!admin.access_disable'>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Remove Access {{admin.first}} {{admin.last}}</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-header" ng-if = 'admin.access_disable'>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Grant Access {{admin.first}} {{admin.last}}</h4>
+      </div>
+      <div class="modal-body" ng-if = '!admin.access_disable'>
         <p>Are you Sure you Want to Remove Access?</p>
+      </div>
+      <div class="modal-body" ng-if = 'admin.access_disable'>
+        <p>Are you Sure you Want to Grant Access?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-        <button type="button" class="btn btn-info" ng-click='disableAdmin()'><i class="fa fa-user-times"></i> Revoke Access</button>
+        <button ng-if = '!admin.access_disable' type="button" class="btn btn-info" ng-click='userDisable(true)'><i class="fa fa-user-times"></i> Revoke Access</button>
+        <button ng-if = 'admin.access_disable' type="button" class="btn btn-info" ng-click='userDisable(false)'><i class="fa fa-user-times"></i> Grant Access</button>      
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

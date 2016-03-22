@@ -32,14 +32,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       authenticate: false,
       templateUrl: 'views/main_public.html',
       controller: 'MainPublicCtrl',
-      redirectTo: 'main_public.signin',
+      redirectTo: 'main_public.signin'
     })
 
-    .state('main_public.create', {  
-      url: 'create',
-      authenticate: false,
-      templateUrl: 'views/createAdmin.html',
-    })
+    // .state('main_public.create', {  
+    //   url: 'create',
+    //   authenticate: false,
+    //   templateUrl: 'views/createAdmin.html',
+    // })
 
     .state('main_public.signin', {
       url: 'signin',
@@ -48,7 +48,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private', {
-        url: '/private',
+        url: '/private/',
         authenticate: true,
         templateUrl: 'views/main_private.html',
         controller: 'MainPrivateCtrl',
@@ -56,7 +56,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.managers', {
-        url: 'managers',
+        url: 'managers/',
         authenticate: true,
         templateUrl: 'views/managers.html',
         controller: 'AdminCtrl',
@@ -65,7 +65,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.managers_edit', {
-        url: 'managers/{id}/edit',
+        url: 'managers/{id}/edit/',
         authenticate: true,
         templateUrl: 'views/managers_edit.html',
         controller: 'AdminEditCtrl',
@@ -73,7 +73,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.manager_profile', {
-        url: 'profile/{id}/edit',
+        url: 'profile/{id}/edit/',
         authenticate: true,
         templateUrl: 'views/manager_profile.html',
         controller: 'AdminEditCtrl',
@@ -81,7 +81,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.reports', {
-      url: 'areports',
+      url: 'areports/',
       authenticate: true,
       templateUrl: 'views/reports.html',
       controller: 'ReportsCtrl',
@@ -89,7 +89,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.reports_manager', {
-      url: 'meports',
+      url: 'meports/',
       authenticate: true,
       templateUrl: 'views/reports_manager.html',
       controller: 'ReportsCtrl',
@@ -97,7 +97,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs', {
-      url: 'ajobs',
+      url: 'ajobs/',
       authenticate: true,
       templateUrl: 'views/jobs.html',
       controller: 'JobsCtrl',
@@ -105,7 +105,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_review', {
-      url: 'ajobs/review',
+      url: 'ajobs/review/',
       authenticate: true,
       templateUrl: 'views/jobs_review.html',
       controller: 'JobsCtrl',
@@ -113,7 +113,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_create', {
-      url: 'ajobs/create',
+      url: 'ajobs/create/',
       authenticate: true,
       templateUrl: 'views/jobs_create.html',
       controller: 'JobsCtrl',
@@ -121,7 +121,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_completed', {
-      url: 'ajobs/completed',
+      url: 'ajobs/completed/',
       authenticate: true,
       templateUrl: 'views/jobs_completed.html',
       controller: 'JobsCtrl',
@@ -130,7 +130,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 
     .state('main_private.jobs_edit', {
-      url: 'ajobs/{id}/edit',
+      url: 'ajobs/{id}/edit/',
       authenticate: true,
       templateUrl: 'views/jobs_edit.html',
       controller: 'JobsEditCtrl',
@@ -138,7 +138,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_manager', {
-      url: 'mjobs',
+      url: 'mjobs/',
       authenticate: true,
       templateUrl: 'views/jobs_manager.html',
       controller: 'JobsManagerCtrl',
@@ -146,7 +146,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_manager_create', {
-      url: 'mjobs/create',
+      url: 'mjobs/create/',
       authenticate: true,
       templateUrl: 'views/jobs_manager_create.html',
       controller: 'JobsManagerCtrl',
@@ -154,7 +154,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_manager_edit', {
-      url: 'mjobs/{id}/edit',
+      url: 'mjobs/{id}/edit/',
       authenticate: true,
       templateUrl: 'views/jobs_manager_edit.html',
       controller: 'JobsManagerEditCtrl',
@@ -162,7 +162,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.properties', {
-      url: 'props',
+      url: 'props/',
       authenticate: true,
       templateUrl: 'views/properties.html',
       controller: 'PropertiesCtrl',
@@ -170,7 +170,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.properties_edit', {
-      url: 'props/{id}/edit',
+      url: 'props/{id}/edit/',
       authenticate: true,
       templateUrl: 'views/properties_edit.html',
       controller: 'PropertiesEditCtrl',
@@ -178,7 +178,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.workers', {
-      url: 'work',
+      url: 'worker/',
       authenticate: true,
       templateUrl: 'views/workers.html',
       controller: 'WorkersCtrl',
@@ -186,7 +186,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.workers_edit', {
-      url: 'work/{id}/edit',
+      url: 'work/{id}/edit/',
       authenticate: true,
       templateUrl: 'views/workers_edit.html',
       controller: 'WorkersEditCtrl',

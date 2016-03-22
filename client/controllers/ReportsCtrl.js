@@ -1,6 +1,7 @@
 app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties','Auth', function($scope,$state,Reports,Jobs,Admin,Workers,Properties,Auth) {
   
-// console.log('ReportsCtrl Loaded....')
+  // console.log('ReportsCtrl Loaded....')
+  
   $scope.priceCounter = 0;
   
 //default values for dates on state load
@@ -23,50 +24,10 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 
 //filter object for job 'search'
   $scope.filter = {};
-
-//get all managers
-  $scope.admins = [];
-
-  $scope.getAdmins = function() {
-    Admin.getAll()
-    .then(function(admins){
-      $scope.admins = admins;
-    })
-  };
-
-
-//get all properties 
-  $scope.properties = [];
-
-  $scope.getProperties = function() {
-    Properties.getAll()
-    .then(function(properties){
-      $scope.properties = properties;
-    })
-  };
-
-
-//get all workers
-  $scope.workers = [];
-
-    $scope.getWorkers = function() {
-      Workers.getAll()
-      .then(function(workers){
-        $scope.workers = workers;
-      })
-    };
-
-  //load admins, properties
-  if($state.current.name !== 'main_private.reports_manager'){
-    $scope.getAdmins();
-  }
- 
-  $scope.getProperties();
-  $scope.getWorkers();    
-
  
 // 
   $scope.generateReport = function (){
+    $scope.clearReport();
     var startDate = $scope.report.date.start;
     var endDate = $scope.report.date.end;
   //formating date to be compared on ng-if html
@@ -101,6 +62,19 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
       }          
     }).catch(function(err){
       console.log('Err getting report data: ', err)
+    })
+  }
+
+  $scope.completeJob = function(job){
+    var jobInfo = job;
+    jobInfo.ready_review = true;
+    jobInfo.date_completed = new Date();
+    Jobs.edit(jobInfo)
+    .then(function(res){
+      console.log(res);
+    })
+    .catch(function(err){
+      console.log('Error completing job', err)
     })
   }
 
