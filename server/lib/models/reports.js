@@ -12,7 +12,7 @@ var ReportsSchema = new Schema({
     worker: String,
     manager: String,
     propertie: String,
-    name: String
+    name: {type:String, unique:true}
 });
 
 

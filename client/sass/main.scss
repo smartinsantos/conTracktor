@@ -66,7 +66,7 @@ html,body {
   background-color:#f1f8e9;
 }
 
-//jobs view
+//general styles
 
 .i-green {
   color: green;
@@ -78,4 +78,23 @@ html,body {
 
 .i-bold {
   font-weight: bold;
+}
+
+.no-style-link:link {
+    text-decoration: none;
+}
+
+/* visited link */
+.no-style-link:visited {
+    text-decoration: none;
+}
+
+/* mouse over link */
+.no-style-link:hover {
+    text-decoration: none;
+}
+
+/* selected link */
+.no-style-link:active {
+    text-decoration: none;
 }

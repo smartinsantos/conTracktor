@@ -47,13 +47,29 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
     .then(function(res){
       if(res){    
         $scope.loadReport = res;
-        console.log('report: ', res);
       }else{
         throw 'Error Getting Report'
       }
     })
     .catch(function(err){
       console.log(err);
+    })
+   };
+
+  $scope.saveReport = function(){
+    var newReport = $scope.report;
+    newReport.owner = $scope.sessionId;
+    Reports.create(newReport)
+    .then(function(res){
+      if(res){    
+        Toastr.success('Report Created')
+      }else{
+        throw 'Error Creating Report'
+      }
+    })
+    .catch(function(err){
+      console.log(err);
+      Toastr.error('Err')
     })
    };
 
