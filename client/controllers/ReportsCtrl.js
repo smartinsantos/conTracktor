@@ -23,14 +23,12 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 
 //reports saved in DB
  $scope.savedReports = [];
- $scope.loadReport = {};
 
  $scope.getAllReports = function(){
   Reports.getAll($scope.sessionId)
   .then(function(res){
     if(res){    
       $scope.savedReports = res;
-      console.log('reports: ',res);
     }else{
       throw 'Error Getting Reports'
     }
@@ -42,12 +40,15 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 
  $scope.getAllReports();
 
-  $scope.loadReport = function(reportId){
+  $scope.loadSavedReport = function(reportId){
+    console.log('loadReport Triggered', 'reportId', reportId)
     Reports.getOne(reportId)
     .then(function(res){
-      if(res){    
-        $scope.loadReport = res;
-        console.log('report: ', res);
+      if(res){
+        $scope.clearReport();    
+        $scope.report = res;
+        $scope.report.date.start = new Date($scope.report.date.start);
+        $scope.report.date.end = new Date($scope.report.date.end);
       }else{
         throw 'Error Getting Report'
       }
@@ -57,6 +58,60 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
     })
    };
 
+  $scope.saveReport = function(){
+    var newReport = $scope.report;
+    //if report is new    
+    if(!$scope.report.name){
+      $('#saveReportModal').modal('show');
+    }else if (!newReport.edited){//if report is not in db
+      newReport.owner = $scope.sessionId;
+      newReport.edited = new Date();
+      Reports.create(newReport)
+      .then(function(res){
+        if(res){
+          $('#saveReportModal').modal('hide');
+          $scope.savedReports.push(res.data);
+          Toastr.success('Report Created')
+        }else{
+          throw 'Error Creating Report'
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+        Toastr.error('Err')
+      });
+    }else{ //if report is already on db 
+      newReport.edited = new Date();
+      Reports.edit(newReport)
+      .then(function(res){
+        if(res){
+          Toastr.success('Report Saved')
+          $scope.getAllReports();
+        }else{
+          throw 'Error Saving Report'
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+        Toastr.error('Err')
+      });
+    }      
+  };
+
+  $scope.deleteReport = function(reportId){
+    Reports.deleteReport(reportId)
+    .then(function(res){
+      if(res){
+        Toastr.success('Report Deleted')
+        $scope.getAllReports();
+      }else{
+        throw 'Error Deleting Report'
+      }
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+   };
 
 //filter object for job 'search'
   $scope.filter = {};
@@ -122,6 +177,8 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 //clear report jobs on report change
   $scope.clearReport = function(){
     $scope.report.jobs =[];
+    $scope.report.name = null;
+    $scope.report.edited = null;
     if($scope.report.reportType === 'manager'){
       $scope.report.worker = '';
       $scope.report.propertie = '';

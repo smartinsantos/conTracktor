@@ -12,8 +12,18 @@ app.factory('Reports', ['$http', '$state', '$timeout', function($http, $state, $
     })
   };
 
-    var getOne = function(reportId){
+  var getOne = function(reportId){
     return $http.get('/reports/' + reportId)
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('getJobs err: ', err);
+    });
+  };
+
+  var getOneByName = function(reportId){
+    return $http.get('/reports/name/' + reportId)
     .then(function(res){
       return res.data;
     })
@@ -34,7 +44,8 @@ app.factory('Reports', ['$http', '$state', '$timeout', function($http, $state, $
  
   var edit = function(reportInfo){
     var reportId = reportInfo._id;
-    return $http.put('/jobs/'+ reportId, reportInfo)
+    console.log('reportid', reportId)
+    return $http.put('/reports/'+ reportId, reportInfo)
     .then(function(res){
       return res;
     })
@@ -57,6 +68,7 @@ app.factory('Reports', ['$http', '$state', '$timeout', function($http, $state, $
   return {
     getAll:getAll,
     getOne:getOne,
+    getOneByName:getOneByName,
     create:create,
     edit:edit,
     deleteReport:deleteReport

@@ -44,6 +44,23 @@ router.get('/:reportId', auth.requireAuth,auth.requireAdmin, function (req, res)
 
 });
 
+router.get('/name/:reportName', auth.requireAuth,auth.requireAdmin, function (req, res) {
+  Reports.findOne({'name':req.params.reportName}, function(err,doc){
+    if(err){
+      console.log('error saving Report',err);
+      return err;
+    }
+    return doc;
+  })
+  .then(function(report){
+    res.status(200).json(report);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  })
+
+});
+
 router.post('/', auth.requireAuth,auth.requireAdmin, function (req, res) {
   
   var newReport = req.body;
