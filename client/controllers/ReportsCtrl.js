@@ -1,4 +1,4 @@
-app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties','Auth', function($scope,$state,Reports,Jobs,Admin,Workers,Properties,Auth) {
+app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties','Auth','Toastr', function($scope,$state,Reports,Jobs,Admin,Workers,Properties,Auth,Toastr) {
   
   // console.log('ReportsCtrl Loaded....')
   
@@ -71,9 +71,14 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
     jobInfo.date_completed = new Date();
     Jobs.edit(jobInfo)
     .then(function(res){
-      console.log(res);
+      if(res){
+        Toastr.success('Saved')
+      }else{
+        throw 'Error Ocurred Completing'
+      }
     })
     .catch(function(err){
+      Toastr.error(err);
       console.log('Error completing job', err)
     })
   }
