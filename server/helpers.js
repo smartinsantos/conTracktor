@@ -2,6 +2,8 @@ var Admin = require('./lib/models/admin.js');
 var Worker = require('./lib/models/workers.js');
 var Job = require('./lib/models/jobs.js');
 var Propertie = require('./lib/models/properties.js');
+var Report = require('./lib/models/reports.js');
+
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'));
 
@@ -113,7 +115,20 @@ helpers.createJob = function (attrs) {
       }
       return job;
   });
+};
 
+helpers.createReport = function (attrs) {
+  console.log('Creating Report....');
+  var reportAttrs = attrs;
+  
+  var report = new Report(reportAttrs);
+    return report.save(function(err){
+      if (err){
+        console.log('failed to create new job');
+        return err;
+      }
+      return report;
+  });
 };
 
 // A jQuery Param Parser
