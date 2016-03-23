@@ -1,26 +1,62 @@
-app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties','Auth','Toastr', function($scope,$state,Reports,Jobs,Admin,Workers,Properties,Auth,Toastr) {
-  
-  // console.log('ReportsCtrl Loaded....')
-  
+app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Workers','Properties','Auth','Toastr','Reports', function($scope,$state,Reports,Jobs,Admin,Workers,Properties,Auth,Toastr,Reports) {
+  //gets admin id for the session
+  $scope.sessionId = $state.params.sessionId || Auth.sessionId();  // console.log('ReportsCtrl Loaded....') 
   $scope.priceCounter = 0;
   
 //default values for dates on state load
- if(!$state.params.currentStateData){
-  $scope.report = {};
-  $scope.report.date = {}; 
-  $scope.report.jobs = [];
-  $scope.report.date.end = new Date();
-  $scope.report.date.start = new Date();
-  $scope.report.date.start.setDate($scope.report.date.start.getDate() - 7); 
- }else{
-  $scope.report = $state.params.currentStateData;
- }
+   if(!$state.params.currentStateData){
+    $scope.report = {};
+    $scope.report.date = {}; 
+    $scope.report.jobs = [];
+    $scope.report.date.end = new Date();
+    $scope.report.date.start = new Date();
+    $scope.report.date.start.setDate($scope.report.date.start.getDate() - 7); 
+   }else{
+    $scope.report = $state.params.currentStateData;
+   }
 
- if($state.current.name === 'main_private.reports_manager'){
-    $scope.sessionId = $state.params.sessionId || Auth.sessionId();
-    $scope.report.reportType = 'manager';
-    $scope.report.manager = $scope.sessionId;
- }
+   if($state.current.name === 'main_private.reports_manager'){
+      $scope.sessionId = $state.params.sessionId || Auth.sessionId();
+      $scope.report.reportType = 'manager';
+      $scope.report.manager = $scope.sessionId;
+   }
+
+//reports saved in DB
+ $scope.savedReports = [];
+ $scope.loadReport = {};
+
+ $scope.getAllReports = function(){
+  Reports.getAll($scope.sessionId)
+  .then(function(res){
+    if(res){    
+      $scope.savedReports = res;
+      console.log('reports: ',res);
+    }else{
+      throw 'Error Getting Reports'
+    }
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+ };
+
+ $scope.getAllReports();
+
+  $scope.loadReport = function(reportId){
+    Reports.getOne(reportId)
+    .then(function(res){
+      if(res){    
+        $scope.loadReport = res;
+        console.log('report: ', res);
+      }else{
+        throw 'Error Getting Report'
+      }
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+   };
+
 
 //filter object for job 'search'
   $scope.filter = {};

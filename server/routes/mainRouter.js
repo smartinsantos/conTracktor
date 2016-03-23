@@ -11,6 +11,7 @@ var adminsRouter = require('./adminsRouter');
 var propertiesRouter = require('./propertiesRouter');
 var jobsRouter = require('./jobsRouter');
 var workersRouter = require('./workersRouter');
+var reportsRouter = require('./reportsRouter');
 
 
 
@@ -50,6 +51,7 @@ router.use('/admin', adminsRouter);
 router.use('/properties', propertiesRouter);
 router.use('/jobs', jobsRouter);
 router.use('/workers', workersRouter);
+router.use('/reports', reportsRouter);
 
 
 // browserify.settings({ external: ['angular', 'jquery'] });
