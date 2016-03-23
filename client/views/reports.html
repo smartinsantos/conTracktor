@@ -15,23 +15,26 @@
             <h3 class='text-center'>Saved Reports<small> Reports you have been working on!</small></h3>
           </div>
             <!-- Table -->
-            <table class="table">
+            <table class="table table-striped table-condensed">
               <tr>
                 <th>Name</th>
-                <th>Type</th>   
-                <th>Dates</th>
+                <th>Type</th>
+                <th>Date Range</th>
+                <th>Edited</th>
                 <th>Controls</th>
               </tr>
-              <tr ng-repeat='savedReport in savedReports | orderBy:"-date.start"'>
+              <tr ng-repeat='savedReport in savedReports | orderBy :"name"'>
                 <td>{{savedReport.name}}</td>
                 <td>{{savedReport.reportType}}</td>
-                <td><i class="fa fa-calendar"></i> {{savedReport.date.start | date:'MM/dd/yyyy'}} - {{savedReport.date.end | date:'MM/dd/yyyy'}}</td>
+                <td><i class="fa fa-calendar"></i> {{savedReport.date.start | date:'MM/dd/yyyy'}} / {{savedReport.date.end | date:'MM/dd/yyyy'}}</td>
+                <td>{{savedReport.edited}}</td>
                 <td>
-                  <a class="btn btn-success " ><i class="fa fa-spinner"></i> </i> Load</a>
-                  <a class="btn btn-danger " ng-click='loadReport(savedReport._id)'><i class="fa fa-trash"></i> Delete</a>
+                  <a class="btn btn-default" ng-click='loadSavedReport(savedReport._id)'><i class="fa fa-spinner"></i> </i> Load</a>
+                  <a class="btn btn-danger" ng-click='deleteReport(savedReport._id)'><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
             </table>
+            <div class="panel-footer"></div>
         </div>
       </div>
     </div>
@@ -107,9 +110,9 @@
         </div>
       </div><br>   
       <div class='col-xs-12'>
-        <span class='col-xs-8 col-xs-offset-2'>
-        <button class="btn btn-default" type="button" ng-click='generateReport()' ng-disabled='!report.manager && !report.worker && !report.propertie'><i class="fa fa-plus-circle"></i> Generate Report</button>
-        <button class="btn btn-default" data-toggle="modal" data-target="#saveReportModal" type="button" ng-disabled='!report.manager && !report.worker && !report.propertie && !report.jobs.length>0'><i class="fa fa-floppy-o"></i></button>
+        <span class='center-block'>
+        <button class="btn btn-default " type="button" ng-click='generateReport()' ng-disabled='!report.manager && !report.worker && !report.propertie'><i class="fa fa-plus-circle"></i> Generate Report</button>
+        <button class="btn btn-default " ng-click='saveReport()' ng-disabled='report.jobs.length<1'><i class="fa fa-floppy-o"></i></button>
         </span>
       </div>
     </div><br>

@@ -12,7 +12,8 @@ var ReportsSchema = new Schema({
     worker: String,
     manager: String,
     propertie: String,
-    name: {type:String, unique:true}
+    name: {type:String, unique:true},
+    edited: Date
 });
 
 
