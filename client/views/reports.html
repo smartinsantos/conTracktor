@@ -1,5 +1,8 @@
 <div class="page-header">
   <h1 class ='text-center'>Reports</h1><br>
+  
+</div>
+<div class="page-header">
   <div>
     <div ng-if = 'savedReports.length>0' class="panel-group" id="savedReportAccordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
@@ -39,8 +42,7 @@
       </div>
     </div>
   </div>
-</div>
-<div class="page-header col-xs-12">
+
   <div class = 'row'>
     <div class="form-group col-xs-12 col-sm-3">
       <h5>Report Type</h5>
@@ -117,7 +119,10 @@
       </div>
     </div><br>
   </div>
+
 </div>
+
+<h3 ng-if='report.name'>Report: <small>{{report.name}}</small></h3>
 <div class="panel panel-default col-xs-12" ng-if ='report.reportType === "manager" && report.jobs.length>0' id="printableArea">
   <table class="table table-bordered table">
     <tr>

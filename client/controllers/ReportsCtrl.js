@@ -41,7 +41,6 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
  $scope.getAllReports();
 
   $scope.loadSavedReport = function(reportId){
-    console.log('loadReport Triggered', 'reportId', reportId)
     Reports.getOne(reportId)
     .then(function(res){
       if(res){
@@ -49,6 +48,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
         $scope.report = res;
         $scope.report.date.start = new Date($scope.report.date.start);
         $scope.report.date.end = new Date($scope.report.date.end);
+        $('#collapseOne').collapse('hide');
       }else{
         throw 'Error Getting Report'
       }
