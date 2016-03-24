@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1 class ='text-center'>Reports</h1><br>
   <div>
-    <div class="panel-group" id="savedReportAccordion" role="tablist" aria-multiselectable="true">
+    <div ng-if = 'savedReports.length>0' class="panel-group" id="savedReportAccordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
           <h4 class="panel-title text-center">
@@ -23,11 +23,11 @@
                 <th>Edited</th>
                 <th>Controls</th>
               </tr>
-              <tr ng-repeat='savedReport in savedReports | orderBy :"name"'>
+              <tr ng-repeat='savedReport in savedReports | orderBy :"edited"'>
                 <td>{{savedReport.name}}</td>
                 <td>{{savedReport.reportType}}</td>
                 <td><i class="fa fa-calendar"></i> {{savedReport.date.start | date:'MM/dd/yyyy'}} / {{savedReport.date.end | date:'MM/dd/yyyy'}}</td>
-                <td>{{savedReport.edited}}</td>
+                <td>{{savedReport.edited | date:'MM/dd/yyyy'}}</td>
                 <td>
                   <a class="btn btn-default" ng-click='loadSavedReport(savedReport._id)'><i class="fa fa-spinner"></i> </i> Load</a>
                   <a class="btn btn-danger" ng-click='deleteReport(savedReport._id)'><i class="fa fa-trash"></i></a>
@@ -111,8 +111,8 @@
       </div><br>   
       <div class='col-xs-12'>
         <span class='center-block'>
-        <button class="btn btn-default " type="button" ng-click='generateReport()' ng-disabled='!report.manager && !report.worker && !report.propertie'><i class="fa fa-plus-circle"></i> Generate Report</button>
-        <button class="btn btn-default " ng-click='saveReport()' ng-disabled='report.jobs.length<1'><i class="fa fa-floppy-o"></i></button>
+        <button class="btn btn-default " type="button" ng-click='generateReport()' ng-disabled='!report.manager && !report.worker && !report.propertie'><i class="fa fa-plus-circle"></i> Generate</button>
+        <button class="btn btn-default " ng-click='saveReport()' ng-disabled='report.jobs.length<1'><i class="fa fa-floppy-o"></i> Save</button>
         </span>
       </div>
     </div><br>
@@ -132,7 +132,7 @@
       <td>
         <p>{{job.propertie.name}}</p>
         <p class='i-red' ng-if='!job.ready_review'><i class="fa fa-exclamation"></i> This job is not ready for invoice!</p>
-        <p class='i-green' ng-if='job.date_completed'><i class="fa fa-exclamation"></i> This job is completed</p>
+        <p class='i-green' ng-if='job.completed'><i class="fa fa-exclamation"></i> This job is completed</p>
       </td>
       <td>{{job.unit}}</td>
       <td>
@@ -179,7 +179,7 @@
       <td>{{job.invoiceNumber}}</td>
       <td class= 'no-print'>
         <a class="btn btn-info btn-block" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a>
-        <a class="btn btn-success btn-block" ng-show='!job.date_completed' ng-click='completeJob(job)'><i class="fa fa-check-circle-o"></i> Complete</a>
+        <a class="btn btn-success btn-block" ng-show='!job.completed' ng-click='completeJob(job)'><i class="fa fa-check-circle-o"></i> Complete</a>
       </td>
     </tr>
   </table>

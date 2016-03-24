@@ -73,7 +73,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
           $scope.savedReports.push(res.data);
           Toastr.success('Report Created')
         }else{
-          throw 'Error Creating Report'
+          throw 'Error Check Report Name'
         }
       })
       .catch(function(err){
@@ -176,6 +176,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
 
 //clear report jobs on report change
   $scope.clearReport = function(){
+    delete $scope.report._id 
     $scope.report.jobs =[];
     $scope.report.name = null;
     $scope.report.edited = null;

@@ -8,6 +8,7 @@ var ReportsSchema = new Schema({
         end: Date
     },
     jobs: [],
+    services: [],
     reportType:String,
     worker: String,
     manager: String,
