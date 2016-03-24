@@ -18,7 +18,7 @@ $grid-float-breakpoint: 720px;
 }
 
 //CSS
-//general styles
+//GENERAL STYLES
 
 html,body {
   background-color: #fafafa;
@@ -62,10 +62,34 @@ html,body {
     text-decoration: none;
 }
 
+//ANIMATIONS
+[ui-view].ng-enter, [ui-view].ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition:all .3s ease-in-out;
+  transition:all .3s ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+}
+
+[ui-view].ng-leave {
+  opacity: 1;
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+}
 
 //MAIN NAVBAR
 .main-nav{
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
 $bgDefault      : #263238;

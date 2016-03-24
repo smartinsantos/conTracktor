@@ -28,7 +28,6 @@ router.get('/', auth.requireAuth, function (req, res) {
 
 });
 
-
 router.get('/:workerId', auth.requireAuth, function (req, res) {
 
   Workers.findOne({'_id':req.params.workerId}, function(err,doc){
