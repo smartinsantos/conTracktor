@@ -88,13 +88,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       params:{sessionId:null, currentStateData:null}
     })
 
-    .state('main_private.reports_manager', {
-      url: 'meports/',
-      authenticate: true,
-      templateUrl: 'views/reports_manager.html',
-      controller: 'ReportsCtrl',
-      params:{sessionId:null, currentStateData:null}
-    })
+    // .state('main_private.reports_manager', {
+    //   url: 'meports/',
+    //   authenticate: true,
+    //   templateUrl: 'views/reports_manager.html',
+    //   controller: 'ReportsCtrl',
+    //   params:{sessionId:null, currentStateData:null}
+    // })
 
     .state('main_private.jobs', {
       url: 'ajobs/',
@@ -138,6 +138,14 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
 
     .state('main_private.jobs_manager', {
+      url: 'mjobs/',
+      authenticate: true,
+      templateUrl: 'views/jobs_manager.html',
+      controller: 'JobsManagerCtrl',
+      params:{sessionId:null}
+    })
+    //TODO
+    .state('main_private.jobs_manager_completed', {
       url: 'mjobs/',
       authenticate: true,
       templateUrl: 'views/jobs_manager.html',
