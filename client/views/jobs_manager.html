@@ -36,7 +36,7 @@
   <div class="panel panel-default" ng-repeat = 'job in jobs | filter: filter:strict | orderBy:"-ready_review"'>
     <div class="panel-heading" role="tab">
       <ol class="panel-title breadcrumb" role="button" data-toggle="collapse" data-parent="#jobs_manager_accordion" href="#{{job._id}}" aria-expanded="false" aria-controls="{{job._id}}">
-        <li><i class="fa fa-user"></i> {{job.manager.first}} {{job.manager.last}}</li>
+        <!-- <li><i class="fa fa-user"></i> {{job.manager.first}} {{job.manager.last}}</li> -->
         <li><i class="fa fa-home"></i> {{job.propertie.name}}</li>
         <li><i class="fa fa-bed"></i> {{job.unit}}</a></li>
         <li ng-if='job.services.length>0'><i class="fa fa-cogs"></i> 
@@ -84,6 +84,7 @@
               <p class="list-group-item-text"><strong>Date Requested:</strong> {{service.date_assigned |  date:'MM-dd-yyyy'}}</p>
               <p class="list-group-item-text"><strong>Price:</strong> {{service.price}} <i class="fa fa-usd"></i></p>
               <button ng-disabled='!service.worker||!service.item' ng-click='sendServiceToWorker(job,service)' type="button" class="btn btn-info btn-xs" aria-label="Left Align">Send to Worker</button> <span class="label label-success" role="alert" ng-if='service.notification_sent'>sent!</span><span class="label label-danger btn-xs" role="alert" ng-if='!service.notification_sent'>Not sent</span>
+              <button  ng-if = '!service.notification_sent' ng-click='markAsSent(job,service)' type="button" class="btn btn-default btn-xs" aria-label="Left Align">Sent by Phone?</button>
             </div>
           </div>
         </div>

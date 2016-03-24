@@ -1,6 +1,6 @@
 app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Workers','manager','Auth','Toastr', function($scope,$state,Jobs,Properties,Workers,manager,Auth,Toastr) {
   
-  console.log('JobsManagerCtrl Loaded....')
+  // console.log('JobsManagerCtrl Loaded....')
   $scope.sessionId = $state.params.sessionId || Auth.sessionId();
  //filter object for job 'search'
   $scope.filter = {};
