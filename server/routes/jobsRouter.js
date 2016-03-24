@@ -54,7 +54,6 @@ router.get('/incompleted', auth.requireAuth,auth.requireAdmin, function (req, re
   });
 });
 
-//********************TODO
 router.get('/services/date/:dateQuery', auth.requireAuth, function (req, res) {
   //parse param dateQuery to Obj  
   var dateInfo = helpers.paramParser(req.params.dateQuery)
@@ -78,7 +77,6 @@ router.get('/services/date/:dateQuery', auth.requireAuth, function (req, res) {
     res.status(401).json({'error':true});
   });
 });
-//********************
 
 router.get('/completed/date/:dateQuery', auth.requireAuth,auth.requireAdmin, function (req, res) {
   //parse param dateQuery to Obj  
@@ -122,6 +120,32 @@ router.get('/manager/:managerId', auth.requireAuth, function (req, res) {
     res.status(401).json({'error':true});
   });
 });
+
+router.get('/completed/manager/date/:dateQuery', auth.requireAuth, function (req, res) {
+  //parse param dateQuery to Obj  
+  var dateInfo = helpers.paramParser(req.params.dateQuery)
+  //transform object into dates
+  var manager = dateInfo.manager;
+  var startDate = new Date(dateInfo.startDate);
+  var endDate = new Date(dateInfo.endDate);
+  Jobs.find({admin: manager, date_completed:{"$gte": startDate, "$lt": endDate}}, function (err, doc) {
+    if (err){ 
+      console.log('error getting Jobs',err);
+      return err;
+    };
+    return doc;
+  })
+  .populate('manager','first last email phone _id')
+  .populate('propertie')
+  .populate('services.worker')
+  .then(function(jobs){
+    res.status(200).json(jobs);
+  })
+  .catch(function(err){
+    res.status(401).json({'error':true});
+  });
+});
+
 
 router.get('/:jobId', auth.requireAuth, function (req, res) {
   Jobs.findOne({'_id':req.params.jobId}, function(err,doc){

@@ -73,6 +73,21 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
     });
   };
 
+  var getManagerCompletedByDate = function(startDate,endDate,managerId){
+    //Transform Dates to 
+    var startDate = startDate.toJSON()
+    var endDate = endDate.toJSON()
+    var dateQuery = jQuery.param({startDate:startDate,endDate:endDate,managerId});
+
+    return $http.get('/jobs/completed/manager/date/' + dateQuery)
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('getJobs completed err: ', err);
+    });
+  };
+
   var create = function (newJob){
     return $http.post('/jobs/', newJob)
     .then(function(res){
@@ -135,6 +150,7 @@ app.factory('Jobs', ['$http', '$state', '$timeout', function($http, $state, $tim
   getIncompleted:getIncompleted,
   getAllByServiceDate:getAllByServiceDate,
   getCompletedByDate:getCompletedByDate,
+  getManagerCompletedByDate:getManagerCompletedByDate,
   edit:edit,
   deleteJob:deleteJob,
   getAwsUrl:getAwsUrl,

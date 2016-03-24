@@ -146,9 +146,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     })
     //TODO
     .state('main_private.jobs_manager_completed', {
-      url: 'mjobs/',
+      url: 'mjobsc/',
       authenticate: true,
-      templateUrl: 'views/jobs_manager.html',
+      templateUrl: 'views/jobs_manager_completed.html',
       controller: 'JobsManagerCtrl',
       params:{sessionId:null}
     })

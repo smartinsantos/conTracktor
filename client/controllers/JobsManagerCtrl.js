@@ -17,8 +17,14 @@ app.controller('JobsManagerCtrl', ['$scope','$state','Jobs','Properties','Worker
     })
   };
 
-    $scope.createJob = function (option) {
+  $scope.getManagerJobsCompletedByDate = function(startDate,endDate) {
+    Jobs.getManagerCompletedByDate(startDate,endDate,$scope.sessionId)
+    .then(function(jobs){
+      $scope.jobs = jobs;
+    })
+  };
 
+  $scope.createJob = function (option) {
     if($scope.job.services.length > 0){
       $scope.calculateTotalServicePrice();
     };
@@ -137,6 +143,18 @@ $scope.sendServiceToWorker = function (job, service){
   });
 };
 
+$scope.markAsSent = function(job,service){
+  service.notification_sent = true;
+  Jobs.edit(job);
+}
+
+//work around to clear the filter when worker does not exist
+$scope.clearFilter = function(){
+  if($scope.filter.services.worker._id===''){
+    delete($scope.filter.services);
+  };
+};
+
 
 //UPLOAD FILES
   $scope.job.attachments = [];
@@ -196,8 +214,31 @@ $scope.sendServiceToWorker = function (job, service){
       
   };
 
-//refresh Jobs on Load on load
-  $scope.getManagerJobs();
+//refresh Jobs on Load
 
+//refresh Jobs on Load
+  if ($state.current.name === 'main_private.jobs_manager' || $state.current.name==='main_private.jobs_review'){
+    $scope.getManagerJobs();
+  }else if($state.current.name === 'main_private.jobs_manager_completed'){
+    //default values for dates on state load
+    if(!$state.params.currentStateData){
+      $scope.endDate = new Date();
+      $scope.startDate = new Date();
+      $scope.startDate.setMonth($scope.startDate.getMonth() - 1);
+    }else{
+      $scope.filter = $state.params.currentStateData.filter;
+      $scope.jobs = $state.params.currentStateData.jobs;
+      $scope.endDate = $state.params.currentStateData.endDate;
+      $scope.startDate = $state.params.currentStateData.startDate;
+    }
+  };
+
+//listener of state starting exit to save current state data
+  $scope.$on('$stateChangeStart', 
+  function(event, toState, toParams, fromState, fromParams){
+    if($state.current.name === 'main_private.jobs_manager_completed'){
+      $state.params.currentStateData = {filter:$scope.filter, jobs:$scope.jobs,endDate:$scope.endDate,startDate:$scope.startDate};
+    }
+  })
 
 }]);
