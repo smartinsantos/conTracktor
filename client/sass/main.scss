@@ -5,19 +5,24 @@ $grid-float-breakpoint: 720px;
 @import 'bootstrap-variables.sass';
 @import 'bootstrap-sprockets.scss';
 @import 'bootstrap.scss';
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 
 //print reports css
 @media print {
   @page {
     size: landscape;
     margin:10;
-  }
-  
+  } 
   .no-print { display: none; }/* Hide everything ... */
 }
 
 //CSS
+//general styles
+
 html,body {
+  background-color: #fafafa;
+    font-family: 'Noto Sans', 'Lato', Verdana;
     height:100%;
 }
 
@@ -25,48 +30,6 @@ html,body {
   margin-top: 0px;
 }
 
-//Main private view
-
-.main-nav{
-  margin-bottom: 5px;
-}
-
-//Validation for forms
-.validation-error {
-    height: 20px;
-    color: #dc2c0f;
-    font-size: 12px;
-  }
-
-.err-message{
-  color:red !important;
-}
-
-.job-element{
-    background-color:#efefef;
-}
-
-.job-item{
-  height: 100%;
-}
-
-.job-subitem {
-  min-height: 380px;
-  height: 100%;
-
-}
-
-.date-error{
-  color:red !important;
-}
-
-//Admins/Manager view
-
-.admin-rights{
-  background-color:#f1f8e9;
-}
-
-//general styles
 
 .i-green {
   color: green;
@@ -98,3 +61,115 @@ html,body {
 .no-style-link:active {
     text-decoration: none;
 }
+
+
+//MAIN NAVBAR
+.main-nav{
+  margin-bottom: 5px;
+}
+
+$bgDefault      : #263238;
+$bgHighlight    : #546e7a;
+$colDefault     : #90a4ae;
+$colHover       : #000; 
+
+/* --- Style --- */
+.navbar-custom1 {
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+    .navbar-brand {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover; }}
+    .navbar-nav {
+        > li {
+            > a {
+                color: $colDefault;
+                &:hover, &:focus {
+                    color: $colHover;   }}}
+        .active {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight; }}
+        .open {
+            > a, > a:hover, > a:focus {
+                color: $colHover;
+                background-color: $bgHighlight;
+                .caret {
+                    border-top-color: $colHover;
+                    border-bottom-color: $colHover; }}}
+        > .dropdown {
+            > a {
+                .caret {
+                    border-top-color: $colDefault;
+                    border-bottom-color: $colDefault; }
+                &:hover, &:focus {
+                    .caret {
+                        border-top-color: $colHover;
+                        border-bottom-color: $colHover; }}}}}
+    .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+            background-color: $bgHighlight; }
+        .icon-bar {
+            background-color: $colDefault; }}}
+@media (max-width: 767px) {
+    .navbar-custom1 .navbar-nav .open .dropdown-menu > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHover;
+            background-color: $bgHighlight; }}
+}
+
+.nav-pills >li > a {
+    color: #000;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: #fff;
+        background-color: #546e7a;
+    }
+
+.nav-pills > li.active > a:hover {
+    background-color: #455a64;
+    color: #fff;
+}
+
+
+
+//VALIDATION FORMS
+.validation-error {
+    height: 20px;
+    color: #dc2c0f;
+    font-size: 12px;
+  }
+
+.err-message{
+  color:red !important;
+}
+
+.job-element{
+    background-color:#efefef;
+}
+
+.job-item{
+  height: 100%;
+}
+
+.job-subitem {
+  min-height: 380px;
+  height: 100%;
+
+}
+
+.date-error{
+  color:red !important;
+}
+
+//ADMIN/MANAGERS VIEW
+
+.admin-rights{
+  background-color:#f1f8e9;
+}
+
+
