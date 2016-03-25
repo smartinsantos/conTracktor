@@ -1,50 +1,62 @@
 <br>
-<form name = 'signInForm' class="form-horizontal">
-  
-  <div class="form-group" ng-class="{ 'has-error': signInForm.email.$touched && signInForm.email.$invalid }">
-    <label for="inputEmail1" class="col-xs-2 control-label">Email</label>
-    <div class="col-xs-6">
-      <input name = 'email' 
-        required 
-        ng-minlength="7" 
-        ng-model="admin.email" 
-        type="email" 
-        class="form-control" 
-        id="inputEmail1" 
-        placeholder="Email">
+<p class='text-center'>WARNING! You are now connected to a private computing network owned by Painting Connection LLC. This Painting Connection LLC computing network is to be used solely for the legitimate business purposes of Painting Connection LLC.</p>
+<div class = 'land-container'>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+      <div class="thumbnail land-box">
+        <img class='logo' src="../sass/svg/logo.svg" alt="Pconnection logo">
+        <div class="caption row">
+          <form name = 'signInForm' class="form-horizontal">  
+            <div class="form-group" ng-class="{ 'has-error': signInForm.email.$touched && signInForm.email.$invalid }">
+              <div class="col-xs-10 col-xs-offset-1">
+                <input name = 'email' 
+                  required 
+                  ng-minlength="7" 
+                  ng-model="admin.email" 
+                  type="email" 
+                  class="form-control" 
+                  id="inputEmail1" 
+                  placeholder="Email">
+              </div>
+              <div class="help-block col-xs-10 col-xs-offset-1" ng-messages="signInForm.email.$error" ng-if="signInForm.email.$touched">
+                <p ng-message="minlength">Your email is too short.</p>
+                <p ng-message="required">Your email is required.</p>
+              </div>
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-error': signInForm.email.$touched && signInForm.email.$invalid }">
+              <div class="col-xs-10 col-xs-offset-1">
+                <input name = 'password'
+                required 
+                ng-model="admin.password" 
+                type="password" 
+                class="form-control" 
+                id="inputPassword1" 
+                placeholder="Password">
+              </div>
+              <div class="help-block col-xs-10 col-xs-offset-1" ng-messages="signInForm.password.$error" ng-if="signInForm.password.$touched">
+                <p ng-message="required">Your password is required.</p>
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <div>
+                <button ng-disabled="!admin.email || !admin.password" ng-click = 'signInAdmin()' type="submit" class="btn btn-default">Sign in</button>
+                <!-- <br>
+                <br>
+                <p>Create Admin <a ui-sref='main_public.create'>Here!</a></p> -->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
-    <div class="help-block" ng-messages="signInForm.email.$error" ng-if="signInForm.email.$touched">
-      <p ng-message="minlength">Your email is too short.</p>
-      <p ng-message="required">Your email is required.</p>
-    </div>
-  </div>
-  
-  <div class="form-group" ng-class="{ 'has-error': signInForm.email.$touched && signInForm.email.$invalid }">
-    <label for="inputPassword1" class="col-xs-2 control-label">Password</label>
-    <div class="col-xs-6">
-      <input name = 'password'
-      required 
-      ng-model="admin.password" 
-      type="password" 
-      class="form-control" 
-      id="inputPassword1" 
-      placeholder="Password">
-    </div>
+<div class='text-center'>
+  <h3>Painting Connection</h3>
+</div>
 
-    <div class="help-block" ng-messages="signInForm.password.$error" ng-if="signInForm.password.$touched">
-      <p ng-message="required">Your password is required.</p>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-xs-offset-2 col-xs-10">
-      <button ng-disabled="!admin.email || !admin.password" ng-click = 'signInAdmin()' type="submit" class="btn btn-default">Sign in</button>
-      <!-- <br>
-      <br>
-      <p>Create Admin <a ui-sref='main_public.create'>Here!</a></p> -->
-    </div>
-  </div>
-</form>
 
 
 
