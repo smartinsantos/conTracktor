@@ -143,14 +143,14 @@
         <div class="table-responsive">
           <table class="table table-condensed">
             <tr>
-              <th class='no-print'>R</th>
+              <th>R</th>
               <th>Service</th>
               <th>Date</th>
               <th>Worker</th>
               <th>Price</th>
               <th>Description</th>
             </tr>
-            <tr class='no-print' ng-repeat = 'service in job.services' ng-class="{ 'success': service.check }">
+            <tr ng-repeat = 'service in job.services' ng-class="{ 'success': service.check }">
               <td>
                 <label><input type="checkbox" ng-model='service.check'></label>
               </td>
@@ -201,7 +201,7 @@
       <td>{{job.unit}}</td>
       <td>
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-condensed">
             <tr>
               <th>Service</th>
               <th>Date</th>
@@ -222,7 +222,7 @@
 </div>
 
 <div class="panel panel-default col-xs-12" ng-if ='report.reportType === "property" && report.jobs.length>0' id="printableArea">
-  <table class="table table-bordered table">
+  <table class="table table-bordered table-condensed">
     <tr>
       <th>Apt#</th>   
       <th>Job</th>
@@ -233,7 +233,7 @@
       <td>{{job.unit}}</td>
       <td>
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-condensed">
             <tr>
               <th>Service</th>
               <th>Date</th>
@@ -272,6 +272,7 @@
     </tr>
   </table>
 </div>
+
 <div class = 'clearfix'>
   <div class='text-center'> 
     <button ng-if='report.jobs.length>0' class="btn btn-default btn-lg" ng-click='printHTML()'><i class="fa fa-print"></i> Print</button>
