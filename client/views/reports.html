@@ -194,7 +194,8 @@
     <tr>
       <th>Property</th>
       <th>Apt#</th>   
-      <th>Job</th> 
+      <th>Job</th>
+      <th class='no-print'>Edit</th>
     </tr>
     <tr ng-repeat = 'job in report.jobs'>
       <td>{{job.propertie.name}}</td>
@@ -209,13 +210,16 @@
               <th>Price</th>
             </tr>
             <tr ng-repeat = 'service in job.services'>
-              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.item}}</td>
-              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
-              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.worker.first}} {{service.worker.last}}</td>
-              <td ng-if ='service.worker._id === report.worker && service.date_assigned>=startDateCompare && service.date_assigned<=endDateCompare'>{{service.price}} $</td>
+              <td ng-if ='service.worker._id === report.worker'>{{service.item}}</td>
+              <td ng-if ='service.worker._id === report.worker'>{{service.date_assigned|date:'MM/dd/yyyy'}}</td>
+              <td ng-if ='service.worker._id === report.worker'>{{service.worker.first}} {{service.worker.last}}</td>
+              <td ng-if ='service.worker._id === report.worker'>{{service.price}} $</td>
             </tr>
           </table>
         </div>                
+      </td>
+      <td class= 'no-print'>
+        <a class="btn btn-info btn-block" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a>
       </td>
     </tr>
   </table>
@@ -228,6 +232,7 @@
       <th>Job</th>
       <th>PO #</th>
       <th>Invoice #</th>
+      <th class='no-print'>Edit</th>
     </tr>
     <tr class ='outer-table' ng-repeat = 'job in report.jobs'>
       <td>{{job.unit}}</td>
@@ -269,6 +274,9 @@
       </td>
       <td>{{job.poNumber}}</td>
       <td>{{job.invoiceNumber}}</td>
+      <td class= 'no-print'>
+        <a class="btn btn-info btn-block" ui-sref = 'main_private.jobs_edit({id:job._id})'><i class="fa fa-pencil"></i> Edit</a>
+      </td>
     </tr>
   </table>
 </div>
