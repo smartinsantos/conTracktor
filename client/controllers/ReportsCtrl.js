@@ -159,6 +159,7 @@ app.controller('ReportsCtrl', ['$scope','$state','Reports','Jobs','Admin','Worke
   $scope.completeJob = function(job){
     var jobInfo = job;
     jobInfo.ready_review = true;
+    jobInfo.completed = true;
     jobInfo.date_completed = new Date();
     Jobs.edit(jobInfo)
     .then(function(res){
